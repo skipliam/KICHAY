@@ -47,23 +47,37 @@ html, body {
    SIDEBAR – Logo
 ══════════════════════════════════════════════ */
 .sidebar-logo {
-  padding: 16px 16px 14px;
+  padding: 18px 14px 16px;
   border-bottom: 1px solid #EDE8E0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .sidebar-logo-link {
   display: flex;
   align-items: center;
+  justify-content: center;
   text-decoration: none;
+  width: 100%;
 }
 
 .sidebar-logo-img {
-  width: 140px;
+  width: 175px;
   max-width: 100%;
   height: auto;
-  max-height: 48px;
+  max-height: 62px;
   object-fit: contain;
   display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.06));
 }
 
 /* ══════════════════════════════════════════════

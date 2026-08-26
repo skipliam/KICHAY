@@ -47,13 +47,14 @@ html, body {
 /* ── Logo KICHAY arriba al centro ────────────────────────────── */
 .logo-wrap {
   position: absolute;
-  top: 28px;
+  top: 18px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 20;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
   user-select: none;
   animation: logoEnter 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
@@ -65,11 +66,13 @@ html, body {
 }
 
 .logo-img {
-  width: clamp(240px, 22vw, 360px);
+  width: clamp(300px, 28vw, 440px);
   height: auto;
-  max-height: 120px;
+  max-height: 150px;
   object-fit: contain;
-  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.18));
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 10px 28px rgba(0,0,0,0.22));
 }
 
 /* ── Contenedor Kusi + Tarjeta (juntos) ───────────────────────── */
@@ -376,10 +379,12 @@ body.page-exit .login-card {
   }
 
   .logo-img {
-    width: clamp(170px, 50vw, 230px);
-    max-height: 75px;
+    width: clamp(220px, 66vw, 300px);
+    max-height: 98px;
     height: auto;
     object-fit: contain;
+    display: block;
+    margin: 0 auto;
   }
 
   /* Contenedor central en columna alineado */
