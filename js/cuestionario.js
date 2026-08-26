@@ -1265,8 +1265,22 @@ window.QuizEngine = {
 
     var expActual = parseInt(sessionStorage.getItem("kichay_exp")) || 0;
     var expNueva  = expActual + expGanada;
-    var nivelKusiNuevo = Math.floor(expNueva / 100) + 1;
-    var pctNivel = expNueva % 100;
+
+    var calc = (window.calcularNivelKusi && typeof window.calcularNivelKusi === "function")
+      ? window.calcularNivelKusi(expNueva)
+      : (function(e) {
+          var umbrales = [0, 200, 500, 900, 1400, 2000, 2700, 3500, 4400, 5400, 6500];
+          var n = 1;
+          for (var i = 1; i < umbrales.length; i++) {
+            if (e >= umbrales[i]) n = i + 1; else break;
+          }
+          var b = umbrales[n - 1] || 0;
+          var nx = umbrales[n] || (b + 1000);
+          return { nivel: n, pct: Math.min(100, Math.max(0, Math.round(((e - b) / (nx - b)) * 100))) };
+        })(expNueva);
+
+    var nivelKusiNuevo = calc.nivel;
+    var pctNivel = calc.pct;
 
     sessionStorage.setItem("kichay_exp", expNueva);
     sessionStorage.setItem("kichay_kusi_nivel", nivelKusiNuevo);

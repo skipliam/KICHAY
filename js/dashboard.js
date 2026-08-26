@@ -200,6 +200,31 @@ window.ejecutarAccionMision = function() {
   }
 };
 
+// ── Sistema de Experiencia Progresiva y Niveles de Kusi ───────────
+window.calcularNivelKusi = function(expTotal) {
+  var exp = parseInt(expTotal, 10) || 0;
+  // Umbrales progresivos para exigir avance en todas las materias y niveles
+  var umbrales = [0, 200, 500, 900, 1400, 2000, 2700, 3500, 4400, 5400, 6500];
+  var nivel = 1;
+  for (var i = 1; i < umbrales.length; i++) {
+    if (exp >= umbrales[i]) {
+      nivel = i + 1;
+    } else {
+      break;
+    }
+  }
+  var baseExp = umbrales[nivel - 1] || 0;
+  var nextExp = umbrales[nivel] || (baseExp + 1000);
+  var pct = Math.min(100, Math.max(0, Math.round(((exp - baseExp) / (nextExp - baseExp)) * 100)));
+  return {
+    nivel: nivel,
+    expActual: exp,
+    baseExp: baseExp,
+    nextExp: nextExp,
+    pct: pct
+  };
+};
+
 function poblarDashboard(datos, racha) {
   var nombre = datos.nombre || sessionStorage.getItem("kichay_user") || "Explorador";
   var photo  = datos.photoURL || datos.foto || sessionStorage.getItem("kichay_photo") || "";
@@ -209,16 +234,15 @@ function poblarDashboard(datos, racha) {
   setAvatarPhoto(photo, nombre);
 
   setEl("hud-racha",        racha !== undefined ? racha : (datos.racha || 0));
-  setEl("hud-intis",        datos.intis || 0);
+  setEl("hud-intis",        datos.intis !== undefined ? datos.intis : 0);
 
-  var nivel  = datos.nivelKusi || datos.kusiNivel || 1;
-  var exp    = datos.expKusi   || datos.experiencia || 0;
-  var expMax = nivel * 100;
-  var expPct = Math.min(Math.round((exp / expMax) * 100), 100);
-  setEl("kusi-level-text", "Nivel " + nivel);
-  setEl("kusi-exp-pct",    expPct + "%");
+  var exp = parseInt(datos.expKusi !== undefined ? datos.expKusi : (datos.experiencia || 0), 10);
+  var infoNivel = window.calcularNivelKusi(exp);
+
+  setEl("kusi-level-text", "Nivel " + infoNivel.nivel);
+  setEl("kusi-exp-pct",    infoNivel.pct + "%");
   var kusiBar = document.querySelector(".kusi-bar-fill");
-  if (kusiBar) kusiBar.style.width = expPct + "%";
+  if (kusiBar) kusiBar.style.width = infoNivel.pct + "%";
 
   // Progreso materias
   var progMap = datos.progresoHistoria || datos.progreso || {};
@@ -277,6 +301,13 @@ function poblarDashboard(datos, racha) {
   setAvatarPhoto(photo, nombre);
   setEl("hud-racha",  racha);
   setEl("hud-intis",  intis);
+
+  var exp = parseInt(sessionStorage.getItem("kichay_exp") || "0", 10);
+  var infoNivel = window.calcularNivelKusi(exp);
+  setEl("kusi-level-text", "Nivel " + infoNivel.nivel);
+  setEl("kusi-exp-pct",    infoNivel.pct + "%");
+  var kusiBar = document.querySelector(".kusi-bar-fill");
+  if (kusiBar) kusiBar.style.width = infoNivel.pct + "%";
 
   actualizarBannerMisiones({
     progreso: progMap,
