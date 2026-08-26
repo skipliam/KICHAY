@@ -146,15 +146,19 @@ document.querySelectorAll(".sidebar-nav .nav-item").forEach(function(item) {
 });
 
 // ══════════════════════════════════════════════════════════════
-// NAVEGACIÓN ENTRE VISTAS (Inicio / Historia)
+// NAVEGACIÓN ENTRE VISTAS (Inicio / Historia / Quiz)
 // ══════════════════════════════════════════════════════════════
-window.abrirVistaHistoria = function() {
+var _epocaSeleccionada = "preinca";
+
+window.abrirVistaHistoria = function(epocaOpcional) {
   var viewInicio   = document.getElementById("view-inicio");
   var viewHistoria = document.getElementById("view-historia");
+  var viewQuiz     = document.getElementById("view-quiz");
   var navInicio    = document.getElementById("nav-inicio");
   var navHistoria  = document.getElementById("nav-historia");
 
   if (viewInicio)   viewInicio.style.display   = "none";
+  if (viewQuiz)     viewQuiz.style.display     = "none";
   if (viewHistoria) {
     viewHistoria.style.display = "flex";
     viewHistoria.scrollTop     = 0;
@@ -166,6 +170,12 @@ window.abrirVistaHistoria = function() {
   });
   if (navHistoria) navHistoria.classList.add("active");
 
+  if (epocaOpcional) {
+    cambiarEpocaHistoria(epocaOpcional);
+  } else {
+    renderizarNodosHistoria();
+  }
+
   if (window.KichaySound && typeof window.KichaySound.playChime === "function") {
     window.KichaySound.playChime();
   }
@@ -174,9 +184,11 @@ window.abrirVistaHistoria = function() {
 window.abrirVistaInicio = function() {
   var viewInicio   = document.getElementById("view-inicio");
   var viewHistoria = document.getElementById("view-historia");
+  var viewQuiz     = document.getElementById("view-quiz");
   var navInicio    = document.getElementById("nav-inicio");
 
   if (viewHistoria) viewHistoria.style.display = "none";
+  if (viewQuiz)     viewQuiz.style.display     = "none";
   if (viewInicio)   viewInicio.style.display   = "flex";
 
   // Actualizar clase activa en sidebar
@@ -189,6 +201,114 @@ window.abrirVistaInicio = function() {
     window.KichaySound.playSoftClick();
   }
 };
+
+// ══════════════════════════════════════════════════════════════
+// SELECTOR Y RENDERIZADO DINÁMICO DE ÉPOCAS HISTÓRICAS
+// ══════════════════════════════════════════════════════════════
+window.cambiarEpocaHistoria = function(epocaKey) {
+  _epocaSeleccionada = epocaKey || "preinca";
+
+  document.querySelectorAll(".historia-eras-bar .era-tab").forEach(function(tab) {
+    tab.classList.remove("active");
+  });
+  var activeTab = document.getElementById("tab-" + _epocaSeleccionada);
+  if (activeTab) activeTab.classList.add("active");
+
+  var badge = document.getElementById("historiaEpocaBadge");
+  if (badge) {
+    var titulos = {
+      preinca: "PREINCA",
+      inca: "IMPERIO INCA",
+      virreinato: "VIRREINATO",
+      emancipacion: "EMANCIPACIÓN",
+      republica: "REPÚBLICA"
+    };
+    badge.textContent = titulos[_epocaSeleccionada] || _epocaSeleccionada.toUpperCase();
+  }
+
+  renderizarNodosHistoria();
+
+  if (window.KichaySound && typeof window.KichaySound.playSoftClick === "function") {
+    window.KichaySound.playSoftClick();
+  }
+};
+
+function renderizarNodosHistoria() {
+  var container = document.getElementById("historiaNodesContainer");
+  if (!container) return;
+  container.innerHTML = "";
+
+  var db = window.KICHAY_DATABASE || {};
+  var niveles = db[_epocaSeleccionada] || [];
+
+  var iconosEpoca = {
+    preinca: ["🏺", "🏛️", "👑", "🔒", "🔒"],
+    inca: ["☀️", "📜", "🌽", "🔒", "🔒"],
+    virreinato: ["⛵", "⚖️", "🪙", "🔒", "🔒"],
+    emancipacion: ["🗽", "🐎", "📜", "🔒", "🔒"],
+    republica: ["🇵🇪", "🎖️", "⚔️", "🔒", "🔒"]
+  };
+
+  var posiciones = [
+    "node-pos-1",
+    "node-pos-2",
+    "node-pos-3",
+    "node-pos-4",
+    "node-pos-5"
+  ];
+
+  var iconos = iconosEpoca[_epocaSeleccionada] || ["🏺", "🏛️", "👑", "🔒", "🔒"];
+
+  niveles.forEach(function(item, idx) {
+    var nodeDiv = document.createElement("div");
+    var posClass = posiciones[idx] || ("node-pos-" + (idx + 1));
+    var desbloqueado = (idx <= 2);
+    var completado   = (idx <= 1);
+    var activo       = (idx === 2);
+
+    var estadoClass = "unlocked";
+    if (completado) estadoClass += " completed";
+    if (activo)     estadoClass += " active";
+    if (!desbloqueado) estadoClass = "locked";
+
+    nodeDiv.className = "map-node " + posClass + " " + estadoClass;
+
+    var estrellasTexto = "☆☆☆";
+    if (idx === 0) estrellasTexto = "⭐⭐⭐";
+    if (idx === 1) estrellasTexto = "⭐⭐☆";
+    if (idx === 2) estrellasTexto = "Pendiente";
+
+    var iconChar = desbloqueado ? (iconos[idx] || "⭐") : "🔒";
+
+    var htmlInner = '';
+    if (activo) {
+      htmlInner += '<div class="node-pulse-ring"></div>';
+    }
+    htmlInner += '<div class="node-disc"><span class="node-icon">' + iconChar + '</span></div>';
+    if (activo) {
+      htmlInner += '<div class="node-current-tag">¡JUGAR AHORA!</div>';
+    } else {
+      htmlInner += '<div class="node-stars">' + (desbloqueado ? estrellasTexto : "☆☆☆") + '</div>';
+    }
+    htmlInner += '<span class="node-label">Nivel ' + item.nivel + '</span>';
+
+    nodeDiv.innerHTML = htmlInner;
+
+    nodeDiv.addEventListener("click", function() {
+      abrirModalNivel(
+        item.nivel,
+        item.titulo,
+        "Dificultad: " + (item.dificultad || "Media") + ". ¡Responde las 5 preguntas del reto!",
+        estrellasTexto,
+        desbloqueado,
+        item.intis || 30,
+        item.exp || 50
+      );
+    });
+
+    container.appendChild(nodeDiv);
+  });
+}
 
 // ══════════════════════════════════════════════════════════════
 // MODAL: PRÓXIMAMENTE DISPONIBLE
@@ -276,24 +396,11 @@ window.cerrarModalNivel = function(e) {
 window.iniciarAventuraNivel = function() {
   if (!_nivelSeleccionado || !_nivelSeleccionado.desbloqueado) return;
   
-  if (window.KichaySound && typeof window.KichaySound.playChime === "function") {
-    window.KichaySound.playChime();
-  }
+  cerrarModalNivel();
 
-  var btn = document.getElementById("modalNivelBtnAction");
-  if (btn) {
-    btn.textContent = "¡Cargando lección interactiva... 🇵🇪!";
-    btn.style.opacity = "0.75";
+  if (window.QuizEngine && typeof window.QuizEngine.iniciarQuiz === "function") {
+    window.QuizEngine.iniciarQuiz(_epocaSeleccionada, _nivelSeleccionado.numNivel);
   }
-
-  setTimeout(function() {
-    alert("¡Excelente! Has iniciado el Nivel " + _nivelSeleccionado.numNivel + ". Las preguntas interactivas estarán disponibles en la siguiente actualización.");
-    cerrarModalNivel();
-    if (btn) {
-      btn.textContent = "¡Comenzar Aventura! ⚔️";
-      btn.style.opacity = "1";
-    }
-  }, 350);
 };
 
 // ══════════════════════════════════════════════════════════════

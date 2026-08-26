@@ -235,62 +235,139 @@
         <button class="historia-btn-back" onclick="abrirVistaInicio()" title="Volver al menú">
           ← Inicio
         </button>
-        <h2 class="historia-subbar-title">H I S T O R I A</h2>
+        <h2 class="historia-subbar-title" id="historiaSubbarTitle">H I S T O R I A</h2>
         <div class="historia-subbar-right">
-          <span class="historia-badge">Capítulo I</span>
+          <span class="historia-badge" id="historiaEpocaBadge">PREINCA</span>
         </div>
+      </div>
+
+      <!-- Selector de Épocas Históricas (Tabs) -->
+      <div class="historia-eras-bar">
+        <button class="era-tab active" id="tab-preinca" onclick="cambiarEpocaHistoria('preinca')">
+          🏛️ Preinca
+        </button>
+        <button class="era-tab" id="tab-inca" onclick="cambiarEpocaHistoria('inca')">
+          👑 Inca
+        </button>
+        <button class="era-tab" id="tab-virreinato" onclick="cambiarEpocaHistoria('virreinato')">
+          🏛️ Virreinato
+        </button>
+        <button class="era-tab" id="tab-emancipacion" onclick="cambiarEpocaHistoria('emancipacion')">
+          ⚔️ Emancipación
+        </button>
+        <button class="era-tab" id="tab-republica" onclick="cambiarEpocaHistoria('republica')">
+          🇵🇪 República
+        </button>
       </div>
 
       <!-- Contenedor del Mapa con el camino -->
       <div class="historia-map-container">
-        <div class="historia-map-viewport">
+        <div class="historia-map-viewport" id="historiaMapViewport">
           <img src="IMG/camino_historia.png" alt="Camino de la Historia" class="historia-bg-image" />
 
-          <!-- Nodos de niveles interactivos ubicados a lo largo del sendero -->
-          <!-- Nivel 1 (Inicio del camino) -->
-          <div class="map-node node-pos-1 unlocked completed" onclick="abrirModalNivel(1, 'El Origen del Hombre Peruano', 'Descubre cómo los primeros cazadores y recolectores poblaron los Andes milenarios (Pacaicasa, Lauricocha, Toquepala).', '3/3 Estrellas', true, 30, 40)">
-            <div class="node-disc"><span class="node-icon">🏺</span></div>
-            <div class="node-stars">⭐⭐⭐</div>
-            <span class="node-label">Nivel 1</span>
+          <!-- Nodos de niveles interactivos ubicados dinámicamente -->
+          <div id="historiaNodesContainer">
+            <!-- Nodos inyectados por JS según la época seleccionada -->
           </div>
 
-          <!-- Nivel 2 (Camino ascendente) -->
-          <div class="map-node node-pos-2 unlocked completed" onclick="abrirModalNivel(2, 'Culturas Preincas Milenarias', 'Explora el arte y templos de Chavín, Paracas, Nazca, Moche y Tiahuanaco.', '2/3 Estrellas', true, 35, 50)">
-            <div class="node-disc"><span class="node-icon">🏛️</span></div>
-            <div class="node-stars">⭐⭐☆</div>
-            <span class="node-label">Nivel 2</span>
-          </div>
-
-          <!-- Nivel 3 (Nivel actual / Activo) -->
-          <div class="map-node node-pos-3 unlocked active" onclick="abrirModalNivel(3, 'El Imperio del Tahuantinsuyo', '¡Misión Actual! Aprende sobre la gran expansión de Pachacútec, el Qapaq Ñan y el Cusco Sagrado.', 'Pendiente', true, 50, 70)">
-            <div class="node-pulse-ring"></div>
-            <div class="node-disc"><span class="node-icon">👑</span></div>
-            <div class="node-current-tag">¡JUGAR AHORA!</div>
-            <span class="node-label">Nivel 3</span>
-          </div>
-
-          <!-- Cofre de Intis 1 -->
-          <div class="map-chest chest-pos-1" onclick="abrirModalCofre(50, 'Cofre del Tahuantinsuyo')">
+          <!-- Cofre de Intis flotante -->
+          <div class="map-chest chest-pos-1" onclick="abrirModalCofre(50, 'Cofre del Saber')">
             <div class="chest-bubble">
               <span class="chest-emoji">🎁</span>
               <span class="chest-amount">+50 INTIS</span>
             </div>
           </div>
+        </div>
+      </div>
 
-          <!-- Nivel 4 (Bloqueado) -->
-          <div class="map-node node-pos-4 locked" onclick="abrirModalNivel(4, 'Conquista y Resistencia Andina', 'Llega el encuentro de dos mundos y la resistencia de los Incas de Vilcabamba.', 'Bloqueado', false, 45, 60)">
-            <div class="node-disc"><span class="node-icon">🔒</span></div>
-            <div class="node-stars">☆☆☆</div>
-            <span class="node-label">Nivel 4</span>
+    </main>
+
+    <!-- ══════════ VISTA 3: CUESTIONARIO INTERACTIVO (KICHAY_page-0008) ══════════ -->
+    <main class="content content-quiz" id="view-quiz" style="display:none; background-image: url('IMG/FONDOPRINCIPAL.jpeg');">
+
+      <!-- Cabecera del Quiz -->
+      <div class="quiz-topbar">
+        <button class="quiz-btn-exit" onclick="salirDelQuiz()" title="Salir de la lección">✕ Salir</button>
+        
+        <div class="quiz-progress-track" id="quizProgressBars">
+          <div class="quiz-bar-segment" id="qbar-0"></div>
+          <div class="quiz-bar-segment" id="qbar-1"></div>
+          <div class="quiz-bar-segment" id="qbar-2"></div>
+          <div class="quiz-bar-segment" id="qbar-3"></div>
+          <div class="quiz-bar-segment" id="qbar-4"></div>
+        </div>
+
+        <div class="quiz-score-badge">
+          <span class="quiz-score-icon">🏆</span>
+          <span class="quiz-score-val" id="quizScoreText">0</span>
+          <span class="quiz-score-lbl">PTS</span>
+        </div>
+      </div>
+
+      <!-- Contenedor central del cuestionario -->
+      <div class="quiz-center-wrap">
+        <div class="quiz-card-box">
+
+          <div class="quiz-meta-row">
+            <span class="quiz-era-pill" id="quizEraPill">HISTORIA — PREINCA : NIVEL 1</span>
+            <span class="quiz-question-counter" id="quizCounterText">Pregunta 1 de 5</span>
           </div>
 
-          <!-- Nivel 5 (Cima del Santuario) -->
-          <div class="map-node node-pos-5 locked" onclick="abrirModalNivel(5, 'Machu Picchu y el Legado Eterno', 'La cima de la arquitectura, astronomía e identidad peruana que perdura por siempre.', 'Bloqueado', false, 60, 100)">
-            <div class="node-disc"><span class="node-icon">🔒</span></div>
-            <div class="node-stars">☆☆☆</div>
-            <span class="node-label">Nivel 5</span>
+          <h2 class="quiz-question-title" id="quizQuestionText">
+            ¿Cuál es considerada una de las civilizaciones más antiguas de América y se desarrolló en el actual Perú?
+          </h2>
+
+          <!-- Opciones de respuesta dinámicas -->
+          <div class="quiz-options-grid" id="quizOptionsContainer">
+            <!-- Botones generados en JS -->
           </div>
 
+          <!-- Pie del cuestionario con Kusi y acciones -->
+          <div class="quiz-footer-row">
+            <div class="quiz-kusi-helper">
+              <img src="IMG/sorprendido.png" alt="Kusi" class="quiz-kusi-avatar" id="quizKusiAvatar" />
+              <div class="quiz-kusi-bubble" id="quizKusiBubble" style="display:none;">
+                <p id="quizKusiMessage">¡Analiza con calma cada alternativa!</p>
+              </div>
+            </div>
+
+            <div class="quiz-actions-right">
+              <button class="btn-ask-kusi" id="btnAskKusi" onclick="pedirPistaKusi()">
+                💡 Preguntar a Kusi
+              </button>
+              <button class="btn-next-question" id="btnNextQuestion" onclick="avanzarSiguientePregunta()" style="display:none;">
+                Siguiente Pregunta ➔
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Modal de Victoria / Resultados al terminar el nivel -->
+      <div class="kichay-modal-overlay" id="quizVictoryModal" style="display:none;">
+        <div class="kichay-modal-card victory-card" onclick="event.stopPropagation()">
+          <div class="victory-mascot-wrap">
+            <img src="IMG/feliz.png" alt="¡Victoria!" class="victory-mascot-pic" />
+          </div>
+          <h2 class="victory-title">¡Misión Cumplida! 🎉</h2>
+          <div class="victory-stars" id="victoryStars">⭐⭐⭐</div>
+          <p class="victory-subtitle" id="victorySubtitle">Has respondido las preguntas con éxito.</p>
+          
+          <div class="victory-rewards-grid">
+            <div class="victory-reward-box">
+              <span class="victory-reward-num" id="victoryIntisEarned">+50</span>
+              <span class="victory-reward-txt">INTIS GANADOS 🪙</span>
+            </div>
+            <div class="victory-reward-box">
+              <span class="victory-reward-num" id="victoryExpEarned">+100</span>
+              <span class="victory-reward-txt">EXP DE KUSI ⚡</span>
+            </div>
+          </div>
+
+          <button class="modal-btn-confirm" onclick="finalizarQuizYVolver()">
+            ¡Continuar en el Mapa! 🗺️
+          </button>
         </div>
       </div>
 
@@ -320,7 +397,7 @@
           <span class="level-modal-badge" id="modalNivelBadge">NIVEL 1</span>
           <button class="level-modal-close" onclick="cerrarModalNivel()">✕</button>
         </div>
-        <h3 class="level-modal-title" id="modalNivelTitulo">El Imperio del Tahuantinsuyo</h3>
+        <h3 class="level-modal-title" id="modalNivelTitulo">Primeras civilizaciones</h3>
         <p class="level-modal-desc" id="modalNivelDesc">Conoce la historia...</p>
         <div class="level-rewards-row">
           <span class="reward-chip"><span id="modalNivelIntis">+30</span> INTIS 🪙</span>
@@ -339,7 +416,7 @@
     <div class="kichay-modal-overlay" id="modalCofre" style="display:none;" onclick="cerrarModalCofre(event)">
       <div class="kichay-modal-card" onclick="event.stopPropagation()">
         <div class="modal-chest-icon">🪙</div>
-        <h3 class="modal-heading" id="modalCofreTitulo">¡Cofre del Tahuantinsuyo!</h3>
+        <h3 class="modal-heading" id="modalCofreTitulo">¡Cofre del Saber!</h3>
         <p class="modal-body-text">
           ¡Has encontrado una recompensa oculta de <strong style="color:#D9381E;">+50 INTIS</strong> en el camino de la Historia!
         </p>
@@ -351,6 +428,7 @@
   </div>
 
   <script src="js/sound.js"></script>
+  <script src="js/cuestionario.js"></script>
   <!-- Dashboard con Firebase (import dinamico interno) -->
   <script src="js/dashboard.js"></script>
 </body>
