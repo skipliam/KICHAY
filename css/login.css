@@ -88,44 +88,33 @@ html, body {
   padding: 0 20px;
 }
 
-/* ── Personaje Kusi con animación de entrada ─────────────────── */
+/* ── Personaje Kusi en Video (estable, sin efecto de flotación) ─────────────────── */
 .mascot-wrap {
   position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
   height: 100%;
-  animation: mascotEnter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+  animation: mascotEnter 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
 }
 
 @keyframes mascotEnter {
-  0%   { opacity: 0; transform: translateY(110px) scale(0.9); }
+  0%   { opacity: 0; transform: translateY(60px) scale(0.95); }
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+.mascot-video,
 .mascot-img {
   position: relative;
   z-index: 2;
   width: clamp(340px, 36vw, 550px);
-  max-height: 84vh;
+  max-height: 82vh;
   object-fit: contain;
-  object-position: bottom;
-  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.28));
-  animation: float 3.8s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-14px); }
-}
-
-/* ── Partículas mágicas alrededor de Kusi ───────────────────── */
-.particles-container {
-  position: absolute;
-  inset: 0;
+  object-position: bottom center;
+  filter: drop-shadow(0 15px 35px rgba(0,0,0,0.25));
+  display: block;
   pointer-events: none;
-  z-index: 3;
-  animation: fadeIn 1.5s ease 0.5s both;
+  background: transparent;
 }
 
 @keyframes fadeIn {
@@ -421,6 +410,7 @@ body.page-exit .login-card {
     100% { opacity: 1; transform: translateY(0) scale(1); }
   }
 
+  .mascot-video,
   .mascot-img {
     width: auto;
     max-width: 175px;
@@ -475,15 +465,18 @@ body.page-exit .login-card {
   }
 
   .card-title {
-    font-size: 20px;
+    font-size: clamp(20px, 5.5vw, 24px);
     margin-bottom: 4px;
-    text-align: center;
   }
 
   .card-subtitle {
     font-size: 13px;
     margin-bottom: 18px;
-    text-align: center;
+  }
+
+  .btn-switch-account {
+    font-size: 12px;
+    padding: 9px 14px;
   }
 
   .google-btn-wrap {
