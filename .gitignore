@@ -1,1 +1,4 @@
-.vercel
+*.mov
+IMG/*.mov
+*.zip
+FUENTE/*.zip
