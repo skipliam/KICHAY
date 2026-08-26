@@ -4,7 +4,8 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
-  getFirestore, doc, getDoc, setDoc, serverTimestamp
+  getFirestore, doc, getDoc, setDoc, serverTimestamp,
+  collection, query, where, getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import {
   getAuth, GoogleAuthProvider, signInWithCredential, signOut, onAuthStateChanged
@@ -37,21 +38,47 @@ function calcularRacha(fechaUltimoAcceso, rachaActual = 0) {
   return { nuevaRacha: 1, hoy };
 }
 
-// ── CRUD Firestore Seguro ───────────────────────────────────────
-async function obtenerUsuario(uid) {
+// ── CRUD Firestore Seguro con soporte multidispositivo y búsqueda por email ───────────────────────────────────────
+async function obtenerUsuario(uid, email = "") {
   try {
-    const snap = await getDoc(doc(db, "usuarios", uid));
-    if (snap.exists()) {
-      const data = snap.data();
-      localStorage.setItem("kichay_user_cache_" + uid, JSON.stringify(data));
-      return data;
+    if (uid) {
+      const snap = await getDoc(doc(db, "usuarios", uid));
+      if (snap.exists()) {
+        const data = snap.data();
+        localStorage.setItem("kichay_user_cache_" + uid, JSON.stringify(data));
+        if (data.email) localStorage.setItem("kichay_user_cache_email_" + data.email, JSON.stringify(data));
+        return data;
+      }
+    }
+
+    // Búsqueda por email en Firestore para vincular sesiones en celular y pc
+    if (email) {
+      const q = query(collection(db, "usuarios"), where("email", "==", email));
+      const querySnap = await getDocs(q);
+      if (!querySnap.empty) {
+        const docSnap = querySnap.docs[0];
+        const data = docSnap.data();
+        if (uid && docSnap.id !== uid) {
+          // Vincular este uid para que apunte al mismo usuario
+          await setDoc(doc(db, "usuarios", uid), { ...data, uid }, { merge: true });
+        }
+        localStorage.setItem("kichay_user_cache_" + uid, JSON.stringify(data));
+        localStorage.setItem("kichay_user_cache_email_" + email, JSON.stringify(data));
+        return data;
+      }
     }
   } catch (err) {
     console.warn("[KICHAY] Error leyendo Firestore, usando cache local:", err);
   }
-  // Fallback cache local
-  const local = localStorage.getItem("kichay_user_cache_" + uid);
-  return local ? JSON.parse(local) : null;
+
+  // Fallback cache local por UID o Email
+  const localUid = uid ? localStorage.getItem("kichay_user_cache_" + uid) : null;
+  if (localUid) return JSON.parse(localUid);
+
+  const localEmail = email ? localStorage.getItem("kichay_user_cache_email_" + email) : null;
+  if (localEmail) return JSON.parse(localEmail);
+
+  return null;
 }
 
 async function crearUsuario(uid, datos) {

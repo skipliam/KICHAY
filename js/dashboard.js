@@ -221,16 +221,32 @@ function poblarDashboard(datos, racha) {
   if (kusiBar) kusiBar.style.width = expPct + "%";
 
   // Progreso materias
-  var p = datos.progreso || {};
-  var materias = ["historia", "fauna", "gastronomia", "cultura", "turismo"];
-  materias.forEach(function(key) {
-    var card = document.querySelector("[data-materia='" + key + "']");
+  var progMap = datos.progresoHistoria || datos.progreso || {};
+  
+  // Calcular porcentaje real de Historia (basado en niveles completados de la época activa o total)
+  var preincaDone = 0;
+  for (var k in progMap) {
+    if (k.startsWith("preinca_") && !k.endsWith("_stars") && progMap[k] === true) {
+      preincaDone++;
+    }
+  }
+  var pctHistoria = Math.min(100, preincaDone * 20);
+
+  var materias = [
+    { key: "historia",    pct: pctHistoria },
+    { key: "fauna",       pct: progMap.fauna || 0 },
+    { key: "gastronomia", pct: progMap.gastronomia || 0 },
+    { key: "cultura",     pct: progMap.cultura || 0 },
+    { key: "turismo",     pct: progMap.turismo || 0 }
+  ];
+
+  materias.forEach(function(item) {
+    var card = document.querySelector("[data-materia='" + item.key + "']");
     if (!card) return;
-    var pct  = p[key] || 0;
     var fill = card.querySelector(".card-progress-fill");
     var pctEl= card.querySelector(".card-pct");
-    if (fill) fill.style.width = pct + "%";
-    if (pctEl) pctEl.textContent = pct + "%";
+    if (fill) fill.style.width = item.pct + "%";
+    if (pctEl) pctEl.textContent = item.pct + "%";
   });
 
   actualizarBannerMisiones(datos);
@@ -242,6 +258,20 @@ function poblarDashboard(datos, racha) {
   var photo  = sessionStorage.getItem("kichay_photo") || "";
   var racha  = sessionStorage.getItem("kichay_racha") || "0";
   var intis  = sessionStorage.getItem("kichay_intis") || "0";
+  var progStr= sessionStorage.getItem("kichay_progreso_historia") || "{}";
+  var progMap= {};
+  try { progMap = JSON.parse(progStr); } catch(e){}
+
+  var preDone = 0;
+  for (var k in progMap) {
+    if (k.startsWith("preinca_") && !k.endsWith("_stars") && progMap[k] === true) preDone++;
+  }
+  var pctHist = Math.min(100, preDone * 20);
+  var histFill = document.querySelector("[data-materia='historia'] .card-progress-fill");
+  var histPct  = document.querySelector("[data-materia='historia'] .card-pct");
+  if (histFill) histFill.style.width = pctHist + "%";
+  if (histPct) histPct.textContent = pctHist + "%";
+
   setEl("nombre-usuario",   nombre);
   setEl("topbar-user-name", nombre);
   setAvatarPhoto(photo, nombre);
@@ -249,7 +279,7 @@ function poblarDashboard(datos, racha) {
   setEl("hud-intis",  intis);
 
   actualizarBannerMisiones({
-    progreso: JSON.parse(sessionStorage.getItem("kichay_progreso") || "{}"),
+    progreso: progMap,
     misionesReclamadas: JSON.parse(sessionStorage.getItem("kichay_misiones_reclamadas") || "{}"),
     intis: parseInt(intis, 10)
   });
@@ -264,9 +294,13 @@ import(firebaseUrl).then(function(mod) {
 
   // Escuchar estado de autenticacion
   mod.onAuthStateChanged(mod.auth, function(fbUser) {
-    if (!fbUser) {
-      // Sin sesion Firebase: verificar modo local
-      if (!sessionStorage.getItem("kichay_uid") || !sessionStorage.getItem("kichay_perfil_completo")) {
+    var storedUid   = sessionStorage.getItem("kichay_uid");
+    var storedEmail = sessionStorage.getItem("kichay_email");
+    var activeUid   = fbUser ? fbUser.uid : storedUid;
+    var activeEmail = fbUser ? (fbUser.email || storedEmail) : storedEmail;
+
+    if (!activeUid) {
+      if (!sessionStorage.getItem("kichay_perfil_completo")) {
         window.location.replace("index.html");
       }
       return;
@@ -275,8 +309,8 @@ import(firebaseUrl).then(function(mod) {
     window._firebaseMod = mod;
     window._firebaseAuth = mod.auth;
 
-    // Cargar datos de Firestore
-    mod.obtenerUsuario(fbUser.uid).then(function(datos) {
+    // Cargar datos de Firestore buscando por UID y Email
+    mod.obtenerUsuario(activeUid, activeEmail).then(function(datos) {
       if (!datos) return;
 
       var progMap = datos.progresoHistoria || datos.progreso || {};

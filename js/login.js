@@ -114,15 +114,18 @@ import(firebaseUrl).then(function(mod) {
 
     sessionStorage.setItem("kichay_uid",   uid);
     sessionStorage.setItem("kichay_user",  nombre);
+    if (googleEmail) {
+      sessionStorage.setItem("kichay_email", googleEmail);
+    }
     if (googlePhoto) {
       sessionStorage.setItem("kichay_photo", googlePhoto);
     }
 
     try {
-      // Consultar o crear usuario en Firestore
+      // Consultar o crear usuario en Firestore con búsqueda cruzada por email
       var datosFS = null;
       try {
-        datosFS = await mod.obtenerUsuario(uid);
+        datosFS = await mod.obtenerUsuario(uid, googleEmail);
       } catch (fsGetErr) {
         console.warn("[KICHAY] Firestore read aviso:", fsGetErr);
       }
@@ -134,7 +137,7 @@ import(firebaseUrl).then(function(mod) {
             nombre:   nombre,
             photoURL: googlePhoto
           });
-          datosFS = await mod.obtenerUsuario(uid);
+          datosFS = await mod.obtenerUsuario(uid, googleEmail);
         } catch (fsCreateErr) {
           console.warn("[KICHAY] Firestore create aviso:", fsCreateErr);
         }
