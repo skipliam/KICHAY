@@ -1318,28 +1318,29 @@ window.QuizEngine = {
     if (!uid) return;
 
     import("./firebase.js").then(function(fb) {
-      if (!fb || !fb.db) return;
-      var docKey = "nivel_" + epoca + "_" + nivelNum;
+      if (!fb) return;
       var updateData = {
         intis: intisNuevos,
         experiencia: expNueva,
+        expKusi: expNueva,
         kusiNivel: nivelKusiNuevo,
+        nivelKusi: nivelKusiNuevo,
+        progresoHistoria: progreso,
+        progreso: progreso,
         ultimoAcceso: new Date().toISOString()
       };
-      updateData["progreso." + docKey] = {
-        completado: true,
-        estrellas: estrellas,
-        aciertos: aciertos,
-        fecha: new Date().toISOString()
-      };
 
-      fb.setDoc(fb.doc(fb.db, "usuarios", uid), updateData, { merge: true }).then(function() {
-        console.log("[KICHAY Quiz] Recompensas guardadas en Firestore!");
-      }).catch(function(err) {
-        console.warn("[KICHAY Quiz] Error guardando en Firestore:", err);
-      });
+      if (fb.guardarProgresoUsuario) {
+        fb.guardarProgresoUsuario(uid, updateData).then(function() {
+          console.log("[KICHAY Quiz] ¡Progreso guardado permanentemente en Firestore!");
+        });
+      } else if (fb.db) {
+        fb.setDoc(fb.doc(fb.db, "usuarios", uid), updateData, { merge: true }).then(function() {
+          console.log("[KICHAY Quiz] ¡Progreso guardado en Firestore!");
+        });
+      }
     }).catch(function(err) {
-      console.warn("[KICHAY Quiz] Firebase no disponible:", err);
+      console.warn("[KICHAY Quiz] Firebase aviso:", err);
     });
   }
 };

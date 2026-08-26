@@ -1,4 +1,4 @@
-﻿/* ================================================================
+/* ================================================================
    KICHAY – Firebase Module (con setDoc merge:true garantizado)
 ================================================================ */
 
@@ -115,6 +115,32 @@ async function actualizarAcceso(uid, rachaActual, fechaUltimo) {
   return nuevaRacha;
 }
 
+async function guardarProgresoUsuario(uid, updateData) {
+  try {
+    const userRef = doc(db, "usuarios", uid);
+    const actual = await obtenerUsuario(uid) || {};
+    const mergedProgreso = {
+      ...(actual.progresoHistoria || {}),
+      ...(actual.progreso || {}),
+      ...(updateData.progresoHistoria || {}),
+      ...(updateData.progreso || {})
+    };
+    const payload = {
+      ...updateData,
+      progresoHistoria: mergedProgreso,
+      progreso: mergedProgreso,
+      ultimoAcceso: new Date().toISOString()
+    };
+    const mergedFull = { ...actual, ...payload };
+    localStorage.setItem("kichay_user_cache_" + uid, JSON.stringify(mergedFull));
+    await setDoc(userRef, payload, { merge: true });
+    return true;
+  } catch (err) {
+    console.warn("[KICHAY Firebase] Error en guardarProgresoUsuario:", err);
+    return false;
+  }
+}
+
 async function cerrarSesion() {
   sessionStorage.clear();
   try {
@@ -126,12 +152,12 @@ window.KichayFirebase = {
   db, auth,
   GoogleAuthProvider, signInWithCredential, onAuthStateChanged,
   obtenerUsuario, crearUsuario, completarPerfil,
-  actualizarAcceso, cerrarSesion, calcularRacha
+  actualizarAcceso, guardarProgresoUsuario, cerrarSesion, calcularRacha
 };
 
 export {
   db, auth,
   GoogleAuthProvider, signInWithCredential, onAuthStateChanged,
   obtenerUsuario, crearUsuario, completarPerfil,
-  actualizarAcceso, cerrarSesion, calcularRacha
+  actualizarAcceso, guardarProgresoUsuario, cerrarSesion, calcularRacha
 };

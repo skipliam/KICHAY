@@ -152,13 +152,33 @@ import(firebaseUrl).then(function(mod) {
           nuevaRacha = datosFS.racha || 1;
         }
 
-        sessionStorage.setItem("kichay_racha",           nuevaRacha);
-        sessionStorage.setItem("kichay_intis",           datosFS.intis || 0);
-        sessionStorage.setItem("kichay_perfil_completo", "1");
+        var progMap = datosFS.progresoHistoria || datosFS.progreso || {};
+
+        sessionStorage.setItem("kichay_uid",               uid);
+        sessionStorage.setItem("kichay_user",              datosFS.nombre || nombre);
+        sessionStorage.setItem("kichay_photo",             datosFS.photoURL || googlePhoto || "");
+        sessionStorage.setItem("kichay_racha",             nuevaRacha);
+        sessionStorage.setItem("kichay_intis",             datosFS.intis !== undefined ? datosFS.intis : 0);
+        sessionStorage.setItem("kichay_exp",               datosFS.experiencia || datosFS.expKusi || 0);
+        sessionStorage.setItem("kichay_kusi_nivel",        datosFS.kusiNivel || datosFS.nivelKusi || 1);
+        sessionStorage.setItem("kichay_progreso_historia", JSON.stringify(progMap));
+        sessionStorage.setItem("kichay_progreso",          JSON.stringify(progMap));
+        sessionStorage.setItem("kichay_misiones_reclamadas", JSON.stringify(datosFS.misionesReclamadas || {}));
+        sessionStorage.setItem("kichay_perfil_completo",   "1");
+
+        // Desbloqueo de épocas
+        if (progMap.preinca_5)     sessionStorage.setItem("unlocked_inca", "true");
+        if (progMap.inca_5)        sessionStorage.setItem("unlocked_virreinato", "true");
+        if (progMap.virreinato_5)  sessionStorage.setItem("unlocked_emancipacion", "true");
+        if (progMap.emancipacion_5)sessionStorage.setItem("unlocked_republica", "true");
+
         document.body.classList.add("page-exit");
         setTimeout(function() { window.location.href = "dashboard.html"; }, 420);
       } else {
         // Usuario nuevo: ir a completar perfil
+        sessionStorage.setItem("kichay_uid",   uid);
+        sessionStorage.setItem("kichay_user",  nombre);
+        sessionStorage.setItem("kichay_photo", googlePhoto || "");
         document.body.classList.add("page-exit");
         setTimeout(function() { window.location.href = "completar-perfil.html"; }, 420);
       }

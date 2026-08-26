@@ -272,16 +272,41 @@ import(firebaseUrl).then(function(mod) {
       return;
     }
 
+    window._firebaseMod = mod;
+    window._firebaseAuth = mod.auth;
+
     // Cargar datos de Firestore
     mod.obtenerUsuario(fbUser.uid).then(function(datos) {
       if (!datos) return;
+
+      var progMap = datos.progresoHistoria || datos.progreso || {};
+      sessionStorage.setItem("kichay_uid",               fbUser.uid);
+      sessionStorage.setItem("kichay_user",              datos.nombre || fbUser.displayName || "Explorador");
+      sessionStorage.setItem("kichay_photo",             datos.photoURL || fbUser.photoURL || "");
+      sessionStorage.setItem("kichay_intis",             datos.intis !== undefined ? datos.intis : 0);
+      sessionStorage.setItem("kichay_exp",               datos.experiencia || datos.expKusi || 0);
+      sessionStorage.setItem("kichay_kusi_nivel",        datos.kusiNivel || datos.nivelKusi || 1);
+      sessionStorage.setItem("kichay_progreso_historia", JSON.stringify(progMap));
+      sessionStorage.setItem("kichay_progreso",          JSON.stringify(progMap));
+      sessionStorage.setItem("kichay_misiones_reclamadas", JSON.stringify(datos.misionesReclamadas || {}));
+      sessionStorage.setItem("kichay_perfil_completo",   "1");
+
+      if (progMap.preinca_5)     sessionStorage.setItem("unlocked_inca", "true");
+      if (progMap.inca_5)        sessionStorage.setItem("unlocked_virreinato", "true");
+      if (progMap.virreinato_5)  sessionStorage.setItem("unlocked_emancipacion", "true");
+      if (progMap.emancipacion_5)sessionStorage.setItem("unlocked_republica", "true");
 
       // Actualizar racha diaria
       mod.actualizarAcceso(fbUser.uid, datos.racha || 0, datos.ultimoAcceso || null)
         .then(function(nuevaRacha) {
           sessionStorage.setItem("kichay_racha", nuevaRacha);
-          sessionStorage.setItem("kichay_user",  datos.nombre || fbUser.displayName || "Explorador");
           poblarDashboard(datos, nuevaRacha);
+          if (window.renderizarNodosHistoria) window.renderizarNodosHistoria();
+          if (window.actualizarEstadoDropdownEpocas) window.actualizarEstadoDropdownEpocas();
+        }).catch(function() {
+          poblarDashboard(datos, datos.racha || 1);
+          if (window.renderizarNodosHistoria) window.renderizarNodosHistoria();
+          if (window.actualizarEstadoDropdownEpocas) window.actualizarEstadoDropdownEpocas();
         });
     }).catch(function(err) {
       console.warn("[KICHAY] Error Firestore, usando sessionStorage:", err);
