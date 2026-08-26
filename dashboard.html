@@ -37,58 +37,58 @@
 
     <nav class="sidebar-nav">
 
-      <a href="dashboard.html" class="nav-item active">
+      <a href="javascript:void(0)" class="nav-item active" id="nav-inicio" onclick="abrirVistaInicio()">
         <span class="nav-icon" style="background:#FFF3E0;">🏠</span>
         Inicio
       </a>
 
-      <a href="#" class="nav-item">
+      <a href="javascript:void(0)" class="nav-item" id="nav-historia" onclick="abrirVistaHistoria()">
         <span class="nav-sprite"><img src="IMG/icon_historia.png" alt="Historia" /></span>
         Historia
       </a>
-      <a href="#" class="nav-item">
+      <a href="javascript:void(0)" class="nav-item" id="nav-fauna" onclick="abrirModalProximamente('Flora y Fauna', 'Descubre los ecosistemas más asombrosos del Perú: Costa, Andes y Amazonía.')">
         <span class="nav-sprite"><img src="IMG/icon_fauna.png" alt="Flora y Fauna" /></span>
         Flora y Fauna
       </a>
-      <a href="#" class="nav-item">
+      <a href="javascript:void(0)" class="nav-item" id="nav-gastronomia" onclick="abrirModalProximamente('Gastronomía', 'Aprende los secretos y sabores de los platos bandera de cada región.')">
         <span class="nav-sprite"><img src="IMG/icon_gastronomia.png" alt="Gastronomía" /></span>
         Gastronomía
       </a>
-      <a href="#" class="nav-item">
+      <a href="javascript:void(0)" class="nav-item" id="nav-cultura" onclick="abrirModalProximamente('Cultura', 'Conoce las tradiciones, danzas, festividades y cosmovisión andina.')">
         <span class="nav-sprite"><img src="IMG/icon_cultura.png" alt="Cultura" /></span>
         Cultura
       </a>
-      <a href="#" class="nav-item">
+      <a href="javascript:void(0)" class="nav-item" id="nav-turismo" onclick="abrirModalProximamente('Turismo', 'Viaja por los destinos y maravillas turísticas más increíbles del país.')">
         <span class="nav-sprite"><img src="IMG/icon_turismo.png" alt="Turismo" /></span>
         Turismo
       </a>
 
       <div class="nav-divider"></div>
 
-      <a href="#" class="nav-item">
+      <a href="javascript:void(0)" class="nav-item" id="nav-granja" onclick="abrirModalProximamente('Granja del Sol', '¡Construye y cuida tu propia granja andina con los Intis que ganes!')">
         <span class="nav-icon" style="background:#F9FBE7;">🚜</span>
         Granja del Sol
       </a>
-      <a href="#" class="nav-item">
+      <a href="javascript:void(0)" class="nav-item" id="nav-tienda" onclick="abrirModalProximamente('Tienda de Kusi', 'Podrás canjear atuendos típicos para Kusi y potenciadores para tus aventuras.')">
         <span class="nav-icon" style="background:#FFF8E1;">🛒</span>
         Tienda
       </a>
-      <a href="#" class="nav-item">
+      <a href="javascript:void(0)" class="nav-item" id="nav-logros" onclick="abrirModalProximamente('Logros y Medallas', 'Colecciona medallas del Tahuantinsuyo y desbloquea trofeos exclusivos.')">
         <span class="nav-icon" style="background:#FFF8E1;">🏆</span>
         Logros
       </a>
-      <a href="#" class="nav-item">
+      <a href="javascript:void(0)" class="nav-item" id="nav-mascota" onclick="abrirModalProximamente('Tu Mascota Kusi', 'Personaliza a tu vizcacha guía Kusi y aprende nuevos trucos juntos.')">
         <span class="nav-icon" style="background:#F3E5F5;">🐰</span>
         Mascota
       </a>
 
       <div class="nav-divider"></div>
 
-      <a href="#" class="nav-item">
+      <a href="javascript:void(0)" class="nav-item" id="nav-perfil" onclick="abrirModalProximamente('Mi Perfil', 'Pronto podrás ver tus estadísticas detalladas, insignias y récord histórico.')">
         <span class="nav-icon" style="background:#ECEFF1;">👤</span>
         Perfil
       </a>
-      <a href="#" class="nav-item">
+      <a href="javascript:void(0)" class="nav-item" id="nav-ajustes" onclick="abrirModalProximamente('Ajustes', 'Personaliza el sonido, volumen, idioma y preferencias de estudio.')">
         <span class="nav-icon" style="background:#ECEFF1;">⚙️</span>
         Ajustes
       </a>
@@ -137,8 +137,8 @@
       </div>
     </header>
 
-    <!-- CONTENIDO -->
-    <main class="content" style="background-image: url('IMG/FONDOPRINCIPAL.jpeg');">
+    <!-- ══════════ VISTA 1: INICIO ══════════ -->
+    <main class="content content-inicio" id="view-inicio" style="background-image: url('IMG/FONDOPRINCIPAL.jpeg');">
 
       <div class="greeting">
         <h1>¡Hola, <span id="nombre-usuario" class="greeting-name">Explorador</span>!</h1>
@@ -148,7 +148,7 @@
       <!-- Tarjetas de materias -->
       <div class="cards-grid">
 
-        <div class="subject-card" style="--card-color:#5E2CA5;" data-materia="historia">
+        <div class="subject-card" style="--card-color:#5E2CA5;" data-materia="historia" onclick="abrirVistaHistoria()">
           <div class="card-icon">
             <img src="IMG/icon_historia.png" alt="Historia" />
           </div>
@@ -161,7 +161,7 @@
           </div>
         </div>
 
-        <div class="subject-card" style="--card-color:#1E7E34;" data-materia="fauna">
+        <div class="subject-card" style="--card-color:#1E7E34;" data-materia="fauna" onclick="abrirModalProximamente('Flora y Fauna', 'Descubre los ecosistemas más asombrosos del Perú: Costa, Andes y Amazonía.')">
           <div class="card-icon">
             <img src="IMG/icon_fauna.png" alt="Fauna y Flora" />
           </div>
@@ -174,7 +174,7 @@
           </div>
         </div>
 
-        <div class="subject-card" style="--card-color:#E67E22;" data-materia="gastronomia">
+        <div class="subject-card" style="--card-color:#E67E22;" data-materia="gastronomia" onclick="abrirModalProximamente('Gastronomía', 'Aprende los secretos y sabores de los platos bandera de cada región.')">
           <div class="card-icon">
             <img src="IMG/icon_gastronomia.png" alt="Gastronomía" />
           </div>
@@ -187,7 +187,7 @@
           </div>
         </div>
 
-        <div class="subject-card" style="--card-color:#D9381E;" data-materia="cultura">
+        <div class="subject-card" style="--card-color:#D9381E;" data-materia="cultura" onclick="abrirModalProximamente('Cultura', 'Conoce las tradiciones, danzas, festividades y cosmovisión andina.')">
           <div class="card-icon">
             <img src="IMG/icon_cultura.png" alt="Cultura" />
           </div>
@@ -200,7 +200,7 @@
           </div>
         </div>
 
-        <div class="subject-card" style="--card-color:#0088CC;" data-materia="turismo">
+        <div class="subject-card" style="--card-color:#0088CC;" data-materia="turismo" onclick="abrirModalProximamente('Turismo', 'Viaja por los destinos y maravillas turísticas más increíbles del país.')">
           <div class="card-icon">
             <img src="IMG/icon_turismo.png" alt="Turismo" />
           </div>
@@ -222,10 +222,132 @@
           <p class="mission-title">Kusi tiene una misión para ti</p>
           <p class="mission-sub">¡Completa retos y gana INTIS!</p>
         </div>
-        <button class="btn-comenzar">Comenzar</button>
+        <button class="btn-comenzar" onclick="abrirVistaHistoria()">Comenzar</button>
       </div>
 
     </main>
+
+    <!-- ══════════ VISTA 2: HISTORIA (MAPA DE NIVELES) ══════════ -->
+    <main class="content content-historia" id="view-historia" style="display:none;">
+
+      <!-- Barra subheader de Historia (inspirado en KICHAY_page-0003) -->
+      <div class="historia-subbar">
+        <button class="historia-btn-back" onclick="abrirVistaInicio()" title="Volver al menú">
+          ← Inicio
+        </button>
+        <h2 class="historia-subbar-title">H I S T O R I A</h2>
+        <div class="historia-subbar-right">
+          <span class="historia-badge">Capítulo I</span>
+        </div>
+      </div>
+
+      <!-- Contenedor del Mapa con el camino -->
+      <div class="historia-map-container">
+        <div class="historia-map-viewport">
+          <img src="IMG/camino_historia.png" alt="Camino de la Historia" class="historia-bg-image" />
+
+          <!-- Nodos de niveles interactivos ubicados a lo largo del sendero -->
+          <!-- Nivel 1 (Inicio del camino) -->
+          <div class="map-node node-pos-1 unlocked completed" onclick="abrirModalNivel(1, 'El Origen del Hombre Peruano', 'Descubre cómo los primeros cazadores y recolectores poblaron los Andes milenarios (Pacaicasa, Lauricocha, Toquepala).', '3/3 Estrellas', true, 30, 40)">
+            <div class="node-disc"><span class="node-icon">🏺</span></div>
+            <div class="node-stars">⭐⭐⭐</div>
+            <span class="node-label">Nivel 1</span>
+          </div>
+
+          <!-- Nivel 2 (Camino ascendente) -->
+          <div class="map-node node-pos-2 unlocked completed" onclick="abrirModalNivel(2, 'Culturas Preincas Milenarias', 'Explora el arte y templos de Chavín, Paracas, Nazca, Moche y Tiahuanaco.', '2/3 Estrellas', true, 35, 50)">
+            <div class="node-disc"><span class="node-icon">🏛️</span></div>
+            <div class="node-stars">⭐⭐☆</div>
+            <span class="node-label">Nivel 2</span>
+          </div>
+
+          <!-- Nivel 3 (Nivel actual / Activo) -->
+          <div class="map-node node-pos-3 unlocked active" onclick="abrirModalNivel(3, 'El Imperio del Tahuantinsuyo', '¡Misión Actual! Aprende sobre la gran expansión de Pachacútec, el Qapaq Ñan y el Cusco Sagrado.', 'Pendiente', true, 50, 70)">
+            <div class="node-pulse-ring"></div>
+            <div class="node-disc"><span class="node-icon">👑</span></div>
+            <div class="node-current-tag">¡JUGAR AHORA!</div>
+            <span class="node-label">Nivel 3</span>
+          </div>
+
+          <!-- Cofre de Intis 1 -->
+          <div class="map-chest chest-pos-1" onclick="abrirModalCofre(50, 'Cofre del Tahuantinsuyo')">
+            <div class="chest-bubble">
+              <span class="chest-emoji">🎁</span>
+              <span class="chest-amount">+50 INTIS</span>
+            </div>
+          </div>
+
+          <!-- Nivel 4 (Bloqueado) -->
+          <div class="map-node node-pos-4 locked" onclick="abrirModalNivel(4, 'Conquista y Resistencia Andina', 'Llega el encuentro de dos mundos y la resistencia de los Incas de Vilcabamba.', 'Bloqueado', false, 45, 60)">
+            <div class="node-disc"><span class="node-icon">🔒</span></div>
+            <div class="node-stars">☆☆☆</div>
+            <span class="node-label">Nivel 4</span>
+          </div>
+
+          <!-- Nivel 5 (Cima del Santuario) -->
+          <div class="map-node node-pos-5 locked" onclick="abrirModalNivel(5, 'Machu Picchu y el Legado Eterno', 'La cima de la arquitectura, astronomía e identidad peruana que perdura por siempre.', 'Bloqueado', false, 60, 100)">
+            <div class="node-disc"><span class="node-icon">🔒</span></div>
+            <div class="node-stars">☆☆☆</div>
+            <span class="node-label">Nivel 5</span>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ══════════ MODAL: PRÓXIMAMENTE DISPONIBLE ══════════ -->
+    <div class="kichay-modal-overlay" id="modalProximamente" style="display:none;" onclick="cerrarModalProximamente(event)">
+      <div class="kichay-modal-card" onclick="event.stopPropagation()">
+        <div class="modal-mascot-badge">
+          <img src="IMG/sorprendido.png" alt="Kusi" class="modal-mascot-pic" />
+        </div>
+        <div class="modal-pill-tag" id="modalSeccionNombre">Flora y Fauna</div>
+        <h3 class="modal-heading">¡Próximamente disponible! ✨</h3>
+        <p class="modal-body-text" id="modalSeccionTexto">
+          Kusi y los guardianes del saber están preparando increíbles retos, historias interactivas y recompensas para esta sección.
+        </p>
+        <button class="modal-btn-confirm" onclick="cerrarModalProximamente()">
+          ¡Entendido, gracias! 👍
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════ MODAL: DETALLE DE NIVEL ══════════ -->
+    <div class="kichay-modal-overlay" id="modalNivel" style="display:none;" onclick="cerrarModalNivel(event)">
+      <div class="kichay-modal-card modal-level-window" onclick="event.stopPropagation()">
+        <div class="level-modal-top">
+          <span class="level-modal-badge" id="modalNivelBadge">NIVEL 1</span>
+          <button class="level-modal-close" onclick="cerrarModalNivel()">✕</button>
+        </div>
+        <h3 class="level-modal-title" id="modalNivelTitulo">El Imperio del Tahuantinsuyo</h3>
+        <p class="level-modal-desc" id="modalNivelDesc">Conoce la historia...</p>
+        <div class="level-rewards-row">
+          <span class="reward-chip"><span id="modalNivelIntis">+30</span> INTIS 🪙</span>
+          <span class="reward-chip"><span id="modalNivelExp">+50</span> EXP ⚡</span>
+          <span class="reward-chip stars-chip" id="modalNivelEstrellas">⭐⭐⭐</span>
+        </div>
+        <div class="level-actions-row">
+          <button class="btn-play-level" id="modalNivelBtnAction" onclick="iniciarAventuraNivel()">
+            ¡Comenzar Aventura! ⚔️
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ MODAL: COFRE DE INTIS ══════════ -->
+    <div class="kichay-modal-overlay" id="modalCofre" style="display:none;" onclick="cerrarModalCofre(event)">
+      <div class="kichay-modal-card" onclick="event.stopPropagation()">
+        <div class="modal-chest-icon">🪙</div>
+        <h3 class="modal-heading" id="modalCofreTitulo">¡Cofre del Tahuantinsuyo!</h3>
+        <p class="modal-body-text">
+          ¡Has encontrado una recompensa oculta de <strong style="color:#D9381E;">+50 INTIS</strong> en el camino de la Historia!
+        </p>
+        <button class="modal-btn-confirm" onclick="reclamarCofre()">
+          ¡Reclamar Recompensa! 💰
+        </button>
+      </div>
+    </div>
   </div>
 
   <script src="js/sound.js"></script>

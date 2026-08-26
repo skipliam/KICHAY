@@ -144,3 +144,194 @@ document.querySelectorAll(".sidebar-nav .nav-item").forEach(function(item) {
     if (window.innerWidth <= 768) toggleMobileSidebar(false);
   });
 });
+
+// ══════════════════════════════════════════════════════════════
+// NAVEGACIÓN ENTRE VISTAS (Inicio / Historia)
+// ══════════════════════════════════════════════════════════════
+window.abrirVistaHistoria = function() {
+  var viewInicio   = document.getElementById("view-inicio");
+  var viewHistoria = document.getElementById("view-historia");
+  var navInicio    = document.getElementById("nav-inicio");
+  var navHistoria  = document.getElementById("nav-historia");
+
+  if (viewInicio)   viewInicio.style.display   = "none";
+  if (viewHistoria) {
+    viewHistoria.style.display = "flex";
+    viewHistoria.scrollTop     = 0;
+  }
+
+  // Actualizar clase activa en sidebar
+  document.querySelectorAll(".sidebar-nav .nav-item").forEach(function(el) {
+    el.classList.remove("active");
+  });
+  if (navHistoria) navHistoria.classList.add("active");
+
+  if (window.KichaySound && typeof window.KichaySound.playChime === "function") {
+    window.KichaySound.playChime();
+  }
+};
+
+window.abrirVistaInicio = function() {
+  var viewInicio   = document.getElementById("view-inicio");
+  var viewHistoria = document.getElementById("view-historia");
+  var navInicio    = document.getElementById("nav-inicio");
+
+  if (viewHistoria) viewHistoria.style.display = "none";
+  if (viewInicio)   viewInicio.style.display   = "flex";
+
+  // Actualizar clase activa en sidebar
+  document.querySelectorAll(".sidebar-nav .nav-item").forEach(function(el) {
+    el.classList.remove("active");
+  });
+  if (navInicio) navInicio.classList.add("active");
+
+  if (window.KichaySound && typeof window.KichaySound.playSoftClick === "function") {
+    window.KichaySound.playSoftClick();
+  }
+};
+
+// ══════════════════════════════════════════════════════════════
+// MODAL: PRÓXIMAMENTE DISPONIBLE
+// ══════════════════════════════════════════════════════════════
+window.abrirModalProximamente = function(nombreSeccion, descripcion) {
+  var modal = document.getElementById("modalProximamente");
+  var tag   = document.getElementById("modalSeccionNombre");
+  var texto = document.getElementById("modalSeccionTexto");
+
+  if (tag) tag.textContent = nombreSeccion || "Próximamente";
+  if (texto && descripcion) {
+    texto.textContent = descripcion + " ¡Kusi está preparando increíbles retos y leyendas para esta sección!";
+  }
+
+  if (modal) modal.style.display = "flex";
+
+  if (window.KichaySound && typeof window.KichaySound.playChime === "function") {
+    window.KichaySound.playChime();
+  }
+};
+
+window.cerrarModalProximamente = function(e) {
+  if (e && e.target && e.target.id !== "modalProximamente" && !e.target.classList.contains("modal-btn-confirm")) return;
+  var modal = document.getElementById("modalProximamente");
+  if (modal) modal.style.display = "none";
+
+  if (window.KichaySound && typeof window.KichaySound.playSoftClick === "function") {
+    window.KichaySound.playSoftClick();
+  }
+};
+
+// ══════════════════════════════════════════════════════════════
+// MODAL: DETALLE DE NIVEL (MAPA DE HISTORIA)
+// ══════════════════════════════════════════════
+var _nivelSeleccionado = null;
+
+window.abrirModalNivel = function(numNivel, titulo, descripcion, estrellas, desbloqueado, intis, exp) {
+  _nivelSeleccionado = { numNivel: numNivel, desbloqueado: desbloqueado, intis: intis, exp: exp };
+
+  var modal    = document.getElementById("modalNivel");
+  var badge    = document.getElementById("modalNivelBadge");
+  var titleEl  = document.getElementById("modalNivelTitulo");
+  var descEl   = document.getElementById("modalNivelDesc");
+  var starsEl  = document.getElementById("modalNivelEstrellas");
+  var intisEl  = document.getElementById("modalNivelIntis");
+  var expEl    = document.getElementById("modalNivelExp");
+  var btnEl    = document.getElementById("modalNivelBtnAction");
+
+  if (badge)   badge.textContent   = "NIVEL " + numNivel;
+  if (titleEl) titleEl.textContent = titulo;
+  if (descEl)  descEl.textContent  = descripcion;
+  if (starsEl) starsEl.textContent = estrellas || "⭐⭐⭐";
+  if (intisEl) intisEl.textContent = "+" + (intis || 30);
+  if (expEl)   expEl.textContent   = "+" + (exp || 50);
+
+  if (btnEl) {
+    if (desbloqueado) {
+      btnEl.className   = "btn-play-level";
+      btnEl.textContent = "¡Comenzar Aventura! ⚔️";
+      btnEl.disabled    = false;
+    } else {
+      btnEl.className   = "btn-play-level btn-locked";
+      btnEl.textContent = "🔒 Completa el nivel anterior";
+      btnEl.disabled    = true;
+    }
+  }
+
+  if (modal) modal.style.display = "flex";
+
+  if (window.KichaySound && typeof window.KichaySound.playChime === "function") {
+    window.KichaySound.playChime();
+  }
+};
+
+window.cerrarModalNivel = function(e) {
+  if (e && e.target && e.target.id !== "modalNivel" && !e.target.classList.contains("level-modal-close")) return;
+  var modal = document.getElementById("modalNivel");
+  if (modal) modal.style.display = "none";
+
+  if (window.KichaySound && typeof window.KichaySound.playSoftClick === "function") {
+    window.KichaySound.playSoftClick();
+  }
+};
+
+window.iniciarAventuraNivel = function() {
+  if (!_nivelSeleccionado || !_nivelSeleccionado.desbloqueado) return;
+  
+  if (window.KichaySound && typeof window.KichaySound.playChime === "function") {
+    window.KichaySound.playChime();
+  }
+
+  var btn = document.getElementById("modalNivelBtnAction");
+  if (btn) {
+    btn.textContent = "¡Cargando lección interactiva... 🇵🇪!";
+    btn.style.opacity = "0.75";
+  }
+
+  setTimeout(function() {
+    alert("¡Excelente! Has iniciado el Nivel " + _nivelSeleccionado.numNivel + ". Las preguntas interactivas estarán disponibles en la siguiente actualización.");
+    cerrarModalNivel();
+    if (btn) {
+      btn.textContent = "¡Comenzar Aventura! ⚔️";
+      btn.style.opacity = "1";
+    }
+  }, 350);
+};
+
+// ══════════════════════════════════════════════════════════════
+// MODAL: COFRE DEL TESORO DE INTIS
+// ══════════════════════════════════════════════
+var _cofreValor = 50;
+
+window.abrirModalCofre = function(valor, titulo) {
+  _cofreValor = valor || 50;
+  var modal = document.getElementById("modalCofre");
+  var tit   = document.getElementById("modalCofreTitulo");
+  if (tit && titulo) tit.textContent = "¡" + titulo + "!";
+  if (modal) modal.style.display = "flex";
+
+  if (window.KichaySound && typeof window.KichaySound.playChime === "function") {
+    window.KichaySound.playChime();
+  }
+};
+
+window.cerrarModalCofre = function(e) {
+  if (e && e.target && e.target.id !== "modalCofre") return;
+  var modal = document.getElementById("modalCofre");
+  if (modal) modal.style.display = "none";
+};
+
+window.reclamarCofre = function() {
+  var hudIntis = document.getElementById("hud-intis");
+  if (hudIntis) {
+    var actual = parseInt(hudIntis.textContent) || 0;
+    var nuevo  = actual + _cofreValor;
+    hudIntis.textContent = nuevo;
+    sessionStorage.setItem("kichay_intis", nuevo);
+  }
+
+  if (window.KichaySound && typeof window.KichaySound.playChime === "function") {
+    window.KichaySound.playChime();
+  }
+
+  alert("¡Felicidades! Ganaste +" + _cofreValor + " INTIS 🪙 por explorar el camino.");
+  cerrarModalCofre();
+};
