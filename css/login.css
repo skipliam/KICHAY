@@ -110,16 +110,16 @@ html, body {
 .mascot-img {
   position: relative;
   z-index: 2;
-  width: clamp(440px, 42vw, 750px);
+  width: clamp(520px, 50vw, 900px);
   height: auto;
-  max-height: 70vh;
+  max-height: 74vh;
   object-fit: contain;
   object-position: bottom center;
   filter: drop-shadow(0 15px 35px rgba(0,0,0,0.25));
   display: block;
   pointer-events: none;
   background: transparent;
-  transform: scale(1.34) translateY(10px);
+  transform: scale(1.68) translateY(28px);
   transform-origin: bottom center;
 }
 
