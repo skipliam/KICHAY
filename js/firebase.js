@@ -1,12 +1,10 @@
 ﻿/* ================================================================
-   KICHAY – Firebase Module
-   Expone las funciones via window.KichayFirebase para que
-   login.js (script normal) pueda hacer import() dinamico.
+   KICHAY – Firebase Module (con setDoc merge:true garantizado)
 ================================================================ */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
-  getFirestore, doc, getDoc, setDoc, updateDoc, serverTimestamp
+  getFirestore, doc, getDoc, setDoc, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import {
   getAuth, GoogleAuthProvider, signInWithCredential, signOut, onAuthStateChanged
@@ -32,21 +30,32 @@ function calcularRacha(fechaUltimoAcceso, rachaActual = 0) {
   const hoy   = ahora.toISOString().slice(0, 10);
   if (!fechaUltimoAcceso) return { nuevaRacha: 1, hoy };
   const ultimoStr = new Date(fechaUltimoAcceso).toISOString().slice(0, 10);
-  if (ultimoStr === hoy) return { nuevaRacha: rachaActual, hoy };
+  if (ultimoStr === hoy) return { nuevaRacha: rachaActual || 1, hoy };
   const ayer = new Date(ahora);
   ayer.setDate(ahora.getDate() - 1);
-  if (ultimoStr === ayer.toISOString().slice(0, 10)) return { nuevaRacha: rachaActual + 1, hoy };
+  if (ultimoStr === ayer.toISOString().slice(0, 10)) return { nuevaRacha: (rachaActual || 0) + 1, hoy };
   return { nuevaRacha: 1, hoy };
 }
 
-// ── CRUD Firestore ──────────────────────────────────────────────
+// ── CRUD Firestore Seguro ───────────────────────────────────────
 async function obtenerUsuario(uid) {
-  const snap = await getDoc(doc(db, "usuarios", uid));
-  return snap.exists() ? snap.data() : null;
+  try {
+    const snap = await getDoc(doc(db, "usuarios", uid));
+    if (snap.exists()) {
+      const data = snap.data();
+      localStorage.setItem("kichay_user_cache_" + uid, JSON.stringify(data));
+      return data;
+    }
+  } catch (err) {
+    console.warn("[KICHAY] Error leyendo Firestore, usando cache local:", err);
+  }
+  // Fallback cache local
+  const local = localStorage.getItem("kichay_user_cache_" + uid);
+  return local ? JSON.parse(local) : null;
 }
 
 async function crearUsuario(uid, datos) {
-  await setDoc(doc(db, "usuarios", uid), {
+  const usuarioObj = {
     uid,
     email:          datos.email    || "",
     nombre:         datos.nombre   || "Explorador",
@@ -54,39 +63,65 @@ async function crearUsuario(uid, datos) {
     perfilCompleto: false,
     sexo:           "",
     edad:           null,
-    racha:          0,
+    racha:          1,
     intis:          0,
     nivelKusi:      1,
     expKusi:        0,
-    ultimoAcceso:   null,
-    progreso: { historia: 0, fauna: 0, gastronomia: 0, cultura: 0, turismo: 0 },
-    creadoEn:       serverTimestamp()
-  });
+    ultimoAcceso:   new Date().toISOString().slice(0, 10),
+    progreso: { historia: 0, fauna: 0, gastronomia: 0, cultura: 0, turismo: 0 }
+  };
+  localStorage.setItem("kichay_user_cache_" + uid, JSON.stringify(usuarioObj));
+  try {
+    await setDoc(doc(db, "usuarios", uid), {
+      ...usuarioObj,
+      creadoEn: serverTimestamp()
+    }, { merge: true });
+  } catch (err) {
+    console.warn("[KICHAY] Firestore write aviso (guardado localmente):", err);
+  }
 }
 
 async function completarPerfil(uid, datos) {
-  await updateDoc(doc(db, "usuarios", uid), {
+  const patch = {
     nombre:         datos.nombre,
     sexo:           datos.sexo,
     edad:           datos.edad,
-    perfilCompleto: true
-  });
+    perfilCompleto: true,
+    racha:          1,
+    ultimoAcceso:   new Date().toISOString().slice(0, 10)
+  };
+  // Guardar en cache local
+  const actual = await obtenerUsuario(uid) || {};
+  const merged = { ...actual, ...patch };
+  localStorage.setItem("kichay_user_cache_" + uid, JSON.stringify(merged));
+  localStorage.setItem("kichay_ultimo_usuario", uid);
+
+  // Guardar en Firestore
+  await setDoc(doc(db, "usuarios", uid), patch, { merge: true });
 }
 
 async function actualizarAcceso(uid, rachaActual, fechaUltimo) {
   const { nuevaRacha, hoy } = calcularRacha(fechaUltimo, rachaActual);
-  await updateDoc(doc(db, "usuarios", uid), { racha: nuevaRacha, ultimoAcceso: hoy });
+  const patch = { racha: nuevaRacha, ultimoAcceso: hoy };
+  
+  const actual = await obtenerUsuario(uid) || {};
+  localStorage.setItem("kichay_user_cache_" + uid, JSON.stringify({ ...actual, ...patch }));
+
+  try {
+    await setDoc(doc(db, "usuarios", uid), patch, { merge: true });
+  } catch (e) {
+    console.warn("[KICHAY] No se pudo actualizar racha en Firestore:", e);
+  }
   return nuevaRacha;
 }
 
 async function cerrarSesion() {
   sessionStorage.clear();
-  await signOut(auth);
+  try {
+    await signOut(auth);
+  } catch (e) {}
 }
 
-// ── Exponer TODO en window.KichayFirebase ─────────────────────────
-// Esto permite que login.js y dashboard.js (scripts normales) accedan
-// a las funciones mediante import() dinamico o window.KichayFirebase
 window.KichayFirebase = {
   db, auth,
   GoogleAuthProvider, signInWithCredential, onAuthStateChanged,
@@ -94,7 +129,6 @@ window.KichayFirebase = {
   actualizarAcceso, cerrarSesion, calcularRacha
 };
 
-// Tambien exportar para quien use import() ESM
 export {
   db, auth,
   GoogleAuthProvider, signInWithCredential, onAuthStateChanged,
