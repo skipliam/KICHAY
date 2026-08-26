@@ -126,24 +126,20 @@
       </div>
 
       <div class="hud-right">
-        <div class="kusi-hud-wrap" title="Nivel y progreso de Kusi">
-          <img src="IMG/PERSONAJE.png" alt="Kusi" class="topbar-kusi" />
-          <div class="kusi-info">
-            <span class="kusi-name">Kusi IA</span>
-            <span class="kusi-level" id="kusi-level-text">Nivel 1</span>
-            <div class="kusi-bar-wrap">
-              <div class="kusi-bar"><div class="kusi-bar-fill" style="width:0%"></div></div>
-              <span class="kusi-pct" id="kusi-exp-pct">0%</span>
+        <div class="topbar-user-badge" id="topbarUserBadge" onclick="abrirModalProximamente('Mi Perfil', 'Pronto podrás ver tus estadísticas detalladas, insignias y récord histórico.')" title="Mi Perfil">
+          <div class="topbar-user-info">
+            <span class="topbar-user-name" id="topbar-user-name">Explorador</span>
+            <div class="topbar-user-level-row">
+              <span class="topbar-user-level" id="kusi-level-text">Nivel 1</span>
+              <div class="user-level-bar">
+                <div class="kusi-bar-fill" style="width:0%"></div>
+              </div>
+              <span class="user-level-pct" id="kusi-exp-pct">0%</span>
             </div>
           </div>
-        </div>
-
-        <div class="topbar-user-badge" id="topbarUserBadge" onclick="abrirModalProximamente('Mi Perfil', 'Pronto podrás ver tus estadísticas detalladas, insignias y récord histórico.')" title="Mi Perfil">
-          <div class="topbar-user-text">
-            <span class="topbar-user-name" id="topbar-user-name">Explorador</span>
-            <span class="topbar-user-role">Perfil</span>
+          <div class="topbar-avatar" id="topbarAvatarContainer">
+            <span id="avatar-initial">U</span>
           </div>
-          <div class="topbar-avatar"><span id="avatar-initial">U</span></div>
         </div>
       </div>
     </header>

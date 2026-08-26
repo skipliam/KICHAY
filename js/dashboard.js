@@ -9,16 +9,31 @@ function setEl(id, value) {
   if (el) el.textContent = value;
 }
 
+function setAvatarPhoto(photoUrl, nombre) {
+  var container = document.getElementById("topbarAvatarContainer");
+  if (!container) return;
+  
+  if (photoUrl && photoUrl.trim() !== "") {
+    container.innerHTML = '<img src="' + photoUrl + '" alt="' + (nombre || "Usuario") + '" referrerpolicy="no-referrer" onerror="this.style.display=\'none\'; this.parentElement.innerHTML=\'<span id=\\\'avatar-initial\\\'>' + (nombre ? nombre.charAt(0).toUpperCase() : 'U') + '</span>\'" />';
+  } else {
+    var initial = nombre ? nombre.charAt(0).toUpperCase() : 'U';
+    container.innerHTML = '<span id="avatar-initial">' + initial + '</span>';
+  }
+}
+
 function poblarDashboard(datos, racha) {
   var nombre = datos.nombre || sessionStorage.getItem("kichay_user") || "Explorador";
+  var photo  = datos.photoURL || datos.foto || sessionStorage.getItem("kichay_photo") || "";
+  
   setEl("nombre-usuario",   nombre);
   setEl("topbar-user-name", nombre);
-  setEl("avatar-initial",   nombre.charAt(0).toUpperCase());
+  setAvatarPhoto(photo, nombre);
+
   setEl("hud-racha",        racha !== undefined ? racha : (datos.racha || 0));
   setEl("hud-intis",        datos.intis || 0);
 
-  var nivel  = datos.nivelKusi || 1;
-  var exp    = datos.expKusi   || 0;
+  var nivel  = datos.nivelKusi || datos.kusiNivel || 1;
+  var exp    = datos.expKusi   || datos.experiencia || 0;
   var expMax = nivel * 100;
   var expPct = Math.min(Math.round((exp / expMax) * 100), 100);
   setEl("kusi-level-text", "Nivel " + nivel);
@@ -43,11 +58,12 @@ function poblarDashboard(datos, racha) {
 // ── Fallback: mostrar datos de sessionStorage mientras carga ─────
 (function fallbackImmediate() {
   var nombre = sessionStorage.getItem("kichay_user") || "Explorador";
+  var photo  = sessionStorage.getItem("kichay_photo") || "";
   var racha  = sessionStorage.getItem("kichay_racha") || "0";
   var intis  = sessionStorage.getItem("kichay_intis") || "0";
   setEl("nombre-usuario",   nombre);
   setEl("topbar-user-name", nombre);
-  setEl("avatar-initial",   nombre.charAt(0).toUpperCase());
+  setAvatarPhoto(photo, nombre);
   setEl("hud-racha",  racha);
   setEl("hud-intis",  intis);
 })();

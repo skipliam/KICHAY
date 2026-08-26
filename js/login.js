@@ -112,8 +112,11 @@ import(firebaseUrl).then(function(mod) {
       // Continuamos con el identificador seguro de Google (sub)
     }
 
-    sessionStorage.setItem("kichay_uid",  uid);
-    sessionStorage.setItem("kichay_user", nombre);
+    sessionStorage.setItem("kichay_uid",   uid);
+    sessionStorage.setItem("kichay_user",  nombre);
+    if (googlePhoto) {
+      sessionStorage.setItem("kichay_photo", googlePhoto);
+    }
 
     try {
       // Consultar o crear usuario en Firestore

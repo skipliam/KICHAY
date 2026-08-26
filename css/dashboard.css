@@ -200,140 +200,108 @@ html, body {
 .hud-right {
   display: flex;
   align-items: center;
-  gap: 14px;
   flex-shrink: 0;
 }
 
-.kusi-hud-wrap {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(255, 255, 255, 0.45);
-  border: 1px solid #EDE8E0;
-  padding: 4px 10px 4px 6px;
-  border-radius: 24px;
-}
-
-.topbar-kusi {
-  width: 44px;
-  height: 44px;
-  object-fit: contain;
-  border-radius: 50%;
-  background: #F4EFE6;
-  padding: 2px;
-}
-
-.kusi-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.kusi-name {
-  font-family: 'Nourd', sans-serif;
-  font-size: 13px;
-  font-weight: 800;
-  color: #2C2523;
-  line-height: 1;
-}
-
-.kusi-level {
-  font-family: 'Balsamiq Sans', 'Nourd', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  color: #9E8E84;
-  line-height: 1;
-}
-
-.kusi-bar-wrap {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.kusi-bar {
-  width: 70px;
-  height: 6px;
-  background: #EDE8E0;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.kusi-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #F39C12, #E67E22);
-  border-radius: 10px;
-}
-
-.kusi-pct {
-  font-family: 'Nourd', sans-serif;
-  font-size: 10px;
-  font-weight: 800;
-  color: #9E8E84;
-}
-
-/* Badge con Nombre y Avatar de Usuario */
+/* Badge unificado con foto de Google, nombre y nivel */
 .topbar-user-badge {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   background: #FFFFFF;
   border: 1.5px solid #EDE8E0;
-  padding: 4px 5px 4px 14px;
-  border-radius: 28px;
+  padding: 5px 6px 5px 16px;
+  border-radius: 30px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   transition: all 0.18s ease;
 }
 
 .topbar-user-badge:hover {
   border-color: #D9381E;
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(217, 56, 30, 0.15);
+  box-shadow: 0 4px 16px rgba(217, 56, 30, 0.15);
 }
 
-.topbar-user-text {
+.topbar-user-info {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  gap: 3px;
   text-align: right;
 }
 
 .topbar-user-name {
   font-family: 'Nourd', sans-serif;
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 800;
   color: #2C2523;
   line-height: 1.1;
-  max-width: 120px;
+  max-width: 140px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.topbar-user-role {
+.topbar-user-level-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.topbar-user-level {
   font-family: 'Balsamiq Sans', 'Nourd', sans-serif;
-  font-size: 9.5px;
+  font-size: 11px;
   font-weight: 700;
   color: #8D7B70;
   line-height: 1;
 }
 
+.user-level-bar {
+  width: 55px;
+  height: 5px;
+  background: #EDE8E0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.user-level-bar .kusi-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #F39C12, #E67E22);
+  border-radius: 10px;
+}
+
+.user-level-pct {
+  font-family: 'Nourd', sans-serif;
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #8D7B70;
+}
+
 .topbar-avatar {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: linear-gradient(135deg, #D9381E, #E85D2A);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Nourd', sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 900;
   color: #FFF;
   border: 2px solid #EDE8E0;
   flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(217, 56, 30, 0.35);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(217, 56, 30, 0.3);
+}
+
+.topbar-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
 }
 
 /* ══════════════════════════════════════════════
