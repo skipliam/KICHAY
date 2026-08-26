@@ -47,7 +47,7 @@ html, body {
 /* ── Logo KICHAY arriba al centro ────────────────────────────── */
 .logo-wrap {
   position: absolute;
-  top: 20px;
+  top: 14px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 25;
@@ -66,9 +66,9 @@ html, body {
 }
 
 .logo-img {
-  width: clamp(240px, 22vw, 340px);
+  width: clamp(280px, 26vw, 390px);
   height: auto;
-  max-height: 95px;
+  max-height: 115px;
   object-fit: contain;
   display: block;
   margin: 0 auto;
@@ -82,14 +82,14 @@ html, body {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 30px;
+  gap: 16px;
   width: 100%;
   height: 100%;
-  padding: 110px 40px 25px;
+  padding: 120px 30px 20px;
   box-sizing: border-box;
 }
 
-/* ── Personaje Kusi en Video (estable, centrado y bien abajo del logo) ─────────────────── */
+/* ── Personaje Kusi en Video (más abajo, centrado y amplio) ─────────────────── */
 .mascot-wrap {
   position: relative;
   display: flex;
@@ -112,14 +112,14 @@ html, body {
   z-index: 2;
   width: clamp(520px, 50vw, 900px);
   height: auto;
-  max-height: 74vh;
+  max-height: 72vh;
   object-fit: contain;
   object-position: bottom center;
   filter: drop-shadow(0 15px 35px rgba(0,0,0,0.25));
   display: block;
   pointer-events: none;
   background: transparent;
-  transform: scale(1.68) translateY(28px);
+  transform: scale(1.68) translateY(45px);
   transform-origin: bottom center;
 }
 
@@ -169,7 +169,7 @@ html, body {
   align-self: center;
   flex: 0 0 360px;
   max-width: 380px;
-  margin-left: -20px;
+  margin-left: -50px;
   margin-bottom: 20px;
 
   background: rgba(252, 246, 235, 0.97);
