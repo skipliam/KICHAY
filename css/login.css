@@ -1,0 +1,323 @@
+﻿/* ================================================================
+   KICHAY â€“ Login Page Styles
+   Boceto de referencia: KICHAY_page-0001.jpg
+================================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: "Nunito", "Segoe UI", sans-serif;
+  background: #000;
+  overflow: hidden;
+}
+
+/* â”€â”€ Hero: ocupa toda la pantalla â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.hero {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+/* â”€â”€ Fondo completo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('../IMG/FONDOPRINCIPAL.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* â”€â”€ Lado izquierdo: logo + personaje â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.hero-left {
+  position: relative;
+  z-index: 10;
+  flex: 1 1 58%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 48px;
+  padding-left: 60px;
+  overflow: hidden;
+}
+
+/* â”€â”€ Logo KICHAY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.logo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  user-select: none;
+}
+
+.logo-rays {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-text {
+  font-size: clamp(58px, 7vw, 96px);
+  font-weight: 900;
+  color: #C0392B;
+  letter-spacing: 3px;
+  text-shadow:
+    3px 3px 0 #7B241C,
+    -1px -1px 0 #E74C3C;
+  line-height: 1;
+  font-style: italic;
+}
+
+/* Rayos solares decorativos */
+.ray {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.ray-left  { transform: rotate(180deg); }
+
+.ray-line               { height: 3px; background: #F39C12; border-radius: 2px; }
+.ray-line:nth-child(1)  { width: 28px; }
+.ray-line:nth-child(2)  { width: 20px; }
+.ray-line:nth-child(3)  { width: 12px; }
+
+.logo-subtitle {
+  font-size: clamp(17px, 2vw, 24px);
+  font-weight: 700;
+  color: #2C2523;
+  padding-left: 6px;
+  text-shadow: 0 1px 4px rgba(255,255,255,0.6);
+}
+
+/* â”€â”€ Personaje Kusi â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/*  En el boceto: personaje grande, centrado en la zona izquierda,
+    su base toca el fondo de la pantalla (ligeramente recortado)   */
+.mascot-wrap {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;      /* ancla al borde inferior */
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 0;
+  margin-left: -20px;         /* leve desplazamiento izquierdo como en el boceto */
+}
+
+.mascot-img {
+  width: clamp(340px, 42vw, 580px);
+  max-height: 82vh;
+  object-fit: contain;
+  object-position: bottom;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.28));
+  animation: float 3.8s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-14px); }
+}
+
+/* â”€â”€ Tarjeta de Login â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.login-card {
+  position: relative;
+  z-index: 10;
+  flex: 0 0 400px;
+  max-width: 420px;
+  margin: auto 56px auto auto;
+  align-self: center;
+
+  background: rgba(250, 247, 242, 0.97);
+  border-radius: 28px;
+  padding: 40px 36px 36px;
+  box-shadow: 0 16px 56px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255,255,255,0.8);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: 900;
+  color: #2C2523;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.card-subtitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #6B5B4E;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* â”€â”€ Botones sociales â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-bottom: 20px;
+}
+
+.btn-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 13px 16px;
+  background: #FFFFFF;
+  border: 1.5px solid #DDD5CC;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  color: #2C2523;
+  cursor: pointer;
+  transition: background 0.16s, border-color 0.16s, box-shadow 0.16s, transform 0.1s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.btn-social:hover {
+  background: #F8F4EE;
+  border-color: #B8A89A;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
+}
+.btn-social:active { transform: translateY(0); }
+
+.social-icon { width: 20px; height: 20px; flex-shrink: 0; }
+
+/* â”€â”€ Divisor â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  color: #B8A89A;
+  font-size: 14px;
+  font-weight: 600;
+}
+.divider::before, .divider::after {
+  content: "";
+  flex: 1;
+  height: 1.5px;
+  background: #E8E0D8;
+}
+
+/* â”€â”€ Formulario â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin-bottom: 16px;
+}
+
+.field-group { position: relative; }
+
+.input-field {
+  width: 100%;
+  padding: 14px 18px;
+  background: #F4EFE6;
+  border: 1.5px solid #E0D6CC;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2C2523;
+  outline: none;
+  transition: border-color 0.16s, box-shadow 0.16s;
+}
+.input-field::placeholder { color: #B8A89A; font-weight: 600; }
+.input-field:focus {
+  border-color: #1E7E34;
+  box-shadow: 0 0 0 3px rgba(30,126,52,0.14);
+  background: #FFFFFF;
+}
+
+.password-group .input-field { padding-right: 52px; }
+
+.toggle-pass {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #9E8E84;
+  display: flex;
+  align-items: center;
+  transition: color 0.14s;
+}
+.toggle-pass:hover { color: #2C2523; }
+.toggle-pass svg { width: 20px; height: 20px; }
+
+/* â”€â”€ BotÃ³n principal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.btn-primary {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #27AE60 0%, #1E7E34 100%);
+  border: none;
+  border-radius: 16px;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 800;
+  color: #FFFFFF;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 20px rgba(30,126,52,0.38);
+  transition: transform 0.14s, box-shadow 0.14s;
+  margin-top: 4px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(30,126,52,0.45);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(30,126,52,0.3);
+}
+
+/* â”€â”€ Links secundarios â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.link-forgot {
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #2C2523;
+  text-decoration: none;
+  margin-top: 14px;
+  transition: color 0.14s;
+}
+.link-forgot:hover { color: #1E7E34; }
+
+.link-register {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6B5B4E;
+}
+
+.link-accent {
+  font-weight: 800;
+  color: #1E7E34;
+  text-decoration: none;
+  transition: color 0.14s;
+}
+.link-accent:hover { color: #27AE60; text-decoration: underline; }
+
+
