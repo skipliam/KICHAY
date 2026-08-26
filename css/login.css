@@ -43,10 +43,10 @@ html, body {
   100% { opacity: 1; transform: scale(1); }
 }
 
-/* ── Logo KICHAY centrado arriba ────────────────────────────── */
+/* ── Logo KICHAY arriba al centro ────────────────────────────── */
 .logo-wrap {
   position: absolute;
-  top: 36px;
+  top: 28px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 20;
@@ -54,7 +54,6 @@ html, body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 4px;
   user-select: none;
   animation: logoEnter 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 }
@@ -64,40 +63,12 @@ html, body {
   100% { opacity: 1; transform: translate(-50%, 0) scale(1); }
 }
 
-.logo-rays {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo-text {
-  font-size: clamp(54px, 6.5vw, 86px);
-  font-weight: 900;
-  color: #C0392B;
-  letter-spacing: 3px;
-  text-shadow:
-    3px 3px 0 #7B241C,
-    -1px -1px 0 #E74C3C;
-  line-height: 1;
-  font-style: italic;
-}
-
-/* Rayos solares decorativos */
-.ray { display: flex; flex-direction: column; gap: 5px; }
-.ray-left  { transform: rotate(180deg); }
-
-.ray-line               { height: 3px; background: #F39C12; border-radius: 2px; }
-.ray-line:nth-child(1)  { width: 28px; }
-.ray-line:nth-child(2)  { width: 20px; }
-.ray-line:nth-child(3)  { width: 12px; }
-
-.logo-subtitle {
-  font-size: clamp(16px, 1.8vw, 22px);
-  font-weight: 700;
-  color: #2C2523;
-  text-align: center;
-  padding-left: 0;
-  text-shadow: 0 1px 4px rgba(255,255,255,0.6);
+.logo-img {
+  width: clamp(240px, 22vw, 360px);
+  height: auto;
+  max-height: 120px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.18));
 }
 
 /* ── Contenedor Kusi + Tarjeta (juntos) ───────────────────────── */
