@@ -102,6 +102,15 @@
     window.addEventListener('popstate', () => {
       history.pushState(null, '', location.href);
     });
+
+    // Asegurar reproducción continua del video de Kusi
+    document.addEventListener('DOMContentLoaded', () => {
+      const vid = document.querySelector('.mascot-video');
+      if (vid) {
+        vid.muted = true;
+        vid.play().catch(() => {});
+      }
+    });
   </script>
   <script src="js/sound.js"></script>
   <!-- Login: script NORMAL (no modulo) para que handleGoogleLogin sea global inmediatamente -->
