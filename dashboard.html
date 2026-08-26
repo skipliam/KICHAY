@@ -11,12 +11,9 @@
 </head>
 <body>
 
-  <!-- ══════════════════════════════════════════
-       SIDEBAR
-  ══════════════════════════════════════════════ -->
+  <!-- ══════════ SIDEBAR ══════════ -->
   <aside class="sidebar">
 
-    <!-- Logo -->
     <div class="sidebar-logo">
       <div class="logo-rays-small">
         <div class="ray-sm ray-sm-left"><div class="rl"></div><div class="rl"></div></div>
@@ -25,30 +22,31 @@
       </div>
     </div>
 
-    <!-- Nav grupo 1: Aprendizaje -->
     <nav class="sidebar-nav">
+
       <a href="dashboard.html" class="nav-item active">
         <span class="nav-icon" style="background:#FFF3E0;">🏠</span>
         Inicio
       </a>
+
       <a href="#" class="nav-item">
-        <span class="nav-icon" style="background:#EDE7F6;">🏛️</span>
+        <span class="nav-sprite"><img src="IMG/icon_historia.png" alt="Historia" /></span>
         Historia
       </a>
       <a href="#" class="nav-item">
-        <span class="nav-icon" style="background:#E8F5E9;">🐾</span>
+        <span class="nav-sprite"><img src="IMG/icon_fauna.png" alt="Flora y Fauna" /></span>
         Flora y Fauna
       </a>
       <a href="#" class="nav-item">
-        <span class="nav-icon" style="background:#FFF3E0;">🍲</span>
+        <span class="nav-sprite"><img src="IMG/icon_gastronomia.png" alt="Gastronomía" /></span>
         Gastronomía
       </a>
       <a href="#" class="nav-item">
-        <span class="nav-icon" style="background:#FFEBEE;">🪶</span>
+        <span class="nav-sprite"><img src="IMG/icon_cultura.png" alt="Cultura" /></span>
         Cultura
       </a>
       <a href="#" class="nav-item">
-        <span class="nav-icon" style="background:#E1F5FE;">🧳</span>
+        <span class="nav-sprite"><img src="IMG/icon_turismo.png" alt="Turismo" /></span>
         Turismo
       </a>
 
@@ -85,18 +83,15 @@
         <span class="nav-icon" style="background:#FFEBEE;">🚪</span>
         Cerrar sesión
       </a>
+
     </nav>
   </aside>
 
-  <!-- ══════════════════════════════════════════
-       CONTENIDO PRINCIPAL
-  ══════════════════════════════════════════════ -->
+  <!-- ══════════ MAIN ══════════ -->
   <div class="main-wrap">
 
-    <!-- ── TOP BAR ─────────────────────────────── -->
+    <!-- TOP BAR -->
     <header class="topbar">
-
-      <!-- HUD izquierdo: racha + intis -->
       <div class="hud-left">
         <div class="hud-stat">
           <span class="hud-icon">🔥</span>
@@ -106,7 +101,7 @@
           </div>
         </div>
         <div class="hud-stat">
-          <span class="hud-icon hud-coin">🪙</span>
+          <span class="hud-icon">🪙</span>
           <div>
             <span class="hud-value">420</span>
             <span class="hud-label">INTIS</span>
@@ -114,7 +109,6 @@
         </div>
       </div>
 
-      <!-- HUD derecho: Kusi IA + nivel + avatar -->
       <div class="hud-right">
         <img src="IMG/PERSONAJE.png" alt="Kusi" class="topbar-kusi" />
         <div class="kusi-info">
@@ -125,17 +119,13 @@
             <span class="kusi-pct">60%</span>
           </div>
         </div>
-        <div class="topbar-avatar">
-          <span id="avatar-initial">U</span>
-        </div>
+        <div class="topbar-avatar"><span id="avatar-initial">U</span></div>
       </div>
-
     </header>
 
-    <!-- ── ÁREA PRINCIPAL ─────────────────────── -->
+    <!-- CONTENIDO -->
     <main class="content" style="background-image: url('IMG/FONDOPRINCIPAL.jpeg');">
 
-      <!-- Saludo -->
       <div class="greeting">
         <h1>¡Hola, <span id="nombre-usuario" class="greeting-name">Explorador</span>!</h1>
         <p>¿Qué aprenderemos hoy?</p>
@@ -144,9 +134,10 @@
       <!-- Tarjetas de materias -->
       <div class="cards-grid">
 
-        <!-- Historia -->
-        <div class="subject-card" style="--card-color:#5E2CA5; --card-bg:#EDE7F6;">
-          <div class="card-icon" style="background:#5E2CA5;">🏛️</div>
+        <div class="subject-card" style="--card-color:#5E2CA5;">
+          <div class="card-icon">
+            <img src="IMG/icon_historia.png" alt="Historia" />
+          </div>
           <span class="card-label">HISTORIA</span>
           <div class="card-progress-wrap">
             <div class="card-progress-bar">
@@ -156,9 +147,10 @@
           </div>
         </div>
 
-        <!-- Fauna y Flora -->
-        <div class="subject-card" style="--card-color:#1E7E34; --card-bg:#E8F5E9;">
-          <div class="card-icon" style="background:#1E7E34;">🐾</div>
+        <div class="subject-card" style="--card-color:#1E7E34;">
+          <div class="card-icon">
+            <img src="IMG/icon_fauna.png" alt="Fauna y Flora" />
+          </div>
           <span class="card-label">FAUNA Y FLORA</span>
           <div class="card-progress-wrap">
             <div class="card-progress-bar">
@@ -168,9 +160,10 @@
           </div>
         </div>
 
-        <!-- Gastronomía -->
-        <div class="subject-card" style="--card-color:#E67E22; --card-bg:#FFF3E0;">
-          <div class="card-icon" style="background:#E67E22;">🍲</div>
+        <div class="subject-card" style="--card-color:#E67E22;">
+          <div class="card-icon">
+            <img src="IMG/icon_gastronomia.png" alt="Gastronomía" />
+          </div>
           <span class="card-label">GASTRONOMÍA</span>
           <div class="card-progress-wrap">
             <div class="card-progress-bar">
@@ -180,9 +173,10 @@
           </div>
         </div>
 
-        <!-- Cultura -->
-        <div class="subject-card" style="--card-color:#D9381E; --card-bg:#FFEBEE;">
-          <div class="card-icon" style="background:#D9381E;">🪶</div>
+        <div class="subject-card" style="--card-color:#D9381E;">
+          <div class="card-icon">
+            <img src="IMG/icon_cultura.png" alt="Cultura" />
+          </div>
           <span class="card-label">CULTURA</span>
           <div class="card-progress-wrap">
             <div class="card-progress-bar">
@@ -192,9 +186,10 @@
           </div>
         </div>
 
-        <!-- Turismo -->
-        <div class="subject-card" style="--card-color:#0088CC; --card-bg:#E1F5FE;">
-          <div class="card-icon" style="background:#0088CC;">🧳</div>
+        <div class="subject-card" style="--card-color:#0088CC;">
+          <div class="card-icon">
+            <img src="IMG/icon_turismo.png" alt="Turismo" />
+          </div>
           <span class="card-label">TURISMO</span>
           <div class="card-progress-wrap">
             <div class="card-progress-bar">
@@ -204,9 +199,9 @@
           </div>
         </div>
 
-      </div><!-- /cards-grid -->
+      </div>
 
-      <!-- Banner misión de Kusi -->
+      <!-- Banner misión -->
       <div class="mission-banner">
         <img src="IMG/PERSONAJE.png" alt="Kusi" class="mission-kusi" />
         <div class="mission-text">
@@ -217,7 +212,7 @@
       </div>
 
     </main>
-  </div><!-- /main-wrap -->
+  </div>
 
   <script src="js/dashboard.js"></script>
 </body>

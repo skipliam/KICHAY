@@ -1,7 +1,31 @@
 ﻿/* ================================================================
    KICHAY – Login Script
-   Incluye: Google OAuth, toggle contraseña, formulario tradicional
 ================================================================ */
+
+// ── Ir al dashboard ────────────────────────────────────────────
+function pasarAlDashboard(nombre) {
+  sessionStorage.setItem("kichay_user", nombre || "Explorador");
+  window.location.href = "dashboard.html";
+}
+
+// ── Login con formulario (email + contraseña) ──────────────────
+function loginConFormulario() {
+  const email    = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (!email || !password) {
+    // Sacudir el botón para indicar que faltan campos
+    const btn = document.querySelector(".btn-primary");
+    btn.style.animation = "none";
+    void btn.offsetWidth;
+    btn.style.animation = "shake 0.4s ease";
+    return;
+  }
+
+  // Extraer nombre del email (parte antes del @)
+  const nombre = email.split("@")[0];
+  pasarAlDashboard(nombre);
+}
 
 // ── Google OAuth callback ──────────────────────────────────────
 function decodeJwtResponse(token) {
@@ -21,16 +45,10 @@ function handleGoogleLogin(response) {
   pasarAlDashboard(nombre);
 }
 
-// ── Navegación al dashboard ────────────────────────────────────
-function pasarAlDashboard(nombre) {
-  // Guardar nombre en sessionStorage para usarlo en dashboard.html
-  sessionStorage.setItem("kichay_user", nombre);
-  // Navegar al dashboard
-  window.location.href = "dashboard.html";
-}
-
-// Exponer globalmente para que Google SDK pueda llamarla
-window.handleGoogleLogin = handleGoogleLogin;
+// Exponer funciones globalmente
+window.handleGoogleLogin   = handleGoogleLogin;
+window.loginConFormulario  = loginConFormulario;
+window.pasarAlDashboard    = pasarAlDashboard;
 
 // ── Toggle mostrar/ocultar contraseña ─────────────────────────
 const toggleBtn = document.getElementById("togglePass");
@@ -41,40 +59,18 @@ const eyeOn     = document.getElementById("eyeOn");
 if (toggleBtn) {
   toggleBtn.addEventListener("click", () => {
     const isHidden = passInput.type === "password";
-    passInput.type  = isHidden ? "text" : "password";
+    passInput.type       = isHidden ? "text" : "password";
     eyeOff.style.display = isHidden ? "none" : "";
     eyeOn.style.display  = isHidden ? ""     : "none";
   });
 }
 
-// ── Formulario tradicional ─────────────────────────────────────
-const loginForm = document.getElementById("loginForm");
+// ── Permitir Enter en los campos para hacer login ─────────────
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") loginConFormulario();
+});
 
-if (loginForm) {
-  loginForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const email    = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-
-    if (!email || !password) {
-      shake(loginForm.querySelector(".btn-primary"));
-      return;
-    }
-    // En producción: validar contra backend.
-    // Por ahora usamos el email como nombre de usuario:
-    const nombre = email.split("@")[0];
-    pasarAlDashboard(nombre);
-  });
-}
-
-// ── Animación shake al error ───────────────────────────────────
-function shake(el) {
-  if (!el) return;
-  el.style.animation = "none";
-  void el.offsetWidth;
-  el.style.animation = "shake 0.4s ease";
-}
-
+// ── Animación shake ────────────────────────────────────────────
 const shakeStyle = document.createElement("style");
 shakeStyle.textContent = `
   @keyframes shake {

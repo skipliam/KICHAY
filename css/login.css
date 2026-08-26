@@ -133,7 +133,7 @@ html, body {
   margin: auto 56px auto auto;
   align-self: center;
 
-  background: rgba(250, 247, 242, 0.97);
+  background: rgba(252, 246, 235, 0.97);
   border-radius: 28px;
   padding: 40px 36px 36px;
   box-shadow: 0 16px 56px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.1);
@@ -225,7 +225,7 @@ html, body {
 .input-field {
   width: 100%;
   padding: 14px 18px;
-  background: #F4EFE6;
+  background: #f0e8d8;
   border: 1.5px solid #E0D6CC;
   border-radius: 14px;
   font-family: inherit;
@@ -319,5 +319,6 @@ html, body {
   transition: color 0.14s;
 }
 .link-accent:hover { color: #27AE60; text-decoration: underline; }
+
 
 
