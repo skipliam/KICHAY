@@ -383,34 +383,34 @@
         </div>
       </div>
 
-      <!-- Modal de Victoria / Resultados al terminar el nivel -->
-      <div class="kichay-modal-overlay" id="quizVictoryModal" style="display:none;">
-        <div class="kichay-modal-card victory-card" onclick="event.stopPropagation()">
-          <div class="victory-mascot-wrap">
-            <img src="IMG/feliz.png" alt="¡Victoria!" class="victory-mascot-pic" />
-          </div>
-          <h2 class="victory-title">¡Misión Cumplida! 🎉</h2>
-          <div class="victory-stars" id="victoryStars">⭐⭐⭐</div>
-          <p class="victory-subtitle" id="victorySubtitle">Has respondido las preguntas con éxito.</p>
-          
-          <div class="victory-rewards-grid">
-            <div class="victory-reward-box">
-              <span class="victory-reward-num" id="victoryIntisEarned">+50</span>
-              <span class="victory-reward-txt">INTIS GANADOS 🪙</span>
-            </div>
-            <div class="victory-reward-box">
-              <span class="victory-reward-num" id="victoryExpEarned">+100</span>
-              <span class="victory-reward-txt">EXP DE KUSI ⚡</span>
-            </div>
-          </div>
-
-          <button class="modal-btn-confirm" onclick="finalizarQuizYVolver()">
-            ¡Continuar en el Mapa! 🗺️
-          </button>
-        </div>
-      </div>
-
     </main>
+
+    <!-- ══════════ MODAL GLOBAL: VICTORIA DE NIVEL (MISIÓN CUMPLIDA) ══════════ -->
+    <div class="kichay-modal-overlay" id="quizVictoryModal" style="display:none;" onclick="event.stopPropagation()">
+      <div class="kichay-modal-card victory-card" onclick="event.stopPropagation()">
+        <div class="victory-mascot-wrap">
+          <img src="IMG/feliz.png" alt="¡Victoria!" class="victory-mascot-pic" />
+        </div>
+        <h2 class="victory-title">¡Misión Cumplida! 🎉</h2>
+        <div class="victory-stars" id="victoryStars">⭐⭐⭐</div>
+        <p class="victory-subtitle" id="victorySubtitle">Has respondido las preguntas con éxito.</p>
+        
+        <div class="victory-rewards-grid">
+          <div class="victory-reward-box">
+            <span class="victory-reward-num" id="victoryIntisEarned">+50</span>
+            <span class="victory-reward-txt">INTIS GANADOS 🪙</span>
+          </div>
+          <div class="victory-reward-box">
+            <span class="victory-reward-num" id="victoryExpEarned">+100</span>
+            <span class="victory-reward-txt">EXP DE KUSI ⚡</span>
+          </div>
+        </div>
+
+        <button class="modal-btn-confirm" onclick="finalizarQuizYVolver()">
+          ¡Continuar en el Mapa! 🗺️
+        </button>
+      </div>
+    </div>
 
     <!-- ══════════ MODAL: PRÓXIMAMENTE DISPONIBLE ══════════ -->
     <div class="kichay-modal-overlay" id="modalProximamente" style="display:none;" onclick="cerrarModalProximamente(event)">
