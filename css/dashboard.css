@@ -867,33 +867,41 @@ body.page-exit .content {
   text-transform: uppercase;
 }
 
-/* Contenedor del Mapa */
+/* Contenedor del Mapa a pantalla completa (Cover 100%) */
 .historia-map-container {
   flex: 1;
   width: 100%;
+  height: 100%;
+  min-height: calc(100vh - 120px);
+  position: relative;
+  overflow: hidden;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  align-items: stretch;
+  justify-content: stretch;
   background: #18110D;
-  padding: 16px 20px 40px;
-  overflow-y: auto;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 .historia-map-viewport {
   position: relative;
   width: 100%;
-  max-width: 1100px;
-  border-radius: 24px;
+  height: 100%;
+  min-height: calc(100vh - 120px);
+  max-width: none !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
   overflow: hidden;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-  border: 3px solid #5C3825;
 }
 
 .historia-bg-image {
   width: 100%;
-  height: auto;
+  height: 100%;
+  min-height: 100%;
   display: block;
   object-fit: cover;
+  object-position: center bottom;
   user-select: none;
 }
 
