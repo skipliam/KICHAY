@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════════
    KICHAY — perfil.css
-   Pantalla de configuración de perfil
+   Pantalla de configuración de perfil (Centrada)
 ══════════════════════════════════════════════ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,82 +11,20 @@ body {
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding-right: 6vw;
+  justify-content: center;
+  padding: 24px;
   position: relative;
 }
 
-/* ── Fondo ── */
+/* ── Fondo con ligero desenfoque ── */
 .hero-bg {
   position: fixed;
-  inset: 0;
-  background: url('../IMG/FONDOPRINCIPAL.jpeg') center center / cover no-repeat;
+  inset: -12px;
+  background: url('../IMG/FONDOPERFIL.jpg') center center / cover no-repeat;
+  filter: blur(4px);
+  transform: scale(1.03);
   z-index: 0;
 }
-
-/* ── Kusi mascota ── */
-.kusi-mascot {
-  position: fixed;
-  left: -2%;
-  bottom: 0;
-  height: 90vh;
-  max-height: 850px;
-  object-fit: contain;
-  z-index: 2;
-  animation: floatKusi 4s ease-in-out infinite;
-  filter: drop-shadow(4px 8px 16px rgba(0,0,0,0.18));
-}
-
-@keyframes floatKusi {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-14px); }
-}
-
-/* ── Logo ── */
-.logo-wrap {
-  position: fixed;
-  top: 28px;
-  left: 36px;
-  z-index: 3;
-  text-align: left;
-}
-
-.logo-rays {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.logo-text {
-  font-size: 2.6rem;
-  font-weight: 900;
-  font-style: italic;
-  color: #D9381E;
-  letter-spacing: 2px;
-  text-shadow: 2px 2px 0 rgba(0,0,0,0.08);
-}
-
-.logo-sub {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #4A4036;
-  margin-top: 2px;
-  padding-left: 4px;
-}
-
-/* Rayos del logo */
-.ray { display: flex; flex-direction: column; gap: 4px; }
-.ray-left { align-items: flex-end; transform: rotate(180deg); }
-.ray-right { align-items: flex-start; }
-.rl {
-  height: 3px;
-  background: #F39C12;
-  border-radius: 2px;
-}
-.ray-left .rl:nth-child(1) { width: 18px; }
-.ray-left .rl:nth-child(2) { width: 12px; }
-.ray-right .rl:nth-child(1) { width: 18px; }
-.ray-right .rl:nth-child(2) { width: 12px; }
 
 /* ── Tarjeta centrada ── */
 .card-wrap {
@@ -94,19 +32,19 @@ body {
   z-index: 3;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   width: 100%;
-  padding-right: 0;
 }
 
 .card {
-  background: rgba(252, 246, 235, 0.96);
-  backdrop-filter: blur(6px);
+  background: rgba(252, 246, 235, 0.97);
+  backdrop-filter: blur(8px);
   border-radius: 28px;
-  padding: 36px 40px 40px;
+  padding: 38px 40px 42px;
   width: 100%;
-  max-width: 420px;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.14);
+  max-width: 440px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.24), 0 2px 8px rgba(0,0,0,0.1);
+  border: 1.5px solid rgba(255,255,255,0.9);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -143,7 +81,7 @@ body {
 .step.active {
   background: #D9381E;
   color: #fff;
-  box-shadow: 0 0 0 4px rgba(217,56,30,0.2);
+  box-shadow: 0 0 0 5px rgba(217,56,30,0.22);
 }
 
 .step-line {
@@ -159,7 +97,7 @@ body {
 
 /* ── Títulos ── */
 .card-title {
-  font-size: 1.55rem;
+  font-size: 1.65rem;
   font-weight: 900;
   color: #2C2523;
   text-align: center;
@@ -198,11 +136,12 @@ body {
   font-weight: 600;
   color: #2C2523;
   outline: none;
-  transition: border-color .2s;
+  transition: border-color .2s, box-shadow .2s;
 }
 
 .field-group input:focus {
   border-color: #D9381E;
+  box-shadow: 0 0 0 3px rgba(217,56,30,0.12);
 }
 
 .field-group input::placeholder {
@@ -271,13 +210,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background .2s, border-color .2s;
+  transition: background .2s, border-color .2s, transform .12s;
 }
 
 .edad-btn:hover {
   background: #D9381E;
   border-color: #D9381E;
   color: #fff;
+  transform: scale(1.06);
 }
 
 .edad-display {
@@ -341,14 +281,8 @@ body {
 /* ── Responsive ── */
 @media (max-width: 700px) {
   body {
-    justify-content: center;
     padding: 20px 16px;
     overflow-y: auto;
-    align-items: flex-start;
-    padding-top: 100px;
   }
-  .kusi-mascot { display: none; }
-  .logo-wrap { left: 16px; top: 16px; }
-  .logo-text { font-size: 1.8rem; }
   .card { padding: 28px 24px; }
 }

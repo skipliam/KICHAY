@@ -45,13 +45,33 @@
     <!-- Contenedor Kusi + Tarjeta juntos -->
     <div class="hero-content">
 
-      <!-- Personaje Kusi -->
+      <!-- Personaje Kusi con partículas -->
       <div class="mascot-wrap">
+        <div class="particles-container" aria-hidden="true">
+          <span class="particle p1">✨</span>
+          <span class="particle p2">✦</span>
+          <span class="particle p3">🌟</span>
+          <span class="particle p4">✦</span>
+          <span class="particle p5">✨</span>
+          <span class="particle p6">●</span>
+          <span class="particle p7">●</span>
+          <span class="particle p8">✦</span>
+          <span class="particle p9">✨</span>
+        </div>
         <img src="IMG/PERSONAJE.png" alt="Kusi saludando" class="mascot-img" />
       </div>
 
       <!-- Tarjeta de Login — solo Google -->
       <div class="login-card" role="main">
+
+        <!-- Indicador de pasos (Paso 1 activo) -->
+        <div class="step-indicator">
+          <span class="step active">1</span>
+          <span class="step-line"></span>
+          <span class="step">2</span>
+          <span class="step-line"></span>
+          <span class="step">3</span>
+        </div>
 
         <h2 class="card-title">¡Hola! Soy Kusi</h2>
         <p class="card-subtitle">Vamos a descubrir el Perú juntos.</p>
@@ -95,6 +115,7 @@
       history.pushState(null, '', location.href);
     });
   </script>
+  <script src="js/sound.js"></script>
   <script src="js/login.js"></script>
 </body>
 </html>
