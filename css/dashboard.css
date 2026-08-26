@@ -1,13 +1,14 @@
 /* ================================================================
    KICHAY – Dashboard Styles
-   Boceto de referencia: KICHAY_page-0002.jpg
+   Tipografías Oficiales: Nourd & Balsamiq Sans
 ================================================================ */
+@import url('fonts.css');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
   height: 100%;
-  font-family: "Nunito", "Segoe UI", sans-serif;
+  font-family: 'Nourd', 'Balsamiq Sans', -apple-system, sans-serif;
   background: #fcf6eb;
   color: #2C2523;
   overflow: hidden;
@@ -298,8 +299,9 @@ html, body {
 }
 
 .greeting h1 {
+  font-family: 'Nourd', sans-serif;
   font-size: clamp(26px, 3vw, 36px);
-  font-weight: 900;
+  font-weight: 800;
   color: #2C2523;
   line-height: 1.1;
 }
@@ -307,6 +309,7 @@ html, body {
 .greeting-name { color: #2C2523; }
 
 .greeting p {
+  font-family: 'Balsamiq Sans', 'Nourd', sans-serif;
   font-size: 18px;
   font-weight: 700;
   color: #4A3F38;
@@ -366,8 +369,9 @@ html, body {
 }
 
 .card-label {
-  font-size: 13px;
-  font-weight: 900;
+  font-family: 'Nourd', sans-serif;
+  font-size: 13.5px;
+  font-weight: 800;
   color: #2C2523;
   letter-spacing: 0.5px;
   text-align: center;
@@ -395,6 +399,7 @@ html, body {
 }
 
 .card-pct {
+  font-family: 'Nourd', sans-serif;
   font-size: 12px;
   font-weight: 800;
   color: #9E8E84;
@@ -452,15 +457,17 @@ body.page-exit .content {
 .mission-text { flex: 1; }
 
 .mission-title {
+  font-family: 'Nourd', sans-serif;
   font-size: 20px;
-  font-weight: 900;
+  font-weight: 800;
   color: #2C2523;
   line-height: 1.2;
 }
 
 .mission-sub {
-  font-size: 14px;
-  font-weight: 600;
+  font-family: 'Balsamiq Sans', 'Nourd', sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
   color: #6B5B4E;
   margin-top: 4px;
 }
@@ -471,12 +478,14 @@ body.page-exit .content {
   border: none;
   border-radius: 14px;
   padding: 14px 32px;
-  font-family: inherit;
+  font-family: 'Nourd', sans-serif;
   font-size: 16px;
   font-weight: 800;
   cursor: pointer;
   box-shadow: 0 6px 18px rgba(217,56,30,0.35);
   transition: transform 0.15s, box-shadow 0.15s;
+  letter-spacing: 0.3px;
+}
   flex-shrink: 0;
 }
 

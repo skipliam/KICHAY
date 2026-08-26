@@ -1,12 +1,13 @@
 /* ══════════════════════════════════════════════
    KICHAY — perfil.css
-   Pantalla de perfil centrada con animación cálida y acogedora
+   Tipografías Oficiales: Nourd & Balsamiq Sans
 ══════════════════════════════════════════════ */
+@import url('fonts.css');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Nourd', 'Balsamiq Sans', -apple-system, sans-serif;
   min-height: 100vh;
   overflow: hidden;
   display: flex;
@@ -128,15 +129,18 @@ body {
 
 /* ── Títulos ── */
 .card-title {
+  font-family: 'Nourd', sans-serif;
   font-size: 1.65rem;
-  font-weight: 900;
+  font-weight: 800;
   color: #2C2523;
   text-align: center;
   line-height: 1.2;
 }
 
 .card-sub {
-  font-size: 0.9rem;
+  font-family: 'Balsamiq Sans', 'Nourd', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
   color: #7A7265;
   text-align: center;
   margin-top: -12px;
@@ -151,6 +155,7 @@ body {
 }
 
 .field-group label {
+  font-family: 'Nourd', sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
   color: #4A4036;
@@ -162,9 +167,9 @@ body {
   border: 2px solid #E0D4C4;
   border-radius: 14px;
   background: #fff;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Balsamiq Sans', 'Nourd', sans-serif;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #2C2523;
   outline: none;
   transition: border-color .2s, box-shadow .2s;
@@ -197,8 +202,8 @@ body {
   border-radius: 14px;
   background: #fff;
   cursor: pointer;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.82rem;
+  font-family: 'Balsamiq Sans', 'Nourd', sans-serif;
+  font-size: 0.85rem;
   font-weight: 700;
   color: #4A4036;
   transition: border-color .2s, background .2s, transform .15s;
@@ -234,8 +239,9 @@ body {
   border-radius: 50%;
   border: 2px solid #E0D4C4;
   background: #fff;
+  font-family: 'Nourd', sans-serif;
   font-size: 1.4rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #4A4036;
   cursor: pointer;
   display: flex;
@@ -254,8 +260,9 @@ body {
 .edad-display {
   flex: 1;
   text-align: center;
+  font-family: 'Nourd', sans-serif;
   font-size: 2.2rem;
-  font-weight: 900;
+  font-weight: 800;
   color: #D9381E;
   background: #fff;
   border: 2px solid #E0D4C4;
@@ -265,7 +272,9 @@ body {
 }
 
 .edad-hint {
-  font-size: 0.8rem;
+  font-family: 'Balsamiq Sans', 'Nourd', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
   color: #9E8F84;
   text-align: center;
   margin-top: -4px;
@@ -273,13 +282,14 @@ body {
 
 /* ── Error ── */
 .error-msg {
+  font-family: 'Balsamiq Sans', 'Nourd', sans-serif;
   background: #FFEBEE;
   color: #C62828;
   border: 1.5px solid #FFCDD2;
   border-radius: 10px;
   padding: 10px 14px;
   font-size: 0.88rem;
-  font-weight: 600;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -291,7 +301,7 @@ body {
   border-radius: 16px;
   background: linear-gradient(135deg, #D9381E 0%, #E85D2A 100%);
   color: #fff;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Nourd', sans-serif;
   font-size: 1.05rem;
   font-weight: 800;
   cursor: pointer;
