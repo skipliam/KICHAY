@@ -1,15 +1,14 @@
 ﻿/* ================================================================
-   KICHAY - Login Script
-   Patron: stub global inmediato + import() dinamico de Firebase
+   KICHAY - Login Script v3
+   Patron: stub global + import() dinamico de Firebase
 ================================================================ */
 
-// ── 1. Cola de credenciales (si el clic llega antes que Firebase) ─
-let _pendingCredential = null;
-let _firebaseReady     = false;
-let _procesarLogin     = null;
+// ── 1. Cola de credenciales ───────────────────────────────────────
+var _pendingCredential = null;
+var _firebaseReady     = false;
+var _procesarLogin     = null;
 
-// ── 2. STUB GLOBAL — disponible antes que el SDK de Google ───────
-//    Google llama a esta funcion al hacer clic en "Continuar con Google"
+// ── 2. STUB GLOBAL — Google SDK lo llama al hacer clic ───────────
 window.handleGoogleLogin = function(response) {
   if (_firebaseReady && _procesarLogin) {
     _procesarLogin(response.credential);
@@ -18,96 +17,116 @@ window.handleGoogleLogin = function(response) {
   }
 };
 
-// ── 3. Cargar Firebase como modulo ESM dinamico ──────────────────
-//    (funciona en Vercel/HTTPS, no en file://)
-const firebaseUrl = new URL("./firebase.js", document.currentScript
-  ? document.currentScript.src
-  : location.href).href;
+// ── 3. Resolver URL de firebase.js de forma segura ───────────────
+var _scriptSrc = "";
+var _scripts   = document.querySelectorAll('script[src*="login.js"]');
+if (_scripts.length > 0) {
+  _scriptSrc = _scripts[_scripts.length - 1].src;
+}
+var firebaseUrl = _scriptSrc
+  ? new URL("./firebase.js", _scriptSrc).href
+  : (location.origin + "/js/firebase.js");
 
+// ── 4. Cargar Firebase con import() dinamico ─────────────────────
 import(firebaseUrl).then(function(mod) {
 
   _firebaseReady = true;
 
-  // ── Funcion principal de procesamiento ────────────────────────
-  _procesarLogin = async function(credential) {
-    const btnWrap = document.querySelector(".google-btn-wrap");
-    if (btnWrap) { btnWrap.style.opacity = "0.6"; btnWrap.style.pointerEvents = "none"; }
-
-    try {
-      // Autenticar con Firebase Auth
-      const googleCred = mod.GoogleAuthProvider.credential(credential);
-      const userCred   = await mod.signInWithCredential(mod.auth, googleCred);
-      const fbUser     = userCred.user;
-
-      sessionStorage.setItem("kichay_uid", fbUser.uid);
-
-      // Buscar o crear usuario en Firestore
-      let datosFS = await mod.obtenerUsuario(fbUser.uid);
-
-      if (!datosFS) {
-        await mod.crearUsuario(fbUser.uid, {
-          email:    fbUser.email         || "",
-          nombre:   fbUser.displayName   || "Explorador",
-          photoURL: fbUser.photoURL      || ""
-        });
-        datosFS = await mod.obtenerUsuario(fbUser.uid);
-      }
-
-      const nombre = datosFS.nombre || fbUser.displayName || "Explorador";
-      sessionStorage.setItem("kichay_user", nombre);
-
-      if (datosFS.perfilCompleto) {
-        // Usuario existente: actualizar racha y ir al dashboard
-        var nuevaRacha = await mod.actualizarAcceso(
-          fbUser.uid,
-          datosFS.racha        || 0,
-          datosFS.ultimoAcceso || null
-        );
-        sessionStorage.setItem("kichay_racha",           nuevaRacha);
-        sessionStorage.setItem("kichay_intis",           datosFS.intis || 0);
-        sessionStorage.setItem("kichay_perfil_completo", "1");
-        document.body.classList.add("page-exit");
-        setTimeout(function() { window.location.href = "dashboard.html"; }, 420);
-      } else {
-        // Usuario nuevo: ir a completar perfil
-        document.body.classList.add("page-exit");
-        setTimeout(function() { window.location.href = "completar-perfil.html"; }, 420);
-      }
-
-    } catch (err) {
-      console.error("[KICHAY] Error login:", err);
-      if (btnWrap) { btnWrap.style.opacity = ""; btnWrap.style.pointerEvents = ""; }
-
-      var msg = "Error al iniciar sesion. Intenta de nuevo.";
-      if (err.code === "auth/unauthorized-domain")       msg = "Dominio no autorizado en Firebase. Revisa la configuracion.";
-      else if (err.code === "auth/network-request-failed") msg = "Sin conexion. Verifica tu red e intenta de nuevo.";
-      else if (err.code === "auth/popup-blocked")         msg = "El navegador bloqueo el popup. Permite ventanas emergentes.";
-      mostrarErrorLogin(msg);
+  _procesarLogin = function(credential) {
+    var btnWrap = document.querySelector(".google-btn-wrap");
+    if (btnWrap) {
+      btnWrap.style.opacity       = "0.6";
+      btnWrap.style.pointerEvents = "none";
     }
+
+    // Autenticar con Firebase
+    var googleCred = mod.GoogleAuthProvider.credential(credential);
+    mod.signInWithCredential(mod.auth, googleCred)
+      .then(function(userCred) {
+        var fbUser = userCred.user;
+        sessionStorage.setItem("kichay_uid", fbUser.uid);
+        return mod.obtenerUsuario(fbUser.uid).then(function(datosFS) {
+          if (!datosFS) {
+            return mod.crearUsuario(fbUser.uid, {
+              email:    fbUser.email         || "",
+              nombre:   fbUser.displayName   || "Explorador",
+              photoURL: fbUser.photoURL      || ""
+            }).then(function() {
+              return mod.obtenerUsuario(fbUser.uid);
+            });
+          }
+          return datosFS;
+        }).then(function(datosFS) {
+          var nombre = datosFS.nombre || fbUser.displayName || "Explorador";
+          sessionStorage.setItem("kichay_user", nombre);
+
+          if (datosFS.perfilCompleto) {
+            return mod.actualizarAcceso(
+              fbUser.uid,
+              datosFS.racha        || 0,
+              datosFS.ultimoAcceso || null
+            ).then(function(nuevaRacha) {
+              sessionStorage.setItem("kichay_racha",           nuevaRacha);
+              sessionStorage.setItem("kichay_intis",           datosFS.intis || 0);
+              sessionStorage.setItem("kichay_perfil_completo", "1");
+              document.body.classList.add("page-exit");
+              setTimeout(function() { window.location.href = "dashboard.html"; }, 420);
+            });
+          } else {
+            document.body.classList.add("page-exit");
+            setTimeout(function() { window.location.href = "completar-perfil.html"; }, 420);
+          }
+        });
+      })
+      .catch(function(err) {
+        console.error("[KICHAY] Error Firebase:", err.code, err.message);
+
+        if (btnWrap) {
+          btnWrap.style.opacity       = "";
+          btnWrap.style.pointerEvents = "";
+        }
+
+        var msg;
+        var code = err.code || "";
+
+        if (code === "auth/unauthorized-domain") {
+          msg = "Dominio no autorizado. Ve a Google Cloud Console > OAuth 2.0 > Authorized origins y agrega este dominio.";
+        } else if (code === "auth/network-request-failed") {
+          msg = "Sin conexion a internet. Verifica tu red.";
+        } else if (code === "auth/invalid-credential" || code === "auth/invalid-id-token") {
+          msg = "Token invalido. Recarga la pagina e intenta de nuevo.";
+        } else if (code === "auth/popup-blocked") {
+          msg = "Popup bloqueado. Permite ventanas emergentes en tu navegador.";
+        } else {
+          msg = "Error (" + (code || "desconocido") + "): " + (err.message || "Intenta de nuevo.");
+        }
+        mostrarErrorLogin(msg);
+      });
   };
 
-  // Si habia credencial encolada, procesarla ya
+  // Procesar credencial encolada si existia
   if (_pendingCredential) {
     _procesarLogin(_pendingCredential);
     _pendingCredential = null;
   }
 
 }).catch(function(err) {
-  console.error("[KICHAY] Error al cargar Firebase:", err);
-  mostrarErrorLogin("Error al cargar la app. Recarga la pagina.");
+  console.error("[KICHAY] Error cargando firebase.js:", err);
+  mostrarErrorLogin("Error cargando Firebase: " + err.message + ". Recarga la pagina.");
 });
 
-// ── 4. Helper: mostrar error visible en la tarjeta de login ──────
+// ── 5. Mostrar error en tarjeta ──────────────────────────────────
 function mostrarErrorLogin(msg) {
   var errEl = document.getElementById("login-error");
   if (!errEl) {
     errEl = document.createElement("p");
     errEl.id = "login-error";
     errEl.style.cssText = [
-      "margin-top:10px", "font-size:12px", "font-weight:700",
+      "margin-top:10px", "font-size:11px", "font-weight:700",
       "color:#C62828", "background:#FFEBEE",
       "border:1.5px solid #FFCDD2", "border-radius:10px",
-      "padding:8px 12px", "text-align:center", "display:block"
+      "padding:8px 12px", "text-align:center",
+      "display:block", "line-height:1.4", "word-break:break-word"
     ].join(";");
     var card = document.querySelector(".login-card");
     if (card) card.appendChild(errEl);
@@ -115,7 +134,7 @@ function mostrarErrorLogin(msg) {
   errEl.textContent = msg;
 }
 
-// ── 5. Modo prueba local (file://) ───────────────────────────────
+// ── 6. Modo local (file://) ──────────────────────────────────────
 document.addEventListener("DOMContentLoaded", function() {
   if (window.location.protocol === "file:") {
     var btnWrap = document.querySelector(".google-btn-wrap");
