@@ -333,11 +333,10 @@ body.page-exit .login-card {
     transform: none !important;
     animation: logoEnterMobile 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
     width: 100%;
-    margin: 0 auto 6px !important;
+    margin: 0 auto 4px !important;
     display: flex;
-    flex-direction: column;
-    align-items: center !important;
     justify-content: center !important;
+    align-items: center !important;
     text-align: center !important;
   }
 
@@ -346,29 +345,11 @@ body.page-exit .login-card {
     100% { opacity: 1; transform: translateY(0) scale(1); }
   }
 
-  .logo-rays {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    width: 100%;
-  }
-
-  .logo-text {
-    font-size: clamp(34px, 9vw, 46px);
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 0 #7B241C, -1px -1px 0 #E74C3C;
-  }
-
-  .ray-line:nth-child(1) { width: 18px; height: 2.5px; }
-  .ray-line:nth-child(2) { width: 12px; height: 2.5px; }
-  .ray-line:nth-child(3) { width: 8px;  height: 2.5px; }
-
-  .logo-subtitle {
-    font-size: 13px;
-    text-align: center !important;
-    padding-left: 0 !important;
-    margin-top: -2px;
+  .logo-img {
+    width: clamp(170px, 50vw, 230px);
+    max-height: 75px;
+    height: auto;
+    object-fit: contain;
   }
 
   /* Contenedor central en columna alineado */

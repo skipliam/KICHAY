@@ -46,30 +46,24 @@ html, body {
    SIDEBAR – Logo
 ══════════════════════════════════════════════ */
 .sidebar-logo {
-  padding: 20px 16px 14px;
+  padding: 16px 16px 14px;
   border-bottom: 1px solid #EDE8E0;
 }
 
-.logo-rays-small {
+.sidebar-logo-link {
   display: flex;
   align-items: center;
-  gap: 6px;
+  text-decoration: none;
 }
 
-.logo-text-sm {
-  font-size: 22px;
-  font-weight: 900;
-  color: #C0392B;
-  font-style: italic;
-  letter-spacing: 1px;
-  text-shadow: 1.5px 1.5px 0 #7B241C;
+.sidebar-logo-img {
+  width: 140px;
+  max-width: 100%;
+  height: auto;
+  max-height: 48px;
+  object-fit: contain;
+  display: block;
 }
-
-.ray-sm { display: flex; flex-direction: column; gap: 3px; }
-.ray-sm-left { transform: rotate(180deg); }
-.rl { height: 2px; background: #F39C12; border-radius: 2px; }
-.rl:nth-child(1) { width: 14px; }
-.rl:nth-child(2) { width: 9px; }
 
 /* ══════════════════════════════════════════════
    SIDEBAR – Nav
