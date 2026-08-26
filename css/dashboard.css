@@ -19,9 +19,11 @@ html, body {
 ══════════════════════════════════════════════ */
 .sidebar {
   position: fixed;
-  top: 0; left: 0; bottom: 0;
-  width: 220px;
-  background: #fcf6eb;
+  top: 0;
+  left: 0;
+  width: 236px;
+  height: 100vh;
+  background: #FCF7EE;
   border-right: 1px solid #EDE8E0;
   display: flex;
   flex-direction: column;
@@ -36,7 +38,7 @@ html, body {
 }
 
 .main-wrap {
-  margin-left: 220px;
+  margin-left: 236px;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -47,7 +49,7 @@ html, body {
    SIDEBAR – Logo
 ══════════════════════════════════════════════ */
 .sidebar-logo {
-  padding: 22px 14px 20px;
+  padding: 22px 10px 18px;
   border-bottom: 1px solid #EDE8E0;
   display: flex;
   align-items: center;
@@ -71,10 +73,10 @@ html, body {
 }
 
 .sidebar-logo-img {
-  width: 195px;
-  max-width: 90%;
+  width: 215px;
+  max-width: 96%;
   height: auto;
-  max-height: 72px;
+  max-height: 84px;
   object-fit: contain;
   display: block;
   margin: 0 auto;

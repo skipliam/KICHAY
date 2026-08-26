@@ -163,16 +163,24 @@ window.ejecutarAccionMision = function() {
     var misionesReclamadas = JSON.parse(sessionStorage.getItem("kichay_misiones_reclamadas") || "{}");
     misionesReclamadas[mision.id] = true;
     sessionStorage.setItem("kichay_misiones_reclamadas", JSON.stringify(misionesReclamadas));
+    localStorage.setItem("kichay_misiones_reclamadas", JSON.stringify(misionesReclamadas));
+    localStorage.setItem("kichay_intis", String(nuevosIntis));
 
-    if (window._firebaseMod && window._firebaseAuth && window._firebaseAuth.currentUser) {
-      var uid = window._firebaseAuth.currentUser.uid;
-      window._firebaseMod.actualizarProgreso(uid, {
+    var uid = sessionStorage.getItem("kichay_uid") || (window._firebaseAuth && window._firebaseAuth.currentUser && window._firebaseAuth.currentUser.uid);
+    if (window._firebaseMod && uid && window._firebaseMod.guardarProgresoUsuario) {
+      window._firebaseMod.guardarProgresoUsuario(uid, {
         intis: nuevosIntis,
         misionesReclamadas: misionesReclamadas
-      }).catch(function(e) { console.warn("[KICHAY] Error guardando recompensa:", e); });
+      }).then(function() {
+        console.log("[KICHAY] ¡Recompensa de misión guardada permanentemente en Firestore!");
+      }).catch(function(e) {
+        console.warn("[KICHAY] Error guardando recompensa en Firestore:", e);
+      });
     }
 
-    if (window.SoundEffects) window.SoundEffects.playVictory();
+    if (window.KichaySound && typeof window.KichaySound.playChime === "function") {
+      window.KichaySound.playChime();
+    }
 
     var tagEl   = document.getElementById("missionBannerTag");
     var titleEl = document.getElementById("missionBannerTitle");
