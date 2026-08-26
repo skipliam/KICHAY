@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KICHAY – Inicio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       SIDEBAR
+  ══════════════════════════════════════════════ -->
+  <aside class="sidebar">
+
+    <!-- Logo -->
+    <div class="sidebar-logo">
+      <div class="logo-rays-small">
+        <div class="ray-sm ray-sm-left"><div class="rl"></div><div class="rl"></div></div>
+        <span class="logo-text-sm">KICHAY</span>
+        <div class="ray-sm ray-sm-right"><div class="rl"></div><div class="rl"></div></div>
+      </div>
+    </div>
+
+    <!-- Nav grupo 1: Aprendizaje -->
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="nav-item active">
+        <span class="nav-icon" style="background:#FFF3E0;">🏠</span>
+        Inicio
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon" style="background:#EDE7F6;">🏛️</span>
+        Historia
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon" style="background:#E8F5E9;">🐾</span>
+        Flora y Fauna
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon" style="background:#FFF3E0;">🍲</span>
+        Gastronomía
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon" style="background:#FFEBEE;">🪶</span>
+        Cultura
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon" style="background:#E1F5FE;">🧳</span>
+        Turismo
+      </a>
+
+      <div class="nav-divider"></div>
+
+      <a href="#" class="nav-item">
+        <span class="nav-icon" style="background:#F9FBE7;">🚜</span>
+        Granja del Sol
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon" style="background:#FFF8E1;">🛒</span>
+        Tienda
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon" style="background:#FFF8E1;">🏆</span>
+        Logros
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon" style="background:#F3E5F5;">🐰</span>
+        Mascota
+      </a>
+
+      <div class="nav-divider"></div>
+
+      <a href="#" class="nav-item">
+        <span class="nav-icon" style="background:#ECEFF1;">👤</span>
+        Perfil
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon" style="background:#ECEFF1;">⚙️</span>
+        Ajustes
+      </a>
+      <a href="index.html" class="nav-item nav-logout" id="logoutBtn">
+        <span class="nav-icon" style="background:#FFEBEE;">🚪</span>
+        Cerrar sesión
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ══════════════════════════════════════════
+       CONTENIDO PRINCIPAL
+  ══════════════════════════════════════════════ -->
+  <div class="main-wrap">
+
+    <!-- ── TOP BAR ─────────────────────────────── -->
+    <header class="topbar">
+
+      <!-- HUD izquierdo: racha + intis -->
+      <div class="hud-left">
+        <div class="hud-stat">
+          <span class="hud-icon">🔥</span>
+          <div>
+            <span class="hud-value">143</span>
+            <span class="hud-label">DÍAS DE RACHA</span>
+          </div>
+        </div>
+        <div class="hud-stat">
+          <span class="hud-icon hud-coin">🪙</span>
+          <div>
+            <span class="hud-value">420</span>
+            <span class="hud-label">INTIS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- HUD derecho: Kusi IA + nivel + avatar -->
+      <div class="hud-right">
+        <img src="IMG/PERSONAJE.png" alt="Kusi" class="topbar-kusi" />
+        <div class="kusi-info">
+          <span class="kusi-name">Kusi IA</span>
+          <span class="kusi-level">Nivel 5</span>
+          <div class="kusi-bar-wrap">
+            <div class="kusi-bar"><div class="kusi-bar-fill" style="width:60%"></div></div>
+            <span class="kusi-pct">60%</span>
+          </div>
+        </div>
+        <div class="topbar-avatar">
+          <span id="avatar-initial">U</span>
+        </div>
+      </div>
+
+    </header>
+
+    <!-- ── ÁREA PRINCIPAL ─────────────────────── -->
+    <main class="content" style="background-image: url('IMG/FONDOPRINCIPAL.jpeg');">
+
+      <!-- Saludo -->
+      <div class="greeting">
+        <h1>¡Hola, <span id="nombre-usuario" class="greeting-name">Explorador</span>!</h1>
+        <p>¿Qué aprenderemos hoy?</p>
+      </div>
+
+      <!-- Tarjetas de materias -->
+      <div class="cards-grid">
+
+        <!-- Historia -->
+        <div class="subject-card" style="--card-color:#5E2CA5; --card-bg:#EDE7F6;">
+          <div class="card-icon" style="background:#5E2CA5;">🏛️</div>
+          <span class="card-label">HISTORIA</span>
+          <div class="card-progress-wrap">
+            <div class="card-progress-bar">
+              <div class="card-progress-fill" style="width:60%; background:#5E2CA5;"></div>
+            </div>
+            <span class="card-pct">60%</span>
+          </div>
+        </div>
+
+        <!-- Fauna y Flora -->
+        <div class="subject-card" style="--card-color:#1E7E34; --card-bg:#E8F5E9;">
+          <div class="card-icon" style="background:#1E7E34;">🐾</div>
+          <span class="card-label">FAUNA Y FLORA</span>
+          <div class="card-progress-wrap">
+            <div class="card-progress-bar">
+              <div class="card-progress-fill" style="width:40%; background:#1E7E34;"></div>
+            </div>
+            <span class="card-pct">40%</span>
+          </div>
+        </div>
+
+        <!-- Gastronomía -->
+        <div class="subject-card" style="--card-color:#E67E22; --card-bg:#FFF3E0;">
+          <div class="card-icon" style="background:#E67E22;">🍲</div>
+          <span class="card-label">GASTRONOMÍA</span>
+          <div class="card-progress-wrap">
+            <div class="card-progress-bar">
+              <div class="card-progress-fill" style="width:30%; background:#E67E22;"></div>
+            </div>
+            <span class="card-pct">30%</span>
+          </div>
+        </div>
+
+        <!-- Cultura -->
+        <div class="subject-card" style="--card-color:#D9381E; --card-bg:#FFEBEE;">
+          <div class="card-icon" style="background:#D9381E;">🪶</div>
+          <span class="card-label">CULTURA</span>
+          <div class="card-progress-wrap">
+            <div class="card-progress-bar">
+              <div class="card-progress-fill" style="width:20%; background:#D9381E;"></div>
+            </div>
+            <span class="card-pct">20%</span>
+          </div>
+        </div>
+
+        <!-- Turismo -->
+        <div class="subject-card" style="--card-color:#0088CC; --card-bg:#E1F5FE;">
+          <div class="card-icon" style="background:#0088CC;">🧳</div>
+          <span class="card-label">TURISMO</span>
+          <div class="card-progress-wrap">
+            <div class="card-progress-bar">
+              <div class="card-progress-fill" style="width:50%; background:#0088CC;"></div>
+            </div>
+            <span class="card-pct">50%</span>
+          </div>
+        </div>
+
+      </div><!-- /cards-grid -->
+
+      <!-- Banner misión de Kusi -->
+      <div class="mission-banner">
+        <img src="IMG/PERSONAJE.png" alt="Kusi" class="mission-kusi" />
+        <div class="mission-text">
+          <p class="mission-title">Kusi tiene una misión para ti</p>
+          <p class="mission-sub">¡Completa retos y gana INTIS!</p>
+        </div>
+        <button class="btn-comenzar">Comenzar</button>
+      </div>
+
+    </main>
+  </div><!-- /main-wrap -->
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
