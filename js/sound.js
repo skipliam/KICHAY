@@ -1,6 +1,6 @@
 /* ═════════════════════════════════════════════════════════════════════
    KICHAY — Efectos de Sonido Armoniosos y Relajantes
-   Generados con Web Audio API (Cálidos, nostálgicos y pacíficos)
+   Generados con Web Audio API (Suaves, aterciopelados y pacíficos)
 ═════════════════════════════════════════════════════════════════════ */
 
 (function () {
@@ -20,8 +20,8 @@
   }
 
   /**
-   * Sonido de Click Pacífico (Campana de viento / Kalimba andina)
-   * Tono cálido con armónicos suaves y caída exponencial que transmite paz
+   * Sonido de Click Pacífico — Volumen bajo y aterciopelado
+   * Tono cálido tipo gota de cristal / madera suave que transmite paz
    */
   function playPeacefulClick(pitchFactor = 1.0) {
     try {
@@ -29,36 +29,36 @@
       if (!ctx) return;
 
       const now = ctx.currentTime;
-      const baseFreq = 587.33 * pitchFactor; // Nota D5 (Re) nostálgica y dulce
+      const baseFreq = 659.25 * pitchFactor; // E5 (Mi) dulce y relajante
 
-      // Oscilador principal ( fundamental suave )
+      // Oscilador principal seno puro
       const osc1 = ctx.createOscillator();
       osc1.type = 'sine';
       osc1.frequency.setValueAtTime(baseFreq, now);
-      osc1.frequency.exponentialRampToValueAtTime(baseFreq * 0.98, now + 0.35);
+      osc1.frequency.exponentialRampToValueAtTime(baseFreq * 0.98, now + 0.28);
 
-      // Oscilador armónico dulce ( octava suave + quinta )
+      // Oscilador armónico muy sutil
       const osc2 = ctx.createOscillator();
       osc2.type = 'triangle';
       osc2.frequency.setValueAtTime(baseFreq * 2.0, now);
-      osc2.frequency.exponentialRampToValueAtTime(baseFreq * 1.96, now + 0.25);
+      osc2.frequency.exponentialRampToValueAtTime(baseFreq * 1.95, now + 0.18);
 
-      // Filtro paso bajo para calidez analógica
+      // Filtro paso bajo para máxima suavidad analógica
       const filter = ctx.createBiquadFilter();
       filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(2400, now);
-      filter.frequency.exponentialRampToValueAtTime(800, now + 0.4);
+      filter.frequency.setValueAtTime(1800, now);
+      filter.frequency.exponentialRampToValueAtTime(600, now + 0.3);
 
-      // Envolvente de ganancia (ataque suave, resonancia y desvanecimiento)
+      // Envolvente de ganancia sutil (volumen bajo y elegante)
       const gain1 = ctx.createGain();
       gain1.gain.setValueAtTime(0.0001, now);
-      gain1.gain.linearRampToValueAtTime(0.18, now + 0.015);
-      gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.5);
+      gain1.gain.linearRampToValueAtTime(0.065, now + 0.012); // Volumen suave
+      gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.35);
 
       const gain2 = ctx.createGain();
       gain2.gain.setValueAtTime(0.0001, now);
-      gain2.gain.linearRampToValueAtTime(0.06, now + 0.012);
-      gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
+      gain2.gain.linearRampToValueAtTime(0.018, now + 0.010);
+      gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.2);
 
       // Conexiones de audio
       osc1.connect(gain1);
@@ -69,24 +69,22 @@
 
       osc1.start(now);
       osc2.start(now);
-      osc1.stop(now + 0.55);
-      osc2.stop(now + 0.35);
-    } catch (e) {
-      console.warn("Audio click no disponible aún:", e);
-    }
+      osc1.stop(now + 0.38);
+      osc2.stop(now + 0.22);
+    } catch (e) {}
   }
 
   /**
-   * Acorde Arpegiado Armonioso para botones de acción principal (Continuar / Comenzar)
+   * Acorde Arpegiado Armonioso y Nostálgico para acciones de avance
    */
   function playHarmoniousChime() {
     try {
       const ctx = getAudioContext();
       if (!ctx) return;
 
-      const notes = [587.33, 739.99, 880.00, 1174.66]; // D5, F#5, A5, D6 (Acorde Re Mayor celestial)
+      const notes = [587.33, 739.99, 880.00, 1174.66]; // Re Mayor celestial
       notes.forEach((freq, index) => {
-        const delay = index * 0.07;
+        const delay = index * 0.065;
         setTimeout(() => {
           try {
             const now = ctx.currentTime;
@@ -98,18 +96,18 @@
             osc.frequency.setValueAtTime(freq, now);
 
             filter.type = 'lowpass';
-            filter.frequency.setValueAtTime(3200, now);
+            filter.frequency.setValueAtTime(2600, now);
 
             gain.gain.setValueAtTime(0.0001, now);
-            gain.gain.linearRampToValueAtTime(0.14 - (index * 0.02), now + 0.02);
-            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
+            gain.gain.linearRampToValueAtTime(0.055 - (index * 0.008), now + 0.015);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.6);
 
             osc.connect(gain);
             gain.connect(filter);
             filter.connect(ctx.destination);
 
             osc.start(now);
-            osc.stop(now + 0.75);
+            osc.stop(now + 0.65);
           } catch (err) {}
         }, delay * 1000);
       });

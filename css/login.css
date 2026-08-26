@@ -1,6 +1,6 @@
 /* ================================================================
    KICHAY – Login Page Styles
-   Boceto de referencia: KICHAY_page-0001.jpg
+   Efectos de Transición: Entrada cinematográfica y salida elegante
 ================================================================ */
 
 *, *::before, *::after {
@@ -13,7 +13,7 @@ html, body {
   width: 100%;
   height: 100%;
   font-family: "Nunito", "Segoe UI", sans-serif;
-  background: #000;
+  background: #110d0b;
   overflow: hidden;
 }
 
@@ -26,7 +26,7 @@ html, body {
   justify-content: center;
 }
 
-/* ── Fondo completo ─────────────────────────────────────────── */
+/* ── Fondo completo con animación de entrada ─────────────────── */
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -35,6 +35,12 @@ html, body {
   background-position: center;
   background-repeat: no-repeat;
   z-index: 0;
+  animation: heroBgEnter 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes heroBgEnter {
+  0%   { opacity: 0; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 /* ── Logo KICHAY centrado arriba ────────────────────────────── */
@@ -50,6 +56,12 @@ html, body {
   text-align: center;
   gap: 4px;
   user-select: none;
+  animation: logoEnter 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+@keyframes logoEnter {
+  0%   { opacity: 0; transform: translate(-50%, -35px) scale(0.92); }
+  100% { opacity: 1; transform: translate(-50%, 0) scale(1); }
 }
 
 .logo-rays {
@@ -101,13 +113,19 @@ html, body {
   padding: 0 20px;
 }
 
-/* ── Personaje Kusi ─────────────────────────────────────────── */
+/* ── Personaje Kusi con animación de entrada ─────────────────── */
 .mascot-wrap {
   position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
   height: 100%;
+  animation: mascotEnter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+@keyframes mascotEnter {
+  0%   { opacity: 0; transform: translateY(110px) scale(0.9); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .mascot-img {
@@ -132,6 +150,12 @@ html, body {
   inset: 0;
   pointer-events: none;
   z-index: 3;
+  animation: fadeIn 1.5s ease 0.5s both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .particle {
@@ -170,7 +194,7 @@ html, body {
 .p8 { top: 10%; left: 52%; font-size: 20px; animation-duration: 3.9s; animation-delay: 1.7s; color: #FFF9C4; }
 .p9 { top: 70%; right: 16%; font-size: 24px; animation-duration: 3.4s; animation-delay: 1.2s; color: #FFD700; }
 
-/* ── Tarjeta de Login (compacta, solo Google) ───────────────── */
+/* ── Tarjeta de Login con animación de entrada ──────────────── */
 .login-card {
   align-self: center;
   flex: 0 0 360px;
@@ -187,6 +211,13 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  animation: cardEnter 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+}
+
+@keyframes cardEnter {
+  0%   { opacity: 0; transform: translateX(65px) scale(0.92); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
 }
 
 /* ── Indicador de pasos ─────────────────────────────────────── */
@@ -272,6 +303,33 @@ html, body {
   line-height: 1.4;
 }
 
+/* ══════════════════════════════════════════════════════════════
+   EFECTOS DE SALIDA (Desaparición al pasar de sección)
+══════════════════════════════════════════════════════════════ */
+body.page-exit .hero-bg {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+  transform: scale(1.08);
+  opacity: 0.2;
+}
+
+body.page-exit .logo-wrap {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+  transform: translate(-50%, -50px) scale(0.9);
+  opacity: 0;
+}
+
+body.page-exit .mascot-wrap {
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease;
+  transform: translateX(-90px) scale(0.93);
+  opacity: 0;
+}
+
+body.page-exit .login-card {
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease;
+  transform: translateX(90px) scale(0.93);
+  opacity: 0;
+}
+
 /* ── Responsividad para pantallas pequeñas ─────────────────── */
 @media (max-width: 860px) {
   .hero-content {
@@ -294,6 +352,6 @@ html, body {
   }
   .logo-wrap {
     top: 20px;
-    left: 20px;
+    left: 50%;
   }
 }

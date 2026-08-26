@@ -26,6 +26,12 @@ html, body {
   flex-direction: column;
   z-index: 200;
   overflow-y: auto;
+  animation: sidebarEnter 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes sidebarEnter {
+  from { transform: translateX(-100%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
 }
 
 .main-wrap {
@@ -130,6 +136,12 @@ html, body {
   padding: 0 28px;
   gap: 24px;
   flex-shrink: 0;
+  animation: topbarEnter 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+@keyframes topbarEnter {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
 }
 
 /* HUD izquierdo */
@@ -283,6 +295,12 @@ html, body {
 ══════════════════════════════════════════════ */
 .greeting {
   margin-bottom: 24px;
+  animation: greetingEnter 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+}
+
+@keyframes greetingEnter {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .greeting h1 {
@@ -323,6 +341,18 @@ html, body {
   cursor: pointer;
   transition: transform 0.18s, box-shadow 0.18s;
   box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  animation: cardPopIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.cards-grid .subject-card:nth-child(1) { animation-delay: 0.25s; }
+.cards-grid .subject-card:nth-child(2) { animation-delay: 0.32s; }
+.cards-grid .subject-card:nth-child(3) { animation-delay: 0.39s; }
+.cards-grid .subject-card:nth-child(4) { animation-delay: 0.46s; }
+.cards-grid .subject-card:nth-child(5) { animation-delay: 0.53s; }
+
+@keyframes cardPopIn {
+  0%   { opacity: 0; transform: translateY(28px) scale(0.92); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .subject-card:hover {
@@ -389,6 +419,33 @@ html, body {
   gap: 20px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
   border: 1px solid #EDE8E0;
+  animation: bannerEnter 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.58s both;
+}
+
+@keyframes bannerEnter {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════════════
+   EFECTO DE SALIDA (Logout / transición)
+══════════════════════════════════════════════ */
+body.page-exit .sidebar {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+body.page-exit .topbar {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+body.page-exit .content {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  transform: scale(0.96);
+  opacity: 0;
 }
 
 .mission-kusi {

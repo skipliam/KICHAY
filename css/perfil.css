@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════════
    KICHAY — perfil.css
-   Pantalla de configuración de perfil (Centrada)
+   Pantalla de perfil centrada con animación cálida y acogedora
 ══════════════════════════════════════════════ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,19 +14,26 @@ body {
   justify-content: center;
   padding: 24px;
   position: relative;
+  background: #181411;
 }
 
-/* ── Fondo con ligero desenfoque ── */
+/* ── Fondo con enfoque cinematográfico ── */
 .hero-bg {
   position: fixed;
-  inset: -12px;
+  inset: -16px;
   background: url('../IMG/FONDOPERFIL.jpg') center center / cover no-repeat;
   filter: blur(4px);
   transform: scale(1.03);
   z-index: 0;
+  animation: perfilBgEnter 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* ── Tarjeta centrada ── */
+@keyframes perfilBgEnter {
+  0%   { filter: blur(16px); opacity: 0; transform: scale(1.09); }
+  100% { filter: blur(4px); opacity: 1; transform: scale(1.03); }
+}
+
+/* ── Tarjeta centrada con efecto Pop Flotante ── */
 .card-wrap {
   position: relative;
   z-index: 3;
@@ -43,11 +50,35 @@ body {
   padding: 38px 40px 42px;
   width: 100%;
   max-width: 440px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.24), 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.26), 0 2px 8px rgba(0,0,0,0.1);
   border: 1.5px solid rgba(255,255,255,0.9);
   display: flex;
   flex-direction: column;
   gap: 20px;
+  animation: perfilCardEnter 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+@keyframes perfilCardEnter {
+  0%   { opacity: 0; transform: translateY(45px) scale(0.88); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Animaciones en cascada suaves para los elementos del formulario ── */
+.card > * {
+  animation: itemFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.card > :nth-child(1) { animation-delay: 0.22s; }
+.card > :nth-child(2) { animation-delay: 0.28s; }
+.card > :nth-child(3) { animation-delay: 0.34s; }
+.card > :nth-child(4) { animation-delay: 0.40s; }
+.card > :nth-child(5) { animation-delay: 0.46s; }
+.card > :nth-child(6) { animation-delay: 0.52s; }
+.card > :nth-child(7) { animation-delay: 0.58s; }
+.card > :nth-child(8) { animation-delay: 0.64s; }
+
+@keyframes itemFadeUp {
+  0%   { opacity: 0; transform: translateY(14px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 /* ── Indicador de pasos ── */
@@ -276,6 +307,22 @@ body {
 
 .btn-continuar:active {
   transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   EFECTOS DE SALIDA (Desaparición hacia el Dashboard)
+══════════════════════════════════════════════════════════════ */
+body.page-exit .hero-bg {
+  transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+  opacity: 0.2;
+  transform: scale(1.08);
+  filter: blur(10px);
+}
+
+body.page-exit .card {
+  transition: transform 0.48s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease;
+  transform: translateY(-40px) scale(0.92);
+  opacity: 0;
 }
 
 /* ── Responsive ── */

@@ -1,4 +1,4 @@
-﻿/* ================================================================
+/* ================================================================
    KICHAY – Dashboard Script
 ================================================================ */
 
@@ -10,13 +10,17 @@ const avatarEl = document.getElementById("avatar-initial");
 if (nombreEl) nombreEl.textContent = nombre;
 if (avatarEl) avatarEl.textContent = nombre.charAt(0).toUpperCase();
 
-// ── Cerrar sesión ──────────────────────────────────────────────
+// ── Cerrar sesión con transición ──────────────────────────────
 const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", (e) => {
     e.preventDefault();
+    document.body.classList.add("page-exit");
     sessionStorage.removeItem("kichay_user");
-    window.location.href = "index.html";
+    sessionStorage.removeItem("kichay_perfil_completo");
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 400);
   });
 }
 

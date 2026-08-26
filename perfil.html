@@ -139,8 +139,13 @@
       sessionStorage.setItem('kichay_edad',  edadActual);
       sessionStorage.setItem('kichay_perfil_completo', '1');
 
-      // Ir al dashboard
-      window.location.href = 'dashboard.html';
+      // Animación suave de salida
+      document.body.classList.add('page-exit');
+
+      // Ir al dashboard tras la transición
+      setTimeout(() => {
+        window.location.href = 'dashboard.html';
+      }, 450);
     }
 
     function mostrarError(msg) {

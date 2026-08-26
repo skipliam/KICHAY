@@ -2,15 +2,21 @@
    KICHAY – Login Script
 ================================================================ */
 
-// ── Ir al perfil (siguiente paso después del login) ────────────
+// ── Ir al perfil con transición cinematográfica de salida ──────
 function pasarAlDashboard(nombre) {
   sessionStorage.setItem("kichay_user", nombre || "Explorador");
-  // Si ya completó el perfil antes, ir directo al dashboard
-  if (sessionStorage.getItem("kichay_perfil_completo")) {
-    window.location.href = "dashboard.html";
-  } else {
-    window.location.href = "perfil.html";
-  }
+  
+  // Activar efecto de salida visual
+  document.body.classList.add("page-exit");
+
+  setTimeout(() => {
+    // Si ya completó el perfil antes, ir directo al dashboard
+    if (sessionStorage.getItem("kichay_perfil_completo")) {
+      window.location.href = "dashboard.html";
+    } else {
+      window.location.href = "perfil.html";
+    }
+  }, 420);
 }
 
 // ── Login con formulario (email + contraseña) ──────────────────
