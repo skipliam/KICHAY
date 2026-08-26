@@ -107,15 +107,15 @@ html, body {
 .mascot-img {
   position: relative;
   z-index: 2;
-  width: clamp(400px, 44vw, 680px);
-  max-height: 88vh;
+  width: clamp(480px, 48vw, 850px);
+  max-height: 94vh;
   object-fit: contain;
   object-position: bottom center;
   filter: drop-shadow(0 15px 35px rgba(0,0,0,0.25));
   display: block;
   pointer-events: none;
   background: transparent;
-  transform: scale(1.14);
+  transform: scale(1.38);
   transform-origin: bottom center;
 }
 
@@ -415,14 +415,15 @@ body.page-exit .login-card {
   .mascot-video,
   .mascot-img {
     width: auto;
-    max-width: 220px;
-    max-height: 24vh;
-    min-height: 140px;
+    max-width: 270px;
+    max-height: 28vh;
+    min-height: 160px;
     object-fit: contain;
     margin: 0 auto;
     display: block;
     filter: drop-shadow(0 10px 24px rgba(0,0,0,0.22));
-    transform: none;
+    transform: scale(1.15);
+    transform-origin: bottom center;
   }
 
   .particle {
