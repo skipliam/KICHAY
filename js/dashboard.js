@@ -10,11 +10,12 @@ function setEl(id, value) {
 }
 
 function poblarDashboard(datos, racha) {
-  var nombre = datos.nombre || "Explorador";
-  setEl("nombre-usuario",  nombre);
-  setEl("avatar-initial",  nombre.charAt(0).toUpperCase());
-  setEl("hud-racha",       racha !== undefined ? racha : (datos.racha || 0));
-  setEl("hud-intis",       datos.intis || 0);
+  var nombre = datos.nombre || sessionStorage.getItem("kichay_user") || "Explorador";
+  setEl("nombre-usuario",   nombre);
+  setEl("topbar-user-name", nombre);
+  setEl("avatar-initial",   nombre.charAt(0).toUpperCase());
+  setEl("hud-racha",        racha !== undefined ? racha : (datos.racha || 0));
+  setEl("hud-intis",        datos.intis || 0);
 
   var nivel  = datos.nivelKusi || 1;
   var exp    = datos.expKusi   || 0;
@@ -44,8 +45,9 @@ function poblarDashboard(datos, racha) {
   var nombre = sessionStorage.getItem("kichay_user") || "Explorador";
   var racha  = sessionStorage.getItem("kichay_racha") || "0";
   var intis  = sessionStorage.getItem("kichay_intis") || "0";
-  setEl("nombre-usuario", nombre);
-  setEl("avatar-initial", nombre.charAt(0).toUpperCase());
+  setEl("nombre-usuario",   nombre);
+  setEl("topbar-user-name", nombre);
+  setEl("avatar-initial",   nombre.charAt(0).toUpperCase());
   setEl("hud-racha",  racha);
   setEl("hud-intis",  intis);
 })();
