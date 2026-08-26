@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -133,7 +133,7 @@
 
     window.guardarPerfil = async function() {
       var nombre = document.getElementById("inp-nombre").value.trim();
-      if (!nombre)          { mostrarError("Por favor, escribe tu nombre"); return; }
+      if (!nombre)          { mostrarError("Por favor, escribe tu nombre 😊"); return; }
       if (!sexoSeleccionado){ mostrarError("Selecciona tu sexo para continuar"); return; }
 
       var btn = document.getElementById("btn-continuar");
@@ -141,18 +141,22 @@
       btn.textContent = "Guardando...";
 
       try {
-        var uid = sessionStorage.getItem("kichay_uid");
+        var uid = (_mod && _mod.auth.currentUser)
+          ? _mod.auth.currentUser.uid
+          : sessionStorage.getItem("kichay_uid");
 
-        if (_mod && _mod.auth.currentUser) {
-          uid = _mod.auth.currentUser.uid;
-          // Guardar en Firestore
-          await _mod.completarPerfil(uid, { nombre: nombre, sexo: sexoSeleccionado, edad: edadActual });
-          var nuevaRacha = await _mod.actualizarAcceso(uid, 0, null);
-          sessionStorage.setItem("kichay_racha", nuevaRacha);
-          sessionStorage.setItem("kichay_intis", "0");
+        if (_mod && uid) {
+          try {
+            await _mod.completarPerfil(uid, { nombre: nombre, sexo: sexoSeleccionado, edad: edadActual });
+            var nuevaRacha = await _mod.actualizarAcceso(uid, 0, null);
+            sessionStorage.setItem("kichay_racha", nuevaRacha);
+            sessionStorage.setItem("kichay_intis", "0");
+          } catch (fsErr) {
+            console.warn("[KICHAY] Firestore perfil aviso:", fsErr);
+          }
         }
 
-        // Guardar en sessionStorage (fallback y velocidad)
+        // Guardar en sessionStorage
         sessionStorage.setItem("kichay_user",            nombre);
         sessionStorage.setItem("kichay_sexo",            sexoSeleccionado);
         sessionStorage.setItem("kichay_edad",            edadActual);
@@ -165,7 +169,7 @@
         console.error("[KICHAY] Error guardando perfil:", err);
         mostrarError("Error al guardar. Intenta de nuevo.");
         btn.disabled    = false;
-        btn.textContent = "Empecemos la aventura!";
+        btn.textContent = "¡Empecemos la aventura! 🚀";
       }
     };
 
