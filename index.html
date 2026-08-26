@@ -106,6 +106,9 @@
     // Guard: si llegan al login, limpiar sesión anterior para forzar flujo completo
     sessionStorage.removeItem('kichay_user');
     sessionStorage.removeItem('kichay_perfil_completo');
+    sessionStorage.removeItem('kichay_uid');
+    sessionStorage.removeItem('kichay_racha');
+    sessionStorage.removeItem('kichay_intis');
     sessionStorage.removeItem('kichay_sexo');
     sessionStorage.removeItem('kichay_edad');
 
@@ -116,7 +119,8 @@
     });
   </script>
   <script src="js/sound.js"></script>
-  <script src="js/login.js"></script>
+  <!-- Login con Firebase (ES Module) -->
+  <script type="module" src="js/login.js"></script>
 </body>
 </html>
 

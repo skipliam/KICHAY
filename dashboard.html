@@ -9,14 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/dashboard.css" />
   <script>
-    // ── Guard de navegación ──────────────────────────────
-    // Requiere haber completado login + perfil
-    (function() {
-      if (!sessionStorage.getItem('kichay_user') || !sessionStorage.getItem('kichay_perfil_completo')) {
-        window.location.replace('index.html');
-      }
-    })();
-    // Bloquear botón "atrás" — el usuario no puede regresar
+    // Guard suave: si no hay uid en sessionStorage Y no hay sesión de Firebase,
+    // el guard definitivo está en dashboard.js (onAuthStateChanged)
+    // Bloquear botón "atrás" — el usuario no puede regresar al login
     history.pushState(null, '', location.href);
     window.addEventListener('popstate', () => {
       history.pushState(null, '', location.href);
@@ -117,14 +112,14 @@
         <div class="hud-stat">
           <img src="IMG/racha.png" alt="Días de racha" class="hud-stat-img" />
           <div>
-            <span class="hud-value">0</span>
+            <span class="hud-value" id="hud-racha">0</span>
             <span class="hud-label">DÍAS DE RACHA</span>
           </div>
         </div>
         <div class="hud-stat">
           <img src="IMG/inti.png" alt="Intis" class="hud-stat-img" />
           <div>
-            <span class="hud-value">0</span>
+            <span class="hud-value" id="hud-intis">0</span>
             <span class="hud-label">INTIS</span>
           </div>
         </div>
@@ -134,10 +129,10 @@
         <img src="IMG/PERSONAJE.png" alt="Kusi" class="topbar-kusi" />
         <div class="kusi-info">
           <span class="kusi-name">Kusi IA</span>
-          <span class="kusi-level">Nivel 1</span>
+          <span class="kusi-level" id="kusi-level-text">Nivel 1</span>
           <div class="kusi-bar-wrap">
             <div class="kusi-bar"><div class="kusi-bar-fill" style="width:0%"></div></div>
-            <span class="kusi-pct">0%</span>
+            <span class="kusi-pct" id="kusi-exp-pct">0%</span>
           </div>
         </div>
         <div class="topbar-avatar"><span id="avatar-initial">U</span></div>
@@ -155,7 +150,7 @@
       <!-- Tarjetas de materias -->
       <div class="cards-grid">
 
-        <div class="subject-card" style="--card-color:#5E2CA5;">
+        <div class="subject-card" style="--card-color:#5E2CA5;" data-materia="historia">
           <div class="card-icon">
             <img src="IMG/icon_historia.png" alt="Historia" />
           </div>
@@ -168,7 +163,7 @@
           </div>
         </div>
 
-        <div class="subject-card" style="--card-color:#1E7E34;">
+        <div class="subject-card" style="--card-color:#1E7E34;" data-materia="fauna">
           <div class="card-icon">
             <img src="IMG/icon_fauna.png" alt="Fauna y Flora" />
           </div>
@@ -181,7 +176,7 @@
           </div>
         </div>
 
-        <div class="subject-card" style="--card-color:#E67E22;">
+        <div class="subject-card" style="--card-color:#E67E22;" data-materia="gastronomia">
           <div class="card-icon">
             <img src="IMG/icon_gastronomia.png" alt="Gastronomía" />
           </div>
@@ -194,7 +189,7 @@
           </div>
         </div>
 
-        <div class="subject-card" style="--card-color:#D9381E;">
+        <div class="subject-card" style="--card-color:#D9381E;" data-materia="cultura">
           <div class="card-icon">
             <img src="IMG/icon_cultura.png" alt="Cultura" />
           </div>
@@ -207,7 +202,7 @@
           </div>
         </div>
 
-        <div class="subject-card" style="--card-color:#0088CC;">
+        <div class="subject-card" style="--card-color:#0088CC;" data-materia="turismo">
           <div class="card-icon">
             <img src="IMG/icon_turismo.png" alt="Turismo" />
           </div>
@@ -236,6 +231,7 @@
   </div>
 
   <script src="js/sound.js"></script>
-  <script src="js/dashboard.js"></script>
+  <!-- Dashboard con Firebase (ES Module) -->
+  <script type="module" src="js/dashboard.js"></script>
 </body>
 </html>
