@@ -1,0 +1,354 @@
+/* ══════════════════════════════════════════════
+   KICHAY — perfil.css
+   Pantalla de configuración de perfil
+══════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 6vw;
+  position: relative;
+}
+
+/* ── Fondo ── */
+.hero-bg {
+  position: fixed;
+  inset: 0;
+  background: url('../IMG/FONDOPRINCIPAL.jpeg') center center / cover no-repeat;
+  z-index: 0;
+}
+
+/* ── Kusi mascota ── */
+.kusi-mascot {
+  position: fixed;
+  left: -2%;
+  bottom: 0;
+  height: 90vh;
+  max-height: 850px;
+  object-fit: contain;
+  z-index: 2;
+  animation: floatKusi 4s ease-in-out infinite;
+  filter: drop-shadow(4px 8px 16px rgba(0,0,0,0.18));
+}
+
+@keyframes floatKusi {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-14px); }
+}
+
+/* ── Logo ── */
+.logo-wrap {
+  position: fixed;
+  top: 28px;
+  left: 36px;
+  z-index: 3;
+  text-align: left;
+}
+
+.logo-rays {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.logo-text {
+  font-size: 2.6rem;
+  font-weight: 900;
+  font-style: italic;
+  color: #D9381E;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.08);
+}
+
+.logo-sub {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #4A4036;
+  margin-top: 2px;
+  padding-left: 4px;
+}
+
+/* Rayos del logo */
+.ray { display: flex; flex-direction: column; gap: 4px; }
+.ray-left { align-items: flex-end; transform: rotate(180deg); }
+.ray-right { align-items: flex-start; }
+.rl {
+  height: 3px;
+  background: #F39C12;
+  border-radius: 2px;
+}
+.ray-left .rl:nth-child(1) { width: 18px; }
+.ray-left .rl:nth-child(2) { width: 12px; }
+.ray-right .rl:nth-child(1) { width: 18px; }
+.ray-right .rl:nth-child(2) { width: 12px; }
+
+/* ── Tarjeta centrada ── */
+.card-wrap {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  padding-right: 0;
+}
+
+.card {
+  background: rgba(252, 246, 235, 0.96);
+  backdrop-filter: blur(6px);
+  border-radius: 28px;
+  padding: 36px 40px 40px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.14);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Indicador de pasos ── */
+.step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 4px;
+}
+
+.step {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #E8DDD0;
+  color: #9E8F84;
+  font-size: 0.85rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step.done {
+  background: #1E7E34;
+  color: #fff;
+}
+
+.step.active {
+  background: #D9381E;
+  color: #fff;
+  box-shadow: 0 0 0 4px rgba(217,56,30,0.2);
+}
+
+.step-line {
+  flex: 1;
+  height: 3px;
+  background: #E8DDD0;
+  max-width: 60px;
+}
+
+.step-line.done-line {
+  background: #1E7E34;
+}
+
+/* ── Títulos ── */
+.card-title {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #2C2523;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.card-sub {
+  font-size: 0.9rem;
+  color: #7A7265;
+  text-align: center;
+  margin-top: -12px;
+  line-height: 1.4;
+}
+
+/* ── Campos ── */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-group label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #4A4036;
+}
+
+.field-group input {
+  width: 100%;
+  padding: 13px 18px;
+  border: 2px solid #E0D4C4;
+  border-radius: 14px;
+  background: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2C2523;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.field-group input:focus {
+  border-color: #D9381E;
+}
+
+.field-group input::placeholder {
+  color: #BDB0A6;
+  font-weight: 400;
+}
+
+/* ── Botones de sexo ── */
+.sex-options {
+  display: flex;
+  gap: 10px;
+}
+
+.sex-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 8px;
+  border: 2px solid #E0D4C4;
+  border-radius: 14px;
+  background: #fff;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #4A4036;
+  transition: border-color .2s, background .2s, transform .15s;
+}
+
+.sex-btn:hover {
+  border-color: #D9381E;
+  background: #FFF5F3;
+  transform: translateY(-2px);
+}
+
+.sex-btn.selected {
+  border-color: #D9381E;
+  background: #FFF5F3;
+  color: #D9381E;
+  box-shadow: 0 0 0 3px rgba(217,56,30,0.15);
+}
+
+.sex-icon {
+  font-size: 1.6rem;
+}
+
+/* ── Selector de edad ── */
+.edad-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.edad-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid #E0D4C4;
+  background: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #4A4036;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s, border-color .2s;
+}
+
+.edad-btn:hover {
+  background: #D9381E;
+  border-color: #D9381E;
+  color: #fff;
+}
+
+.edad-display {
+  flex: 1;
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #D9381E;
+  background: #fff;
+  border: 2px solid #E0D4C4;
+  border-radius: 14px;
+  padding: 8px 0;
+  min-width: 80px;
+}
+
+.edad-hint {
+  font-size: 0.8rem;
+  color: #9E8F84;
+  text-align: center;
+  margin-top: -4px;
+}
+
+/* ── Error ── */
+.error-msg {
+  background: #FFEBEE;
+  color: #C62828;
+  border: 1.5px solid #FFCDD2;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ── Botón principal ── */
+.btn-continuar {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #D9381E 0%, #E85D2A 100%);
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .18s, box-shadow .18s;
+  box-shadow: 0 6px 20px rgba(217,56,30,0.35);
+  letter-spacing: 0.3px;
+}
+
+.btn-continuar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(217,56,30,0.4);
+}
+
+.btn-continuar:active {
+  transform: translateY(0);
+}
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  body {
+    justify-content: center;
+    padding: 20px 16px;
+    overflow-y: auto;
+    align-items: flex-start;
+    padding-top: 100px;
+  }
+  .kusi-mascot { display: none; }
+  .logo-wrap { left: 16px; top: 16px; }
+  .logo-text { font-size: 1.8rem; }
+  .card { padding: 28px 24px; }
+}

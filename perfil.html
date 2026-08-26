@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KICHAY – Cuéntanos sobre ti</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/perfil.css" />
+</head>
+<body>
+
+  <!-- Fondo completo -->
+  <div class="hero-bg"></div>
+
+  <!-- Kusi flotando a la izquierda -->
+  <img src="IMG/PERSONAJE.png" alt="Kusi" class="kusi-mascot" />
+
+  <!-- Logo KICHAY arriba izquierda -->
+  <div class="logo-wrap">
+    <div class="logo-rays">
+      <div class="ray ray-left">
+        <div class="rl"></div>
+        <div class="rl"></div>
+      </div>
+      <span class="logo-text">KICHAY</span>
+      <div class="ray ray-right">
+        <div class="rl"></div>
+        <div class="rl"></div>
+      </div>
+    </div>
+    <p class="logo-sub">Aprende sobre el Perú</p>
+  </div>
+
+  <!-- Tarjeta de perfil -->
+  <div class="card-wrap">
+    <div class="card">
+
+      <div class="step-indicator">
+        <span class="step done">1</span>
+        <span class="step-line done-line"></span>
+        <span class="step active">2</span>
+        <span class="step-line"></span>
+        <span class="step">3</span>
+      </div>
+
+      <h2 class="card-title">¡Cuéntanos sobre ti!</h2>
+      <p class="card-sub">Para personalizar tu experiencia de aprendizaje</p>
+
+      <!-- Nombre -->
+      <div class="field-group">
+        <label for="inp-nombre">👤 Tu nombre</label>
+        <input
+          id="inp-nombre"
+          type="text"
+          placeholder="¿Cómo te llamas?"
+          maxlength="40"
+          autocomplete="given-name"
+        />
+      </div>
+
+      <!-- Sexo -->
+      <div class="field-group">
+        <label>⚧ Sexo</label>
+        <div class="sex-options">
+          <button class="sex-btn" data-val="masculino" onclick="selectSex(this)">
+            <span class="sex-icon">👦</span>
+            <span>Masculino</span>
+          </button>
+          <button class="sex-btn" data-val="femenino" onclick="selectSex(this)">
+            <span class="sex-icon">👧</span>
+            <span>Femenino</span>
+          </button>
+          <button class="sex-btn" data-val="otro" onclick="selectSex(this)">
+            <span class="sex-icon">🌟</span>
+            <span>Otro</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Edad -->
+      <div class="field-group">
+        <label for="inp-edad">🎂 Edad</label>
+        <div class="edad-wrap">
+          <button class="edad-btn" onclick="cambiarEdad(-1)">−</button>
+          <span id="edad-display" class="edad-display">12</span>
+          <button class="edad-btn" onclick="cambiarEdad(1)">+</button>
+        </div>
+        <p class="edad-hint">años</p>
+      </div>
+
+      <!-- Error -->
+      <p id="error-msg" class="error-msg" style="display:none;"></p>
+
+      <!-- Botón continuar -->
+      <button class="btn-continuar" onclick="guardarPerfil()">
+        ¡Empecemos la aventura! 🚀
+      </button>
+
+    </div>
+  </div>
+
+  <script>
+    let edadActual = 12;
+    let sexoSeleccionado = '';
+
+    // Leer nombre desde sessionStorage si ya se guardó
+    window.addEventListener('DOMContentLoaded', () => {
+      const nombre = sessionStorage.getItem('kichay_user') || '';
+      if (nombre) {
+        document.getElementById('inp-nombre').value = nombre;
+      }
+    });
+
+    function selectSex(btn) {
+      document.querySelectorAll('.sex-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      sexoSeleccionado = btn.dataset.val;
+    }
+
+    function cambiarEdad(delta) {
+      edadActual = Math.min(99, Math.max(5, edadActual + delta));
+      document.getElementById('edad-display').textContent = edadActual;
+    }
+
+    function guardarPerfil() {
+      const nombre = document.getElementById('inp-nombre').value.trim();
+      const error  = document.getElementById('error-msg');
+
+      if (!nombre) {
+        mostrarError('Por favor, escribe tu nombre 😊');
+        return;
+      }
+      if (!sexoSeleccionado) {
+        mostrarError('Selecciona tu sexo para continuar');
+        return;
+      }
+
+      // Guardar en sessionStorage
+      sessionStorage.setItem('kichay_user',  nombre);
+      sessionStorage.setItem('kichay_sexo',  sexoSeleccionado);
+      sessionStorage.setItem('kichay_edad',  edadActual);
+      sessionStorage.setItem('kichay_perfil_completo', '1');
+
+      // Ir al dashboard
+      window.location.href = 'dashboard.html';
+    }
+
+    function mostrarError(msg) {
+      const el = document.getElementById('error-msg');
+      el.textContent = msg;
+      el.style.display = 'block';
+      setTimeout(() => { el.style.display = 'none'; }, 3000);
+    }
+  </script>
+</body>
+</html>
