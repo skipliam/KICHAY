@@ -203,16 +203,131 @@ window.abrirVistaInicio = function() {
 };
 
 // ══════════════════════════════════════════════════════════════
-// SELECTOR Y RENDERIZADO DINÁMICO DE ÉPOCAS HISTÓRICAS
+// DROPDOWN Y PROGRESIÓN SECUENCIAL DE ÉPOCAS HISTÓRICAS
 // ══════════════════════════════════════════════════════════════
+window.toggleDropdownEpocas = function(e) {
+  if (e) e.stopPropagation();
+  var menu = document.getElementById("historiaDropdownMenu");
+  var btn  = document.getElementById("historiaDropdownBtn");
+  if (!menu) return;
+
+  var estaAbierto = (menu.style.display === "flex");
+  if (estaAbierto) {
+    menu.style.display = "none";
+    if (btn) btn.classList.remove("open");
+  } else {
+    actualizarEstadoDropdownEpocas();
+    menu.style.display = "flex";
+    if (btn) btn.classList.add("open");
+  }
+
+  if (window.KichaySound && typeof window.KichaySound.playSoftClick === "function") {
+    window.KichaySound.playSoftClick();
+  }
+};
+
+window.cerrarDropdownEpocas = function() {
+  var menu = document.getElementById("historiaDropdownMenu");
+  var btn  = document.getElementById("historiaDropdownBtn");
+  if (menu) menu.style.display = "none";
+  if (btn) btn.classList.remove("open");
+};
+
+// Cerrar dropdown si se hace clic fuera
+document.addEventListener("click", function(e) {
+  var wrap = document.querySelector(".historia-dropdown-wrapper");
+  if (wrap && !wrap.contains(e.target)) {
+    cerrarDropdownEpocas();
+  }
+});
+
+window.esEpocaDesbloqueada = function(epocaKey) {
+  if (epocaKey === "preinca") return true;
+
+  var progresoStr = sessionStorage.getItem("kichay_progreso_historia") || "{}";
+  var progreso = {};
+  try { progreso = JSON.parse(progresoStr); } catch (err) {}
+
+  if (epocaKey === "inca") {
+    // Desbloqueado si terminó Preinca Nivel 5
+    return !!(progreso["preinca_5"] || sessionStorage.getItem("unlocked_inca"));
+  }
+  if (epocaKey === "virreinato") {
+    // Desbloqueado si terminó Inca Nivel 5
+    return !!(progreso["inca_5"] || sessionStorage.getItem("unlocked_virreinato"));
+  }
+  if (epocaKey === "emancipacion") {
+    // Desbloqueado si terminó Virreinato Nivel 5
+    return !!(progreso["virreinato_5"] || sessionStorage.getItem("unlocked_emancipacion"));
+  }
+  if (epocaKey === "republica") {
+    // Desbloqueado si terminó Emancipación Nivel 5
+    return !!(progreso["emancipacion_5"] || sessionStorage.getItem("unlocked_republica"));
+  }
+  return false;
+};
+
+window.actualizarEstadoDropdownEpocas = function() {
+  var epocas = ["preinca", "inca", "virreinato", "emancipacion", "republica"];
+  var nombresPrevios = {
+    inca: "Preinca",
+    virreinato: "Inca",
+    emancipacion: "Virreinato",
+    republica: "Emancipación"
+  };
+
+  epocas.forEach(function(ep) {
+    var item = document.getElementById("drop-item-" + ep);
+    var status = document.getElementById("status-" + ep);
+    var unlocked = esEpocaDesbloqueada(ep);
+
+    if (item) {
+      item.classList.remove("active", "locked");
+      if (ep === _epocaSeleccionada) {
+        item.classList.add("active");
+      }
+      if (!unlocked) {
+        item.classList.add("locked");
+      }
+    }
+
+    if (status) {
+      if (ep === _epocaSeleccionada) {
+        status.textContent = "✓ Época Actual";
+      } else if (unlocked) {
+        status.textContent = "✓ Desbloqueado";
+      } else {
+        status.textContent = "🔒 Requiere " + (nombresPrevios[ep] || "") + " Nivel 5";
+      }
+    }
+  });
+};
+
+window.seleccionarEpocaDropdown = function(epocaKey) {
+  var unlocked = esEpocaDesbloqueada(epocaKey);
+
+  if (!unlocked) {
+    var nombresPrevios = {
+      inca: "Preinca",
+      virreinato: "Imperio Inca",
+      emancipacion: "Virreinato",
+      republica: "Emancipación"
+    };
+    alert("🔒 ¡Época Bloqueada! Para desbloquear este capítulo, primero debes completar los 5 niveles del cuestionario de " + (nombresPrevios[epocaKey] || "la época anterior") + ".");
+    
+    if (window.KichaySound && typeof window.KichaySound.playSoftClick === "function") {
+      window.KichaySound.playSoftClick();
+    }
+    cerrarDropdownEpocas();
+    return;
+  }
+
+  cerrarDropdownEpocas();
+  cambiarEpocaHistoria(epocaKey);
+};
+
 window.cambiarEpocaHistoria = function(epocaKey) {
   _epocaSeleccionada = epocaKey || "preinca";
-
-  document.querySelectorAll(".historia-eras-bar .era-tab").forEach(function(tab) {
-    tab.classList.remove("active");
-  });
-  var activeTab = document.getElementById("tab-" + _epocaSeleccionada);
-  if (activeTab) activeTab.classList.add("active");
 
   var badge = document.getElementById("historiaEpocaBadge");
   if (badge) {
@@ -226,6 +341,7 @@ window.cambiarEpocaHistoria = function(epocaKey) {
     badge.textContent = titulos[_epocaSeleccionada] || _epocaSeleccionada.toUpperCase();
   }
 
+  actualizarEstadoDropdownEpocas();
   renderizarNodosHistoria();
 
   if (window.KichaySound && typeof window.KichaySound.playSoftClick === "function") {
@@ -240,6 +356,10 @@ function renderizarNodosHistoria() {
 
   var db = window.KICHAY_DATABASE || {};
   var niveles = db[_epocaSeleccionada] || [];
+
+  var progresoStr = sessionStorage.getItem("kichay_progreso_historia") || "{}";
+  var progreso = {};
+  try { progreso = JSON.parse(progresoStr); } catch (err) {}
 
   var iconosEpoca = {
     preinca: ["🏺", "🏛️", "👑", "🔒", "🔒"],
@@ -259,12 +379,18 @@ function renderizarNodosHistoria() {
 
   var iconos = iconosEpoca[_epocaSeleccionada] || ["🏺", "🏛️", "👑", "🔒", "🔒"];
 
+  // Determinar niveles desbloqueados secuencialmente
   niveles.forEach(function(item, idx) {
     var nodeDiv = document.createElement("div");
     var posClass = posiciones[idx] || ("node-pos-" + (idx + 1));
-    var desbloqueado = (idx <= 2);
-    var completado   = (idx <= 1);
-    var activo       = (idx === 2);
+    
+    // Nivel 1 siempre desbloqueado en la época actual; niveles posteriores requieren que el anterior esté completado
+    var nivelAnteriorCompletado = (idx === 0) || !!progreso[_epocaSeleccionada + "_" + idx];
+    var completado = !!progreso[_epocaSeleccionada + "_" + (idx + 1)];
+    var desbloqueado = nivelAnteriorCompletado || (idx === 0);
+    
+    // El nivel activo es el primer desbloqueado no completado
+    var activo = desbloqueado && !completado;
 
     var estadoClass = "unlocked";
     if (completado) estadoClass += " completed";
@@ -274,9 +400,12 @@ function renderizarNodosHistoria() {
     nodeDiv.className = "map-node " + posClass + " " + estadoClass;
 
     var estrellasTexto = "☆☆☆";
-    if (idx === 0) estrellasTexto = "⭐⭐⭐";
-    if (idx === 1) estrellasTexto = "⭐⭐☆";
-    if (idx === 2) estrellasTexto = "Pendiente";
+    if (completado) {
+      var scoreEstrellas = progreso[_epocaSeleccionada + "_" + (idx + 1) + "_stars"] || 3;
+      estrellasTexto = (scoreEstrellas === 3) ? "⭐⭐⭐" : (scoreEstrellas === 2 ? "⭐⭐☆" : "⭐☆☆");
+    } else if (activo) {
+      estrellasTexto = "Pendiente";
+    }
 
     var iconChar = desbloqueado ? (iconos[idx] || "⭐") : "🔒";
 

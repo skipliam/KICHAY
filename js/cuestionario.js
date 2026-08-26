@@ -1278,6 +1278,26 @@ window.QuizEngine = {
     if (kusiPct) kusiPct.textContent = pctNivel + "%";
     if (kusiBar) kusiBar.style.width  = pctNivel + "%";
 
+    // Actualizar progreso local de historia
+    var progresoStr = sessionStorage.getItem("kichay_progreso_historia") || "{}";
+    var progreso = {};
+    try { progreso = JSON.parse(progresoStr); } catch (err) {}
+    progreso[epoca + "_" + nivelNum] = true;
+    progreso[epoca + "_" + nivelNum + "_stars"] = estrellas;
+
+    // Si terminó nivel 5, desbloquear la siguiente época
+    if (nivelNum === 5) {
+      if (epoca === "preinca")      { sessionStorage.setItem("unlocked_inca", "true"); progreso["preinca_5"] = true; }
+      if (epoca === "inca")          { sessionStorage.setItem("unlocked_virreinato", "true"); progreso["inca_5"] = true; }
+      if (epoca === "virreinato")   { sessionStorage.setItem("unlocked_emancipacion", "true"); progreso["virreinato_5"] = true; }
+      if (epoca === "emancipacion")  { sessionStorage.setItem("unlocked_republica", "true"); progreso["emancipacion_5"] = true; }
+    }
+    sessionStorage.setItem("kichay_progreso_historia", JSON.stringify(progreso));
+
+    if (window.actualizarEstadoDropdownEpocas) {
+      window.actualizarEstadoDropdownEpocas();
+    }
+
     // Actualizar barra de materia Historia en Inicio
     var histCardBar = document.querySelector('[data-materia="historia"] .card-progress-fill');
     var histCardPct = document.querySelector('[data-materia="historia"] .card-pct');
@@ -1333,7 +1353,10 @@ window.salirDelQuiz = function() {
     var viewQuiz     = document.getElementById("view-quiz");
     var viewHistoria = document.getElementById("view-historia");
     if (viewQuiz)     viewQuiz.style.display     = "none";
-    if (viewHistoria) viewHistoria.style.display = "flex";
+    if (viewHistoria) {
+      viewHistoria.style.display = "flex";
+      if (window.renderizarNodosHistoria) window.renderizarNodosHistoria();
+    }
   }
 };
 
@@ -1344,5 +1367,9 @@ window.finalizarQuizYVolver = function() {
 
   if (vicModal)     vicModal.style.display     = "none";
   if (viewQuiz)     viewQuiz.style.display     = "none";
-  if (viewHistoria) viewHistoria.style.display = "flex";
+  if (viewHistoria) {
+    viewHistoria.style.display = "flex";
+    if (window.renderizarNodosHistoria) window.renderizarNodosHistoria();
+    if (window.actualizarEstadoDropdownEpocas) window.actualizarEstadoDropdownEpocas();
+  }
 };
