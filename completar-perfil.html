@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KICHAY – Cuéntanos sobre ti</title>
+  <title>KICHAY - Cuentanos sobre ti</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
@@ -11,10 +11,8 @@
 </head>
 <body>
 
-  <!-- Fondo completo -->
   <div class="hero-bg"></div>
 
-  <!-- Tarjeta de perfil centrada -->
   <div class="card-wrap">
     <div class="card" id="card-perfil">
 
@@ -26,102 +24,104 @@
         <span class="step">3</span>
       </div>
 
-      <h2 class="card-title">¡Cuéntanos sobre ti!</h2>
+      <h2 class="card-title">Cuentanos sobre ti!</h2>
       <p class="card-sub">Para personalizar tu experiencia de aprendizaje</p>
 
-      <!-- Nombre -->
       <div class="field-group">
-        <label for="inp-nombre">👤 Tu nombre</label>
-        <input
-          id="inp-nombre"
-          type="text"
-          placeholder="¿Cómo te llamas?"
-          maxlength="40"
-          autocomplete="given-name"
-        />
+        <label for="inp-nombre">Tu nombre</label>
+        <input id="inp-nombre" type="text" placeholder="Como te llamas?" maxlength="40" autocomplete="given-name" />
       </div>
 
-      <!-- Sexo -->
       <div class="field-group">
-        <label>⚧ Sexo</label>
+        <label>Sexo</label>
         <div class="sex-options">
           <button class="sex-btn" data-val="masculino" onclick="selectSex(this)">
-            <span class="sex-icon">👦</span>
+            <span class="sex-icon">&#128102;</span>
             <span>Masculino</span>
           </button>
           <button class="sex-btn" data-val="femenino" onclick="selectSex(this)">
-            <span class="sex-icon">👧</span>
+            <span class="sex-icon">&#128103;</span>
             <span>Femenino</span>
           </button>
           <button class="sex-btn" data-val="otro" onclick="selectSex(this)">
-            <span class="sex-icon">🌟</span>
+            <span class="sex-icon">&#127775;</span>
             <span>Otro</span>
           </button>
         </div>
       </div>
 
-      <!-- Edad -->
       <div class="field-group">
-        <label for="edad-display">🎂 Edad</label>
+        <label>Edad</label>
         <div class="edad-wrap">
-          <button class="edad-btn" onclick="cambiarEdad(-1)">−</button>
+          <button class="edad-btn" onclick="cambiarEdad(-1)">-</button>
           <span id="edad-display" class="edad-display">12</span>
           <button class="edad-btn" onclick="cambiarEdad(1)">+</button>
         </div>
-        <p class="edad-hint">años</p>
+        <p class="edad-hint">anos</p>
       </div>
 
-      <!-- Error -->
       <p id="error-msg" class="error-msg" style="display:none;"></p>
 
-      <!-- Botón continuar -->
       <button class="btn-continuar" id="btn-continuar" onclick="guardarPerfil()">
-        ¡Empecemos la aventura! 🚀
+        Empecemos la aventura! &#128640;
       </button>
 
     </div>
   </div>
 
   <script src="js/sound.js"></script>
-  <script type="module">
-    import {
-      auth, onAuthStateChanged,
-      completarPerfil, actualizarAcceso
-    } from "./js/firebase.js";
-
-    // ── Verificar sesión ────────────────────────────────────────
-    let currentUser = null;
-
-    onAuthStateChanged(auth, (fbUser) => {
-      if (fbUser) {
-        currentUser = fbUser;
-        // Pre-rellenar nombre si está disponible
-        const nombre = fbUser.displayName || sessionStorage.getItem("kichay_user") || "";
-        if (nombre) {
-          const inp = document.getElementById("inp-nombre");
-          if (inp && !inp.value) inp.value = nombre.split(" ")[0];
-        }
-      } else {
-        // Sin sesión Firebase: verificar modo local
-        const uid = sessionStorage.getItem("kichay_uid");
-        if (!uid) {
-          window.location.replace("index.html");
-        }
-      }
-    });
-
-    // Bloquear botón "atrás"
+  <script>
+    // Bloquear boton "atras"
     history.pushState(null, "", location.href);
-    window.addEventListener("popstate", () => {
+    window.addEventListener("popstate", function() {
       history.pushState(null, "", location.href);
     });
 
-    // ── Estado del formulario ───────────────────────────────────
-    let edadActual    = 12;
-    let sexoSeleccionado = "";
+    // Estado del formulario
+    var edadActual       = 12;
+    var sexoSeleccionado = "";
+    var _mod             = null;  // modulo Firebase cargado
 
+    // Pre-rellenar nombre desde sessionStorage
+    document.addEventListener("DOMContentLoaded", function() {
+      var nombre = sessionStorage.getItem("kichay_user") || "";
+      if (nombre) {
+        var inp = document.getElementById("inp-nombre");
+        if (inp && !inp.value) inp.value = nombre.split(" ")[0];
+      }
+    });
+
+    // Cargar Firebase
+    var firebaseUrl = new URL("js/firebase.js", location.href).href;
+    import(firebaseUrl).then(function(mod) {
+      _mod = mod;
+
+      // Verificar sesion
+      mod.onAuthStateChanged(mod.auth, function(fbUser) {
+        if (fbUser) {
+          // Pre-rellenar nombre con displayName de Google si el campo esta vacio
+          var inp = document.getElementById("inp-nombre");
+          if (inp && !inp.value && fbUser.displayName) {
+            inp.value = fbUser.displayName.split(" ")[0];
+          }
+        } else {
+          // Sin sesion Firebase: verificar modo local
+          if (!sessionStorage.getItem("kichay_uid")) {
+            window.location.replace("index.html");
+          }
+        }
+      });
+    }).catch(function(err) {
+      console.error("[KICHAY] Error cargando Firebase en perfil:", err);
+      // Si no hay sesion ni Firebase, redirigir
+      if (!sessionStorage.getItem("kichay_uid")) {
+        window.location.replace("index.html");
+      }
+    });
+
+    // Interacciones del formulario
     window.selectSex = function(btn) {
-      document.querySelectorAll(".sex-btn").forEach(b => b.classList.remove("selected"));
+      document.querySelectorAll(".sex-btn").forEach(function(b) { b.classList.remove("selected"); });
       btn.classList.add("selected");
       sexoSeleccionado = btn.dataset.val;
     };
@@ -131,57 +131,49 @@
       document.getElementById("edad-display").textContent = edadActual;
     };
 
-    // ── Guardar perfil en Firestore ─────────────────────────────
     window.guardarPerfil = async function() {
-      const nombre = document.getElementById("inp-nombre").value.trim();
+      var nombre = document.getElementById("inp-nombre").value.trim();
+      if (!nombre)          { mostrarError("Por favor, escribe tu nombre"); return; }
+      if (!sexoSeleccionado){ mostrarError("Selecciona tu sexo para continuar"); return; }
 
-      if (!nombre) {
-        mostrarError("Por favor, escribe tu nombre 😊");
-        return;
-      }
-      if (!sexoSeleccionado) {
-        mostrarError("Selecciona tu sexo para continuar");
-        return;
-      }
-
-      const btn = document.getElementById("btn-continuar");
-      btn.disabled = true;
+      var btn = document.getElementById("btn-continuar");
+      btn.disabled    = true;
       btn.textContent = "Guardando...";
 
       try {
-        const uid = currentUser ? currentUser.uid : sessionStorage.getItem("kichay_uid");
+        var uid = sessionStorage.getItem("kichay_uid");
 
-        if (currentUser) {
+        if (_mod && _mod.auth.currentUser) {
+          uid = _mod.auth.currentUser.uid;
           // Guardar en Firestore
-          await completarPerfil(uid, { nombre, sexo: sexoSeleccionado, edad: edadActual });
-          const nuevaRacha = await actualizarAcceso(uid, 0, null);
+          await _mod.completarPerfil(uid, { nombre: nombre, sexo: sexoSeleccionado, edad: edadActual });
+          var nuevaRacha = await _mod.actualizarAcceso(uid, 0, null);
           sessionStorage.setItem("kichay_racha", nuevaRacha);
           sessionStorage.setItem("kichay_intis", "0");
         }
 
-        // Guardar en sessionStorage también (fallback + velocidad)
+        // Guardar en sessionStorage (fallback y velocidad)
         sessionStorage.setItem("kichay_user",            nombre);
         sessionStorage.setItem("kichay_sexo",            sexoSeleccionado);
         sessionStorage.setItem("kichay_edad",            edadActual);
         sessionStorage.setItem("kichay_perfil_completo", "1");
 
-        // Animación de salida y redirección
         document.body.classList.add("page-exit");
-        setTimeout(() => { window.location.href = "dashboard.html"; }, 450);
+        setTimeout(function() { window.location.href = "dashboard.html"; }, 450);
 
       } catch (err) {
-        console.error("Error al guardar perfil:", err);
+        console.error("[KICHAY] Error guardando perfil:", err);
         mostrarError("Error al guardar. Intenta de nuevo.");
-        btn.disabled = false;
-        btn.textContent = "¡Empecemos la aventura! 🚀";
+        btn.disabled    = false;
+        btn.textContent = "Empecemos la aventura!";
       }
     };
 
     function mostrarError(msg) {
-      const el = document.getElementById("error-msg");
-      el.textContent = msg;
+      var el = document.getElementById("error-msg");
+      el.textContent   = msg;
       el.style.display = "block";
-      setTimeout(() => { el.style.display = "none"; }, 3000);
+      setTimeout(function() { el.style.display = "none"; }, 3000);
     }
   </script>
 </body>
