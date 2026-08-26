@@ -1332,10 +1332,18 @@ body.page-exit .content {
    CORRECCIÓN DEL LAYOUT DE INICIO
 ══════════════════════════════════════════════ */
 .content-inicio {
-  display: flex !important;
-  flex-direction: column !important;
+  flex-direction: column;
   gap: 20px;
   min-height: 0;
+}
+
+#view-inicio[style*="display: none"],
+#view-inicio[style*="display:none"],
+#view-historia[style*="display: none"],
+#view-historia[style*="display:none"],
+#view-quiz[style*="display: none"],
+#view-quiz[style*="display:none"] {
+  display: none !important;
 }
 
 /* ══════════════════════════════════════════════
