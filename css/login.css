@@ -47,10 +47,10 @@ html, body {
 /* ── Logo KICHAY arriba al centro ────────────────────────────── */
 .logo-wrap {
   position: absolute;
-  top: 18px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 20;
+  z-index: 25;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -66,13 +66,13 @@ html, body {
 }
 
 .logo-img {
-  width: clamp(300px, 28vw, 440px);
+  width: clamp(240px, 22vw, 340px);
   height: auto;
-  max-height: 150px;
+  max-height: 95px;
   object-fit: contain;
   display: block;
   margin: 0 auto;
-  filter: drop-shadow(0 10px 28px rgba(0,0,0,0.22));
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.22));
 }
 
 /* ── Contenedor Kusi + Tarjeta (juntos) ───────────────────────── */
@@ -82,24 +82,27 @@ html, body {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 12px;
+  gap: 30px;
   width: 100%;
   height: 100%;
-  padding: 0 20px;
+  padding: 110px 40px 25px;
+  box-sizing: border-box;
 }
 
-/* ── Personaje Kusi en Video (estable, sin efecto de flotación) ─────────────────── */
+/* ── Personaje Kusi en Video (estable, centrado y bien abajo del logo) ─────────────────── */
 .mascot-wrap {
   position: relative;
   display: flex;
   align-items: flex-end;
-  justify-content: flex-end;
+  justify-content: center;
   height: 100%;
+  max-height: 75vh;
+  margin-bottom: 0px;
   animation: mascotEnter 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
 }
 
 @keyframes mascotEnter {
-  0%   { opacity: 0; transform: translateY(60px) scale(0.95); }
+  0%   { opacity: 0; transform: translateY(50px) scale(0.95); }
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
@@ -107,15 +110,16 @@ html, body {
 .mascot-img {
   position: relative;
   z-index: 2;
-  width: clamp(480px, 48vw, 850px);
-  max-height: 94vh;
+  width: clamp(440px, 42vw, 750px);
+  height: auto;
+  max-height: 70vh;
   object-fit: contain;
   object-position: bottom center;
   filter: drop-shadow(0 15px 35px rgba(0,0,0,0.25));
   display: block;
   pointer-events: none;
   background: transparent;
-  transform: scale(1.38);
+  transform: scale(1.34) translateY(10px);
   transform-origin: bottom center;
 }
 
