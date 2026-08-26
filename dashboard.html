@@ -25,14 +25,20 @@
 </head>
 <body>
 
+  <!-- Backdrop para cerrar el menú lateral en celular -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
   <!-- ══════════ SIDEBAR ══════════ -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="mainSidebar">
 
     <div class="sidebar-logo">
-      <div class="logo-rays-small">
-        <div class="ray-sm ray-sm-left"><div class="rl"></div><div class="rl"></div></div>
-        <span class="logo-text-sm">KICHAY</span>
-        <div class="ray-sm ray-sm-right"><div class="rl"></div><div class="rl"></div></div>
+      <div class="sidebar-header-row">
+        <div class="logo-rays-small">
+          <div class="ray-sm ray-sm-left"><div class="rl"></div><div class="rl"></div></div>
+          <span class="logo-text-sm">KICHAY</span>
+          <div class="ray-sm ray-sm-right"><div class="rl"></div><div class="rl"></div></div>
+        </div>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Cerrar menú">✕</button>
       </div>
     </div>
 
@@ -106,18 +112,19 @@
 
     <!-- TOP BAR -->
     <header class="topbar">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú">☰</button>
       <div class="hud-left">
         <div class="hud-stat">
           <img src="IMG/racha.png" alt="Días de racha" class="hud-stat-img" />
           <div>
-            <span class="hud-value">143</span>
+            <span class="hud-value">0</span>
             <span class="hud-label">DÍAS DE RACHA</span>
           </div>
         </div>
         <div class="hud-stat">
           <img src="IMG/inti.png" alt="Intis" class="hud-stat-img" />
           <div>
-            <span class="hud-value">420</span>
+            <span class="hud-value">0</span>
             <span class="hud-label">INTIS</span>
           </div>
         </div>
@@ -127,10 +134,10 @@
         <img src="IMG/PERSONAJE.png" alt="Kusi" class="topbar-kusi" />
         <div class="kusi-info">
           <span class="kusi-name">Kusi IA</span>
-          <span class="kusi-level">Nivel 5</span>
+          <span class="kusi-level">Nivel 1</span>
           <div class="kusi-bar-wrap">
-            <div class="kusi-bar"><div class="kusi-bar-fill" style="width:60%"></div></div>
-            <span class="kusi-pct">60%</span>
+            <div class="kusi-bar"><div class="kusi-bar-fill" style="width:0%"></div></div>
+            <span class="kusi-pct">0%</span>
           </div>
         </div>
         <div class="topbar-avatar"><span id="avatar-initial">U</span></div>
@@ -155,9 +162,9 @@
           <span class="card-label">HISTORIA</span>
           <div class="card-progress-wrap">
             <div class="card-progress-bar">
-              <div class="card-progress-fill" style="width:60%; background:#5E2CA5;"></div>
+              <div class="card-progress-fill" style="width:0%; background:#5E2CA5;"></div>
             </div>
-            <span class="card-pct">60%</span>
+            <span class="card-pct">0%</span>
           </div>
         </div>
 
@@ -168,9 +175,9 @@
           <span class="card-label">FAUNA Y FLORA</span>
           <div class="card-progress-wrap">
             <div class="card-progress-bar">
-              <div class="card-progress-fill" style="width:40%; background:#1E7E34;"></div>
+              <div class="card-progress-fill" style="width:0%; background:#1E7E34;"></div>
             </div>
-            <span class="card-pct">40%</span>
+            <span class="card-pct">0%</span>
           </div>
         </div>
 
@@ -181,9 +188,9 @@
           <span class="card-label">GASTRONOMÍA</span>
           <div class="card-progress-wrap">
             <div class="card-progress-bar">
-              <div class="card-progress-fill" style="width:30%; background:#E67E22;"></div>
+              <div class="card-progress-fill" style="width:0%; background:#E67E22;"></div>
             </div>
-            <span class="card-pct">30%</span>
+            <span class="card-pct">0%</span>
           </div>
         </div>
 
@@ -194,9 +201,9 @@
           <span class="card-label">CULTURA</span>
           <div class="card-progress-wrap">
             <div class="card-progress-bar">
-              <div class="card-progress-fill" style="width:20%; background:#D9381E;"></div>
+              <div class="card-progress-fill" style="width:0%; background:#D9381E;"></div>
             </div>
-            <span class="card-pct">20%</span>
+            <span class="card-pct">0%</span>
           </div>
         </div>
 
@@ -207,9 +214,9 @@
           <span class="card-label">TURISMO</span>
           <div class="card-progress-wrap">
             <div class="card-progress-bar">
-              <div class="card-progress-fill" style="width:50%; background:#0088CC;"></div>
+              <div class="card-progress-fill" style="width:0%; background:#0088CC;"></div>
             </div>
-            <span class="card-pct">50%</span>
+            <span class="card-pct">0%</span>
           </div>
         </div>
 

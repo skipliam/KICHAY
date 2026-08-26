@@ -330,28 +330,109 @@ body.page-exit .login-card {
   opacity: 0;
 }
 
-/* ── Responsividad para pantallas pequeñas ─────────────────── */
-@media (max-width: 860px) {
+/* ── Responsividad completa para celulares y tablets ─────────────────── */
+@media (max-width: 768px) {
+  html, body {
+    overflow-y: auto;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 14px 36px;
+    overflow-y: auto;
+  }
+
+  .logo-wrap {
+    position: relative;
+    top: 0;
+    left: auto;
+    transform: none;
+    margin-top: 6px;
+    margin-bottom: 8px;
+  }
+
+  .logo-text {
+    font-size: clamp(38px, 11vw, 48px);
+  }
+
+  .logo-subtitle {
+    font-size: 13px;
+  }
+
   .hero-content {
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 16px;
-    padding-top: 100px;
+    justify-content: flex-start;
+    gap: 6px;
+    width: 100%;
+    height: auto;
+    padding: 0;
   }
+
   .mascot-wrap {
     height: auto;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
   }
+
   .mascot-img {
-    max-height: 35vh;
+    max-height: 24vh;
+    min-height: 150px;
     width: auto;
+    margin: 0 auto;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 26px 20px 22px;
+    border-radius: 24px;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.2);
+  }
+
+  .card-title {
+    font-size: 21px;
+    margin-bottom: 4px;
+  }
+
+  .card-subtitle {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .step-indicator {
+    margin-bottom: 16px;
+  }
+
+  .step {
+    width: 28px;
+    height: 28px;
+    font-size: 0.78rem;
+  }
+
+  .step-line {
+    max-width: 36px;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero {
+    padding: 16px 10px 28px;
   }
   .login-card {
-    margin-left: 0;
-    margin-bottom: 0;
+    padding: 22px 16px 18px;
   }
-  .logo-wrap {
-    top: 20px;
-    left: 50%;
+  .mascot-img {
+    max-height: 20vh;
+    min-height: 130px;
   }
 }

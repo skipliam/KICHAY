@@ -533,3 +533,240 @@ body.page-exit .content {
   border-radius: 50%;
 }
 
+
+/* ══════════════════════════════════════════════
+   RESPONSIVIDAD MÓVIL (Celulares y Tablets)
+   En PC (Desktop > 768px) no cambia absolutamente nada
+══════════════════════════════════════════════ */
+
+/* Controles móviles ocultos por defecto en PC */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #2C2523;
+  padding: 6px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.mobile-menu-btn:hover {
+  background: #EDE8E0;
+}
+
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
+  z-index: 199;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.sidebar-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar-close-btn {
+  display: none;
+}
+
+/* Tablets (pantallas medianas) */
+@media (max-width: 1080px) {
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+}
+
+/* Celulares y pantallas estrechas */
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .sidebar-backdrop {
+    display: block;
+  }
+
+  /* Sidebar pasa a ser un Drawer lateral deslizable */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 270px;
+    background: #fcf6eb;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 200;
+    animation: none;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .sidebar-close-btn {
+    display: flex;
+    background: none;
+    border: none;
+    font-size: 22px;
+    font-weight: 700;
+    color: #8C7B70;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+  }
+
+  .sidebar-close-btn:hover {
+    color: #C0392B;
+    background: #FFEBEE;
+  }
+
+  /* Main wrap ocupa el 100% */
+  .main-wrap {
+    margin-left: 0;
+    height: 100vh;
+    width: 100%;
+  }
+
+  /* Topbar compacta */
+  .topbar {
+    height: 60px;
+    padding: 0 12px;
+    gap: 10px;
+  }
+
+  .hud-left {
+    gap: 12px;
+  }
+
+  .hud-stat {
+    gap: 6px;
+  }
+
+  .hud-stat-img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .hud-value {
+    font-size: 15px;
+  }
+
+  .hud-label {
+    font-size: 7.5px;
+    letter-spacing: 0.2px;
+  }
+
+  .topbar-kusi {
+    width: 32px;
+    height: 32px;
+  }
+
+  .kusi-info {
+    display: none; /* Simplificado para evitar saturación */
+  }
+
+  .topbar-avatar {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+
+  /* Content */
+  .content {
+    padding: 18px 12px 36px;
+  }
+
+  .greeting {
+    margin-bottom: 16px;
+  }
+
+  .greeting h1 {
+    font-size: 22px;
+  }
+
+  .greeting p {
+    font-size: 14px;
+  }
+
+  /* Tarjetas de materias en 2 columnas */
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .cards-grid .subject-card:last-child {
+    grid-column: span 2;
+  }
+
+  .subject-card {
+    padding: 16px 10px 12px;
+    border-radius: 16px;
+    gap: 8px;
+  }
+
+  .card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+  }
+
+  .card-label {
+    font-size: 11.5px;
+  }
+
+  .card-pct {
+    font-size: 10px;
+  }
+
+  /* Banner misión */
+  .mission-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 18px 14px;
+    gap: 12px;
+    border-radius: 18px;
+  }
+
+  .mission-kusi {
+    width: 58px;
+    height: 58px;
+  }
+
+  .mission-title {
+    font-size: 17px;
+  }
+
+  .mission-sub {
+    font-size: 12.5px;
+  }
+
+  .btn-comenzar {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+  }
+}
+
+

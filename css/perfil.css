@@ -325,11 +325,97 @@ body.page-exit .card {
   opacity: 0;
 }
 
-/* ── Responsive ── */
-@media (max-width: 700px) {
+/* ── Responsive para celulares ── */
+@media (max-width: 768px) {
   body {
-    padding: 20px 16px;
+    padding: 16px 12px;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
     overflow-y: auto;
   }
-  .card { padding: 28px 24px; }
+
+  .card-wrap {
+    padding: 10px 0;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 380px;
+    padding: 26px 18px 24px;
+    gap: 15px;
+    border-radius: 24px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.22);
+  }
+
+  .card-title {
+    font-size: 1.35rem;
+  }
+
+  .card-sub {
+    font-size: 0.82rem;
+    margin-top: -8px;
+  }
+
+  .field-group {
+    gap: 6px;
+  }
+
+  .field-group label {
+    font-size: 0.85rem;
+  }
+
+  .field-group input {
+    padding: 11px 14px;
+    font-size: 0.95rem;
+    border-radius: 12px;
+  }
+
+  .sex-options {
+    gap: 8px;
+  }
+
+  .sex-btn {
+    padding: 9px 4px;
+    font-size: 0.76rem;
+    gap: 4px;
+    border-radius: 12px;
+  }
+
+  .sex-icon {
+    font-size: 1.35rem;
+  }
+
+  .edad-wrap {
+    gap: 12px;
+  }
+
+  .edad-display {
+    font-size: 1.8rem;
+    padding: 6px 0;
+    min-width: 65px;
+    border-radius: 12px;
+  }
+
+  .edad-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 1.2rem;
+  }
+
+  .btn-continuar {
+    padding: 13px;
+    font-size: 0.98rem;
+    border-radius: 14px;
+    margin-top: 2px;
+  }
+}
+
+@media (max-width: 360px) {
+  .card {
+    padding: 20px 14px 20px;
+  }
+  .card-title {
+    font-size: 1.2rem;
+  }
 }

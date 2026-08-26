@@ -33,11 +33,39 @@ document.querySelectorAll(".subject-card").forEach(card => {
   });
 });
 
-// ── Botón Comenzar misión ──────────────────────────────────────
-const btnComenzar = document.querySelector(".btn-comenzar");
-if (btnComenzar) {
-  btnComenzar.addEventListener("click", () => {
-    // Navegar al primer mapa temático disponible
-    console.log("Comenzar misión de Kusi");
-  });
+// ── Menú lateral móvil (Drawer) ────────────────────────────────
+const mobileMenuBtn    = document.getElementById("mobileMenuBtn");
+const sidebarCloseBtn  = document.getElementById("sidebarCloseBtn");
+const sidebarBackdrop  = document.getElementById("sidebarBackdrop");
+const mainSidebar      = document.getElementById("mainSidebar");
+
+function toggleMobileSidebar(open) {
+  if (mainSidebar && sidebarBackdrop) {
+    if (open) {
+      mainSidebar.classList.add("open");
+      sidebarBackdrop.classList.add("active");
+    } else {
+      mainSidebar.classList.remove("open");
+      sidebarBackdrop.classList.remove("active");
+    }
+  }
 }
+
+if (mobileMenuBtn) {
+  mobileMenuBtn.addEventListener("click", () => toggleMobileSidebar(true));
+}
+if (sidebarCloseBtn) {
+  sidebarCloseBtn.addEventListener("click", () => toggleMobileSidebar(false));
+}
+if (sidebarBackdrop) {
+  sidebarBackdrop.addEventListener("click", () => toggleMobileSidebar(false));
+}
+
+// Cerrar sidebar al hacer click en cualquier link de navegación en móvil
+document.querySelectorAll(".sidebar-nav .nav-item").forEach(item => {
+  item.addEventListener("click", () => {
+    if (window.innerWidth <= 768) {
+      toggleMobileSidebar(false);
+    }
+  });
+});
