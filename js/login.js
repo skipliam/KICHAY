@@ -45,10 +45,31 @@ function decodeJwtResponse(token) {
 }
 
 function handleGoogleLogin(response) {
-  const payload = decodeJwtResponse(response.credential);
-  const nombre  = payload.given_name || payload.name || "Explorador";
-  pasarAlDashboard(nombre);
+  try {
+    const payload = decodeJwtResponse(response.credential);
+    const nombre  = payload.given_name || payload.name || "Explorador";
+    pasarAlDashboard(nombre);
+  } catch (err) {
+    console.error("Error al procesar login de Google:", err);
+    pasarAlDashboard("Explorador");
+  }
 }
+
+// ── Soporte para pruebas locales (si se abre directo como archivo file://) ──
+document.addEventListener("DOMContentLoaded", () => {
+  const isLocalFile = window.location.protocol === "file:";
+  if (isLocalFile) {
+    const btnWrap = document.querySelector(".google-btn-wrap");
+    if (btnWrap) {
+      // Si Google no carga o falla en local, dar alternativa de un clic
+      const aviso = document.createElement("div");
+      aviso.style.cssText = "margin-top:12px; font-size:12px; color:#D9381E; cursor:pointer; text-decoration:underline; font-weight:700; text-align:center;";
+      aviso.textContent = "⚡ Modo prueba local: Clic aquí para entrar";
+      aviso.onclick = () => pasarAlDashboard("Daniel");
+      btnWrap.parentNode.insertBefore(aviso, btnWrap.nextSibling);
+    }
+  }
+});
 
 // Exponer funciones globalmente
 window.handleGoogleLogin   = handleGoogleLogin;

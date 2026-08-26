@@ -24,61 +24,61 @@
                 background-size: cover; background-position: center; background-repeat: no-repeat;">
     </div>
 
-    <!-- Lado izquierdo: logo + personaje -->
-    <div class="hero-left">
-
-      <!-- Logo KICHAY -->
-      <div class="logo-wrap">
-        <div class="logo-rays">
-          <div class="ray ray-left" aria-hidden="true">
-            <div class="ray-line"></div>
-            <div class="ray-line"></div>
-            <div class="ray-line"></div>
-          </div>
-          <h1 class="logo-text">KICHAY</h1>
-          <div class="ray ray-right" aria-hidden="true">
-            <div class="ray-line"></div>
-            <div class="ray-line"></div>
-            <div class="ray-line"></div>
-          </div>
+    <!-- Logo KICHAY arriba a la izquierda -->
+    <div class="logo-wrap">
+      <div class="logo-rays">
+        <div class="ray ray-left" aria-hidden="true">
+          <div class="ray-line"></div>
+          <div class="ray-line"></div>
+          <div class="ray-line"></div>
         </div>
-        <p class="logo-subtitle">Aprende sobre el Perú</p>
+        <h1 class="logo-text">KICHAY</h1>
+        <div class="ray-right" aria-hidden="true">
+          <div class="ray-line"></div>
+          <div class="ray-line"></div>
+          <div class="ray-line"></div>
+        </div>
       </div>
+      <p class="logo-subtitle">Aprende sobre el Perú</p>
+    </div>
+
+    <!-- Contenedor Kusi + Tarjeta juntos -->
+    <div class="hero-content">
 
       <!-- Personaje Kusi -->
       <div class="mascot-wrap">
         <img src="IMG/PERSONAJE.png" alt="Kusi saludando" class="mascot-img" />
       </div>
 
-    </div><!-- /hero-left -->
+      <!-- Tarjeta de Login — solo Google -->
+      <div class="login-card" role="main">
 
-    <!-- Tarjeta de Login — solo Google -->
-    <div class="login-card" role="main">
+        <h2 class="card-title">¡Hola! Soy Kusi</h2>
+        <p class="card-subtitle">Vamos a descubrir el Perú juntos.</p>
 
-      <h2 class="card-title">¡Hola! Soy Kusi</h2>
-      <p class="card-subtitle">Vamos a descubrir el Perú juntos.</p>
-
-      <!-- Google Sign-In oficial -->
-      <div id="g_id_onload"
-           data-client_id="760958817830-pm8u2pc85mjl460pbqp6hglqsccs1gs3.apps.googleusercontent.com"
-           data-callback="handleGoogleLogin"
-           data-auto_prompt="false">
-      </div>
-      <div class="google-btn-wrap">
-        <div class="g_id_signin"
-             data-type="standard"
-             data-size="large"
-             data-theme="filled_blue"
-             data-text="continue_with"
-             data-shape="pill"
-             data-locale="es"
-             data-width="320">
+        <!-- Google Sign-In oficial -->
+        <div id="g_id_onload"
+             data-client_id="760958817830-pm8u2pc85mjl460pbqp6hglqsccs1gs3.apps.googleusercontent.com"
+             data-callback="handleGoogleLogin"
+             data-auto_prompt="false">
         </div>
-      </div>
+        <div class="google-btn-wrap">
+          <div class="g_id_signin"
+               data-type="standard"
+               data-size="large"
+               data-theme="filled_blue"
+               data-text="continue_with"
+               data-shape="pill"
+               data-locale="es"
+               data-width="320">
+          </div>
+        </div>
 
-      <p class="card-footer-note">🔒 Tu cuenta de Google se usa de forma segura</p>
+        <p class="card-footer-note">🔒 Tu cuenta de Google se usa de forma segura</p>
 
-    </div><!-- /login-card -->
+      </div><!-- /login-card -->
+
+    </div><!-- /hero-content -->
 
   </main>
 
