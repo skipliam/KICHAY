@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -52,13 +52,13 @@
 
     </div><!-- /hero-left -->
 
-    <!-- Tarjeta de Login -->
+    <!-- Tarjeta de Login — solo Google -->
     <div class="login-card" role="main">
 
       <h2 class="card-title">¡Hola! Soy Kusi</h2>
       <p class="card-subtitle">Vamos a descubrir el Perú juntos.</p>
 
-      <!-- ── Google Sign-In (botón oficial) ── -->
+      <!-- Google Sign-In oficial -->
       <div id="g_id_onload"
            data-client_id="760958817830-pm8u2pc85mjl460pbqp6hglqsccs1gs3.apps.googleusercontent.com"
            data-callback="handleGoogleLogin"
@@ -68,69 +68,33 @@
         <div class="g_id_signin"
              data-type="standard"
              data-size="large"
-             data-theme="outline"
+             data-theme="filled_blue"
              data-text="continue_with"
              data-shape="pill"
+             data-locale="es"
              data-width="320">
         </div>
       </div>
 
-      <!-- ── Facebook (placeholder) ── -->
-      <button class="btn-social" type="button" onclick="alert('🚧 Facebook próximamente.')">
-        <svg class="social-icon" viewBox="0 0 24 24" fill="#1877F2">
-          <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.514c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
-        </svg>
-        Continuar con Facebook
-      </button>
-
-      <!-- Divisor -->
-      <div class="divider"><span>o</span></div>
-
-      <!-- Formulario tradicional -->
-      <form class="login-form" id="loginForm" novalidate>
-
-        <div class="field-group">
-          <input type="email" id="email" name="email"
-            class="input-field" placeholder="Correo electrónico" autocomplete="email" />
-        </div>
-
-        <div class="field-group password-group">
-          <input type="password" id="password" name="password"
-            class="input-field" placeholder="Contraseña" autocomplete="current-password" />
-          <button type="button" class="toggle-pass" id="togglePass" aria-label="Mostrar/ocultar contraseña">
-            <svg id="eyeOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-              <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-              <line x1="1" y1="1" x2="23" y2="23"/>
-            </svg>
-            <svg id="eyeOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-              <circle cx="12" cy="12" r="3"/>
-            </svg>
-          </button>
-        </div>
-
-        <button type="button" class="btn-primary" onclick="loginConFormulario()">Iniciar sesión</button>
-
-      </form>
-
-      <a href="#" class="link-forgot">¿Olvidaste tu contraseña?</a>
-      <p class="link-register">
-        ¿No tienes cuenta?
-        <a href="#" class="link-accent">Crea una aquí</a>
-      </p>
+      <p class="card-footer-note">🔒 Tu cuenta de Google se usa de forma segura</p>
 
     </div><!-- /login-card -->
 
   </main>
 
-  <!-- ══════════════════════════════════════════════════
-       PANTALLA 2: DASHBOARD (provisional hasta dashboard.html)
-  ══════════════════════════════════════════════════════ -->
-  <section id="dashboard-screen" style="display:none;">
-    <!-- Redirige automáticamente al dashboard real -->
-  </section>
+  <script>
+    // Guard: si llegan al login, limpiar sesión anterior para forzar flujo completo
+    sessionStorage.removeItem('kichay_user');
+    sessionStorage.removeItem('kichay_perfil_completo');
+    sessionStorage.removeItem('kichay_sexo');
+    sessionStorage.removeItem('kichay_edad');
 
+    // Bloquear botón "atrás" del navegador desde login
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', () => {
+      history.pushState(null, '', location.href);
+    });
+  </script>
   <script src="js/login.js"></script>
 </body>
 </html>

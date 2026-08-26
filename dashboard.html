@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -8,6 +8,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/dashboard.css" />
+  <script>
+    // ── Guard de navegación ──────────────────────────────
+    // Requiere haber completado login + perfil
+    (function() {
+      if (!sessionStorage.getItem('kichay_user') || !sessionStorage.getItem('kichay_perfil_completo')) {
+        window.location.replace('index.html');
+      }
+    })();
+    // Bloquear botón "atrás" — el usuario no puede regresar
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', () => {
+      history.pushState(null, '', location.href);
+    });
+  </script>
 </head>
 <body>
 

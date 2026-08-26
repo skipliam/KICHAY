@@ -8,6 +8,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/perfil.css" />
+  <script>
+    // ── Guard de navegación ──────────────────────────────
+    // Si no hay sesión activa, volver al login
+    (function() {
+      if (!sessionStorage.getItem('kichay_user')) {
+        window.location.replace('index.html');
+      }
+    })();
+    // Bloquear botón "atrás" (no se puede volver al login)
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', () => {
+      history.pushState(null, '', location.href);
+    });
+  </script>
 </head>
 <body>
 
