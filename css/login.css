@@ -264,13 +264,40 @@ html, body {
   width: 100%;
 }
 
+/* ── Botón para cambiar de cuenta de Google ─────────────────── */
+.btn-switch-account {
+  background: transparent;
+  border: none;
+  color: #D9381E;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13.5px;
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 14px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.18s, background 0.18s, transform 0.15s;
+}
+
+.btn-switch-account:hover {
+  color: #B02A14;
+  background: rgba(217, 56, 30, 0.08);
+  transform: translateY(-1px);
+}
+
 /* ── Nota de seguridad al pie ───────────────────────────────── */
 .card-footer-note {
   font-size: 12px;
   font-weight: 600;
   color: #9E8E84;
   text-align: center;
-  margin-top: 22px;
+  margin-top: 14px;
   line-height: 1.4;
 }
 

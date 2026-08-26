@@ -1,4 +1,4 @@
-﻿/* ================================================================
+/* ================================================================
    KICHAY - Login Script v4 (Ultra-Resiliente)
    Soporta Firebase Auth nativo + Fallback directo con Google JWT
 ================================================================ */
@@ -31,6 +31,39 @@ window.handleGoogleLogin = function(response) {
     _procesarLogin(response.credential);
   } else {
     _pendingCredential = response.credential;
+  }
+};
+
+// ── Cambiar cuenta / Iniciar con otra cuenta de Google ──────────
+window.cambiarCuentaGoogle = function() {
+  if (window.google && google.accounts && google.accounts.id) {
+    google.accounts.id.disableAutoSelect();
+  }
+  sessionStorage.clear();
+
+  if (window.google && google.accounts && google.accounts.id) {
+    google.accounts.id.initialize({
+      client_id: "972842454156-30iv03hm1q4sv717n187hu2vhc6n8d0k.apps.googleusercontent.com",
+      callback: window.handleGoogleLogin,
+      auto_select: false,
+      cancel_on_tap_outside: true
+    });
+
+    var btnContainer = document.querySelector(".g_id_signin");
+    if (btnContainer) {
+      btnContainer.innerHTML = "";
+      google.accounts.id.renderButton(btnContainer, {
+        type: "standard",
+        size: "large",
+        theme: "filled_blue",
+        text: "signin_with",
+        shape: "pill",
+        locale: "es",
+        width: 320
+      });
+    }
+
+    google.accounts.id.prompt();
   }
 };
 

@@ -1,4 +1,4 @@
-﻿/* ================================================================
+/* ================================================================
    KICHAY - Dashboard Script
    Patron: import() dinamico de Firebase + fallback sessionStorage
 ================================================================ */
@@ -90,6 +90,9 @@ import(firebaseUrl).then(function(mod) {
       e.preventDefault();
       document.body.classList.add("page-exit");
       setTimeout(function() {
+        if (window.google && google.accounts && google.accounts.id) {
+          google.accounts.id.disableAutoSelect();
+        }
         mod.cerrarSesion().then(function() {
           window.location.href = "index.html";
         }).catch(function() {
@@ -109,6 +112,9 @@ import(firebaseUrl).then(function(mod) {
       e.preventDefault();
       document.body.classList.add("page-exit");
       setTimeout(function() {
+        if (window.google && google.accounts && google.accounts.id) {
+          google.accounts.id.disableAutoSelect();
+        }
         sessionStorage.clear();
         window.location.href = "index.html";
       }, 400);
