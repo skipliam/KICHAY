@@ -21,6 +21,185 @@ function setAvatarPhoto(photoUrl, nombre) {
   }
 }
 
+// ── SISTEMA DE MISIONES DINÁMICAS Y CONSECUTIVAS ──────────────────
+var LISTA_MISIONES = [
+  {
+    id: "mis_preinca_1",
+    tag: "Misión 1: Preinca",
+    titulo: "¡Primeros Pasos Ancestrales!",
+    desc: "Completa el Nivel 1 de la época Preinca (Primeras civilizaciones).",
+    recompensa: 30,
+    accion: function() { abrirVistaHistoria('preinca'); },
+    esCumplida: function(progreso) { return !!progreso['preinca_1']; }
+  },
+  {
+    id: "mis_preinca_2",
+    tag: "Misión 2: Preinca",
+    titulo: "El Misterio de Caral y Chavín",
+    desc: "Supera el Nivel 2 de Preinca y gana tus estrellas.",
+    recompensa: 40,
+    accion: function() { abrirVistaHistoria('preinca'); },
+    esCumplida: function(progreso) { return !!progreso['preinca_2']; }
+  },
+  {
+    id: "mis_preinca_all",
+    tag: "Misión 3: Época Preinca",
+    titulo: "¡Conquistador de la Época Preinca!",
+    desc: "Supera los 5 niveles de Preinca para desbloquear el Imperio Inca.",
+    recompensa: 60,
+    accion: function() { abrirVistaHistoria('preinca'); },
+    esCumplida: function(progreso) { return !!progreso['preinca_5']; }
+  },
+  {
+    id: "mis_inca_1",
+    tag: "Misión 4: Imperio Inca",
+    titulo: "Los Secretos del Tahuantinsuyo",
+    desc: "Avanza y supera el Nivel 1 de la época Inca.",
+    recompensa: 50,
+    accion: function() { abrirVistaHistoria('inca'); },
+    esCumplida: function(progreso) { return !!progreso['inca_1']; }
+  },
+  {
+    id: "mis_sabio_3stars",
+    tag: "Misión 5: Maestro del Saber",
+    titulo: "Amauta Legendario",
+    desc: "Consigue 3 estrellas doradas en al menos 3 lecciones distintas.",
+    recompensa: 80,
+    accion: function() { abrirVistaHistoria('preinca'); },
+    esCumplida: function(progreso) {
+      var count = 0;
+      for (var k in progreso) {
+        if (k.endsWith("_stars") && progreso[k] >= 3) count++;
+      }
+      return count >= 3;
+    }
+  },
+  {
+    id: "mis_tesoro_200",
+    tag: "Misión 6: Tesoro Andino",
+    titulo: "Acumula 200 INTIS",
+    desc: "Explora los niveles de historia y reúne 200 Intis en tu monedero.",
+    recompensa: 100,
+    accion: function() { abrirVistaHistoria('preinca'); },
+    esCumplida: function(progreso, intis) { return intis >= 200; }
+  }
+];
+
+window._misionActual = null;
+window._misionEstado = "pendiente";
+
+function actualizarBannerMisiones(datos) {
+  var progreso = (datos && datos.progreso) ? datos.progreso : JSON.parse(sessionStorage.getItem("kichay_progreso") || "{}");
+  var misionesReclamadas = (datos && datos.misionesReclamadas) ? datos.misionesReclamadas : JSON.parse(sessionStorage.getItem("kichay_misiones_reclamadas") || "{}");
+  var intis = (datos && datos.intis !== undefined) ? datos.intis : parseInt(sessionStorage.getItem("kichay_intis") || "0", 10);
+
+  // Buscar la primera misión no reclamada
+  var misionEncontrada = null;
+  for (var i = 0; i < LISTA_MISIONES.length; i++) {
+    var m = LISTA_MISIONES[i];
+    if (!misionesReclamadas[m.id]) {
+      misionEncontrada = m;
+      break;
+    }
+  }
+
+  var tagEl   = document.getElementById("missionBannerTag");
+  var titleEl = document.getElementById("missionBannerTitle");
+  var subEl   = document.getElementById("missionBannerSub");
+  var btnEl   = document.getElementById("btnMissionAction");
+  var imgEl   = document.getElementById("missionBannerKusiImg");
+
+  if (!tagEl || !titleEl || !subEl || !btnEl) return;
+
+  if (!misionEncontrada) {
+    tagEl.className = "mission-tag completed";
+    tagEl.textContent = "¡TODAS LAS MISIONES COMPLETADAS! 🏆";
+    titleEl.textContent = "¡Eres un Gran Maestro del Perú!";
+    subEl.textContent = "Has completado todos los retos activos. ¡Pronto habrá nuevas misiones disponibles!";
+    btnEl.className = "btn-comenzar";
+    btnEl.textContent = "Explorar Mapa 🗺️";
+    btnEl.onclick = function() { abrirVistaHistoria('preinca'); };
+    if (imgEl) imgEl.src = "IMG/feliz.png";
+    return;
+  }
+
+  window._misionActual = misionEncontrada;
+  var estaCumplida = misionEncontrada.esCumplida(progreso, intis);
+
+  if (estaCumplida) {
+    window._misionEstado = "cumplida";
+    tagEl.className = "mission-tag completed";
+    tagEl.textContent = "¡MISIÓN CUMPLIDA! 🎉";
+    titleEl.textContent = misionEncontrada.titulo;
+    subEl.textContent = "¡Has superado el reto! Reclama tu recompensa de +" + misionEncontrada.recompensa + " INTIS.";
+    btnEl.className = "btn-comenzar btn-claim-reward";
+    btnEl.innerHTML = "¡Reclamar +" + misionEncontrada.recompensa + " 🪙!";
+    if (imgEl) imgEl.src = "IMG/feliz.png";
+  } else {
+    window._misionEstado = "pendiente";
+    tagEl.className = "mission-tag";
+    tagEl.textContent = misionEncontrada.tag;
+    titleEl.textContent = misionEncontrada.titulo;
+    subEl.textContent = misionEncontrada.desc + " · Recompensa: +" + misionEncontrada.recompensa + " INTIS 🪙";
+    btnEl.className = "btn-comenzar";
+    btnEl.innerHTML = "Comenzar ➔";
+    if (imgEl) imgEl.src = "IMG/PERSONAJE.png";
+  }
+}
+
+window.ejecutarAccionMision = function() {
+  if (!window._misionActual) {
+    abrirVistaHistoria('preinca');
+    return;
+  }
+
+  if (window._misionEstado === "cumplida") {
+    var mision = window._misionActual;
+    var intisActuales = parseInt(sessionStorage.getItem("kichay_intis") || "0", 10);
+    var nuevosIntis = intisActuales + mision.recompensa;
+    sessionStorage.setItem("kichay_intis", nuevosIntis);
+    setEl("hud-intis", nuevosIntis);
+
+    var misionesReclamadas = JSON.parse(sessionStorage.getItem("kichay_misiones_reclamadas") || "{}");
+    misionesReclamadas[mision.id] = true;
+    sessionStorage.setItem("kichay_misiones_reclamadas", JSON.stringify(misionesReclamadas));
+
+    if (window._firebaseMod && window._firebaseAuth && window._firebaseAuth.currentUser) {
+      var uid = window._firebaseAuth.currentUser.uid;
+      window._firebaseMod.actualizarProgreso(uid, {
+        intis: nuevosIntis,
+        misionesReclamadas: misionesReclamadas
+      }).catch(function(e) { console.warn("[KICHAY] Error guardando recompensa:", e); });
+    }
+
+    if (window.SoundEffects) window.SoundEffects.playVictory();
+
+    var tagEl   = document.getElementById("missionBannerTag");
+    var titleEl = document.getElementById("missionBannerTitle");
+    var subEl   = document.getElementById("missionBannerSub");
+    var btnEl   = document.getElementById("btnMissionAction");
+
+    if (tagEl) tagEl.textContent = "¡RECOMPENSA RECLAMADA! ✨";
+    if (titleEl) titleEl.textContent = "¡+" + mision.recompensa + " INTIS agregados a tu monedero!";
+    if (subEl) subEl.textContent = "Cargando tu siguiente misión...";
+    if (btnEl) {
+      btnEl.className = "btn-comenzar";
+      btnEl.textContent = "¡Genial! 🥳";
+    }
+
+    setTimeout(function() {
+      actualizarBannerMisiones({
+        progreso: JSON.parse(sessionStorage.getItem("kichay_progreso") || "{}"),
+        misionesReclamadas: misionesReclamadas,
+        intis: nuevosIntis
+      });
+    }, 1200);
+
+  } else {
+    window._misionActual.accion();
+  }
+};
+
 function poblarDashboard(datos, racha) {
   var nombre = datos.nombre || sessionStorage.getItem("kichay_user") || "Explorador";
   var photo  = datos.photoURL || datos.foto || sessionStorage.getItem("kichay_photo") || "";
@@ -53,6 +232,8 @@ function poblarDashboard(datos, racha) {
     if (fill) fill.style.width = pct + "%";
     if (pctEl) pctEl.textContent = pct + "%";
   });
+
+  actualizarBannerMisiones(datos);
 }
 
 // ── Fallback: mostrar datos de sessionStorage mientras carga ─────
@@ -66,6 +247,12 @@ function poblarDashboard(datos, racha) {
   setAvatarPhoto(photo, nombre);
   setEl("hud-racha",  racha);
   setEl("hud-intis",  intis);
+
+  actualizarBannerMisiones({
+    progreso: JSON.parse(sessionStorage.getItem("kichay_progreso") || "{}"),
+    misionesReclamadas: JSON.parse(sessionStorage.getItem("kichay_misiones_reclamadas") || "{}"),
+    intis: parseInt(intis, 10)
+  });
 })();
 
 // ── Cargar Firebase y datos reales de Firestore ──────────────────

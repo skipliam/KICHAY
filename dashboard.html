@@ -222,14 +222,19 @@
 
       </div>
 
-      <!-- Banner misión -->
-      <div class="mission-banner">
-        <img src="IMG/PERSONAJE.png" alt="Kusi" class="mission-kusi" />
+      <!-- Banner misión dinámica -->
+      <div class="mission-banner" id="dashboardMissionBanner">
+        <img src="IMG/PERSONAJE.png" alt="Kusi" class="mission-kusi" id="missionBannerKusiImg" />
         <div class="mission-text">
-          <p class="mission-title">Kusi tiene una misión para ti</p>
-          <p class="mission-sub">¡Completa retos y gana INTIS!</p>
+          <div class="mission-title-row">
+            <span class="mission-tag" id="missionBannerTag">MISIÓN ACTIVA</span>
+            <p class="mission-title" id="missionBannerTitle">Kusi tiene una misión para ti</p>
+          </div>
+          <p class="mission-sub" id="missionBannerSub">¡Completa retos de Historia y gana INTIS!</p>
         </div>
-        <button class="btn-comenzar" onclick="abrirVistaHistoria()">Comenzar</button>
+        <button class="btn-comenzar" id="btnMissionAction" onclick="ejecutarAccionMision()">
+          Comenzar ➔
+        </button>
       </div>
 
     </main>

@@ -47,11 +47,12 @@ html, body {
    SIDEBAR – Logo
 ══════════════════════════════════════════════ */
 .sidebar-logo {
-  padding: 18px 14px 16px;
+  padding: 22px 14px 20px;
   border-bottom: 1px solid #EDE8E0;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
 .sidebar-header-row {
@@ -70,14 +71,19 @@ html, body {
 }
 
 .sidebar-logo-img {
-  width: 175px;
-  max-width: 100%;
+  width: 195px;
+  max-width: 90%;
   height: auto;
-  max-height: 62px;
+  max-height: 72px;
   object-fit: contain;
   display: block;
   margin: 0 auto;
-  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.06));
+  filter: drop-shadow(0 3px 10px rgba(0,0,0,0.08));
+  transition: transform 0.2s ease;
+}
+
+.sidebar-logo-img:hover {
+  transform: scale(1.03);
 }
 
 /* ══════════════════════════════════════════════
@@ -496,13 +502,41 @@ body.page-exit .content {
   height: 70px;
   object-fit: contain;
   flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.mission-banner:hover .mission-kusi {
+  transform: scale(1.08) rotate(3deg);
 }
 
 .mission-text { flex: 1; }
 
+.mission-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mission-tag {
+  font-family: 'Nourd', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: #D9381E;
+  background: #FFEBEE;
+  padding: 3px 8px;
+  border-radius: 8px;
+  text-transform: uppercase;
+}
+
+.mission-tag.completed {
+  color: #1E7E34;
+  background: #E8F5E9;
+}
+
 .mission-title {
   font-family: 'Nourd', sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
   color: #2C2523;
   line-height: 1.2;
@@ -510,7 +544,7 @@ body.page-exit .content {
 
 .mission-sub {
   font-family: 'Balsamiq Sans', 'Nourd', sans-serif;
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 700;
   color: #6B5B4E;
   margin-top: 4px;
@@ -521,21 +555,34 @@ body.page-exit .content {
   color: #FFFFFF;
   border: none;
   border-radius: 14px;
-  padding: 14px 32px;
+  padding: 13px 26px;
   font-family: 'Nourd', sans-serif;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
   cursor: pointer;
   box-shadow: 0 6px 18px rgba(217,56,30,0.35);
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
   letter-spacing: 0.3px;
-}
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .btn-comenzar:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 24px rgba(217,56,30,0.45);
+}
+
+.btn-comenzar.btn-claim-reward {
+  background: #1E7E34;
+  box-shadow: 0 6px 18px rgba(30, 126, 52, 0.4);
+  animation: pulseClaim 1.2s infinite alternate;
+}
+
+@keyframes pulseClaim {
+  from { transform: scale(1); box-shadow: 0 6px 18px rgba(30, 126, 52, 0.4); }
+  to { transform: scale(1.04); box-shadow: 0 10px 24px rgba(30, 126, 52, 0.6); }
 }
 
 

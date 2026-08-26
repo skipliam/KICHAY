@@ -1293,6 +1293,14 @@ window.QuizEngine = {
       if (epoca === "emancipacion")  { sessionStorage.setItem("unlocked_republica", "true"); progreso["emancipacion_5"] = true; }
     }
     sessionStorage.setItem("kichay_progreso_historia", JSON.stringify(progreso));
+    sessionStorage.setItem("kichay_progreso", JSON.stringify(progreso));
+
+    if (window.actualizarBannerMisiones) {
+      window.actualizarBannerMisiones({
+        progreso: progreso,
+        intis: intisNuevos
+      });
+    }
 
     if (window.actualizarEstadoDropdownEpocas) {
       window.actualizarEstadoDropdownEpocas();
