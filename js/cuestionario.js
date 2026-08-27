@@ -1022,14 +1022,12 @@ window.QuizEngine = {
     this.respuestasCorrectas = 0;
     this.haRespondido = false;
 
-    // Cambiar vista a Quiz
-    var viewInicio   = document.getElementById("view-inicio");
-    var viewHistoria = document.getElementById("view-historia");
-    var viewQuiz     = document.getElementById("view-quiz");
+    // Ocultar todas las vistas
+    var todasVistas = document.querySelectorAll(".main-wrap > main, .main-wrap .content");
+    todasVistas.forEach(function(v) { v.style.display = "none"; });
 
-    if (viewInicio)   viewInicio.style.display   = "none";
-    if (viewHistoria) viewHistoria.style.display = "none";
-    if (viewQuiz)     viewQuiz.style.display     = "flex";
+    var viewQuiz = document.getElementById("view-quiz");
+    if (viewQuiz) viewQuiz.style.display = "flex";
 
     // Ocultar modal de victoria si estaba abierto
     var vicModal = document.getElementById("quizVictoryModal");
@@ -1407,9 +1405,10 @@ window.avanzarSiguientePregunta = function() {
 
 window.salirDelQuiz = function() {
   if (confirm("¿Quieres salir de la lección actual? Tu progreso de este intento no se guardará.")) {
-    var viewQuiz     = document.getElementById("view-quiz");
+    var todasVistas = document.querySelectorAll(".main-wrap > main, .main-wrap .content");
+    todasVistas.forEach(function(v) { v.style.display = "none"; });
+
     var viewHistoria = document.getElementById("view-historia");
-    if (viewQuiz)     viewQuiz.style.display     = "none";
     if (viewHistoria) {
       viewHistoria.style.display = "flex";
       if (window.renderizarNodosHistoria) window.renderizarNodosHistoria();
@@ -1418,12 +1417,13 @@ window.salirDelQuiz = function() {
 };
 
 window.finalizarQuizYVolver = function() {
-  var viewQuiz     = document.getElementById("view-quiz");
-  var viewHistoria = document.getElementById("view-historia");
-  var vicModal     = document.getElementById("quizVictoryModal");
+  var vicModal = document.getElementById("quizVictoryModal");
+  if (vicModal) vicModal.style.display = "none";
 
-  if (vicModal)     vicModal.style.display     = "none";
-  if (viewQuiz)     viewQuiz.style.display     = "none";
+  var todasVistas = document.querySelectorAll(".main-wrap > main, .main-wrap .content");
+  todasVistas.forEach(function(v) { v.style.display = "none"; });
+
+  var viewHistoria = document.getElementById("view-historia");
   if (viewHistoria) {
     viewHistoria.style.display = "flex";
     if (window.renderizarNodosHistoria) window.renderizarNodosHistoria();

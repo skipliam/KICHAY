@@ -458,19 +458,23 @@ document.querySelectorAll(".sidebar-nav .nav-item").forEach(function(item) {
 });
 
 // ══════════════════════════════════════════════════════════════
-// NAVEGACIÓN ENTRE VISTAS (Inicio / Historia / Quiz)
+// NAVEGACIÓN ENTRE VISTAS (Inicio / Historia / Quiz / Subvistas)
 // ══════════════════════════════════════════════════════════════
 var _epocaSeleccionada = "preinca";
 
+function ocultarTodasLasVistas() {
+  var vistas = document.querySelectorAll(".main-wrap > main, .main-wrap .content");
+  vistas.forEach(function(v) {
+    v.style.display = "none";
+  });
+}
+
 window.abrirVistaHistoria = function(epocaOpcional) {
-  var viewInicio   = document.getElementById("view-inicio");
+  ocultarTodasLasVistas();
+
   var viewHistoria = document.getElementById("view-historia");
-  var viewQuiz     = document.getElementById("view-quiz");
-  var navInicio    = document.getElementById("nav-inicio");
   var navHistoria  = document.getElementById("nav-historia");
 
-  if (viewInicio)   viewInicio.style.display   = "none";
-  if (viewQuiz)     viewQuiz.style.display     = "none";
   if (viewHistoria) {
     viewHistoria.style.display = "flex";
     viewHistoria.scrollTop     = 0;
@@ -494,8 +498,7 @@ window.abrirVistaHistoria = function(epocaOpcional) {
 };
 
 window.abrirVistaInicio = function() {
-  var todasVistas = document.querySelectorAll(".main-wrap .content");
-  todasVistas.forEach(function(v) { v.style.display = "none"; });
+  ocultarTodasLasVistas();
 
   var viewInicio   = document.getElementById("view-inicio");
   var navInicio    = document.getElementById("nav-inicio");
@@ -514,9 +517,8 @@ window.abrirVistaInicio = function() {
 };
 
 window.abrirSeccionVisual = function(seccionKey, titulo) {
-  // Ocultar todas las vistas principales
-  var todasVistas = document.querySelectorAll(".main-wrap .content");
-  todasVistas.forEach(function(v) { v.style.display = "none"; });
+  // Ocultar estrictamente todas las vistas
+  ocultarTodasLasVistas();
 
   // Desmarcar todos los nav-items
   document.querySelectorAll(".sidebar-nav .nav-item").forEach(function(el) {
