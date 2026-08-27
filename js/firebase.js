@@ -168,6 +168,39 @@ async function guardarProgresoUsuario(uid, updateData) {
   }
 }
 
+async function obtenerRankingUsuarios() {
+  try {
+    const colRef = collection(db, "usuarios");
+    const snapshot = await getDocs(colRef);
+    const lista = [];
+    snapshot.forEach(docSnap => {
+      const data = docSnap.data() || {};
+      const exp = parseInt(data.experiencia || data.expKusi || 0, 10);
+      const nivel = parseInt(data.kusiNivel || data.nivelKusi || 1, 10);
+      lista.push({
+        uid: docSnap.id,
+        nombre: data.nombre || "Explorador",
+        photoURL: data.photoURL || data.foto || "",
+        experiencia: exp,
+        nivel: nivel,
+        racha: data.racha || 0,
+        intis: data.intis || 0,
+        grado: data.grado || "General"
+      });
+    });
+
+    lista.sort((a, b) => {
+      if (b.nivel !== a.nivel) return b.nivel - a.nivel;
+      return b.experiencia - a.experiencia;
+    });
+
+    return lista;
+  } catch (err) {
+    console.warn("[KICHAY] Error obteniendo ranking de Firestore:", err);
+    return [];
+  }
+}
+
 async function cerrarSesion() {
   sessionStorage.clear();
   try {
@@ -179,12 +212,14 @@ window.KichayFirebase = {
   db, auth,
   GoogleAuthProvider, signInWithCredential, onAuthStateChanged,
   obtenerUsuario, crearUsuario, completarPerfil,
-  actualizarAcceso, guardarProgresoUsuario, cerrarSesion, calcularRacha
+  actualizarAcceso, guardarProgresoUsuario, cerrarSesion, calcularRacha,
+  obtenerRankingUsuarios
 };
 
 export {
   db, auth,
   GoogleAuthProvider, signInWithCredential, onAuthStateChanged,
   obtenerUsuario, crearUsuario, completarPerfil,
-  actualizarAcceso, guardarProgresoUsuario, cerrarSesion, calcularRacha
+  actualizarAcceso, guardarProgresoUsuario, cerrarSesion, calcularRacha,
+  obtenerRankingUsuarios
 };

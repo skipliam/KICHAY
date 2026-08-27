@@ -75,9 +75,9 @@
         <span class="nav-sprite"><img src="IMG/tienda.png" alt="Tienda" /></span>
         Tienda
       </a>
-      <a href="javascript:void(0)" class="nav-item" id="nav-logros" onclick="abrirSeccionVisual('logros', 'Logros y Medallas')">
-        <span class="nav-sprite"><img src="IMG/ranking.png" alt="Logros" /></span>
-        Logros
+      <a href="javascript:void(0)" class="nav-item" id="nav-ranking" onclick="abrirSeccionVisual('ranking', 'Ranking de Exploradores')">
+        <span class="nav-sprite"><img src="IMG/ranking.png" alt="Ranking" /></span>
+        Ranking
       </a>
       <a href="javascript:void(0)" class="nav-item" id="nav-mascota" onclick="abrirSeccionVisual('mascota', 'Santuario de Kusi')">
         <span class="nav-sprite"><img src="IMG/mascota.png" alt="Mascota" /></span>
@@ -538,71 +538,76 @@
       </div>
     </main>
 
-    <!-- ══════════ VISTA: LOGROS Y MEDALLAS ══════════ -->
-    <main class="content content-subview" id="view-logros" style="display:none;">
+    <!-- ══════════ VISTA: RANKING DE EXPLORADORES ══════════ -->
+    <main class="content content-subview" id="view-ranking" style="display:none;">
       <div class="subview-header">
         <div class="subview-header-left">
-          <span class="subview-tag">🏆 SALÓN DE LA GLORIA</span>
-          <h2 class="subview-title">Logros y Trofeos</h2>
-          <p class="subview-desc">Colecciona condecoraciones y medallas demostrando tu sabiduría.</p>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="subview-tag">👑 TAHUANTINSUYO LEADERBOARD</span>
+            <span class="ranking-live-badge"><span class="live-dot"></span> EN VIVO · AUTO (1 MIN)</span>
+          </div>
+          <h2 class="subview-title">Ranking de Exploradores</h2>
+          <p class="subview-desc">Los mejores sabios y guardianes de KICHAY según su nivel y experiencia.</p>
         </div>
         <button class="subview-btn-back" onclick="abrirVistaInicio()">✕ Volver al Inicio</button>
       </div>
 
-      <div class="subview-grid-2">
-        <div class="subview-card" style="border-left: 5px solid #2E7D32;">
-          <div style="display:flex; align-items:center; gap:14px;">
-            <div class="card-icon-badge" style="background:#E8F5E9; color:#2E7D32;">🥇</div>
-            <div>
-              <h3 class="subview-card-title">Primeros Pasos Ancestrales</h3>
-              <p class="subview-card-desc">Completa con éxito tu primer nivel de cuestionario.</p>
-            </div>
+      <!-- Podio Top 3 -->
+      <div class="ranking-podium-wrap" id="rankingPodiumContainer">
+        <!-- Top 2 -->
+        <div class="podium-slot podium-slot-2" id="podiumSlot2">
+          <div class="podium-avatar-wrap">
+            <div class="podium-avatar" id="podiumAvatar2">🥈</div>
           </div>
-          <div class="card-meta-row">
-            <span style="font-family:'Nourd',sans-serif; font-size:12px; font-weight:800; color:#2E7D32;">✓ DESBLOQUEADO</span>
-            <span class="card-price-tag">+50 INTIS 🪙</span>
-          </div>
-        </div>
-
-        <div class="subview-card" style="border-left: 5px solid #F39C12;">
-          <div style="display:flex; align-items:center; gap:14px;">
-            <div class="card-icon-badge" style="background:#FFF8E1; color:#F57F17;">🌟</div>
-            <div>
-              <h3 class="subview-card-title">Sabio de las Civilizaciones</h3>
-              <p class="subview-card-desc">Obtén 3 estrellas en todos los niveles de Preinca.</p>
-            </div>
-          </div>
-          <div class="card-meta-row">
-            <span style="font-family:'Nourd',sans-serif; font-size:12px; font-weight:800; color:#E67E22;">⏳ EN PROGRESO</span>
-            <span class="card-price-tag">+100 INTIS 🪙</span>
+          <span class="podium-name" id="podiumName2">Cargando...</span>
+          <span class="podium-level-pill" id="podiumLevel2">Nivel -</span>
+          <div class="podium-pedestal">
+            <span class="pedestal-rank-num">2</span>
+            <span class="pedestal-exp" id="podiumExp2">- EXP</span>
           </div>
         </div>
 
-        <div class="subview-card" style="border-left: 5px solid #E67E22;">
-          <div style="display:flex; align-items:center; gap:14px;">
-            <div class="card-icon-badge" style="background:#FFF3E0; color:#D35400;">🔥</div>
-            <div>
-              <h3 class="subview-card-title">Fuego Eterno del Sol</h3>
-              <p class="subview-card-desc">Alcanza una racha continua de 7 días de estudio.</p>
-            </div>
+        <!-- Top 1 (Centro Elevado) -->
+        <div class="podium-slot podium-slot-1" id="podiumSlot1">
+          <div class="podium-avatar-wrap">
+            <span class="podium-crown">👑</span>
+            <div class="podium-avatar" id="podiumAvatar1">🥇</div>
           </div>
-          <div class="card-meta-row">
-            <span style="font-family:'Nourd',sans-serif; font-size:12px; font-weight:800; color:#7A695C;">🔒 BLOQUEADO</span>
-            <span class="card-price-tag">+150 INTIS 🪙</span>
+          <span class="podium-name" id="podiumName1" style="font-size:16px; color:#D35400;">Cargando...</span>
+          <span class="podium-level-pill" id="podiumLevel1" style="background:#D35400;">Nivel -</span>
+          <div class="podium-pedestal">
+            <span class="pedestal-rank-num">1</span>
+            <span class="pedestal-exp" id="podiumExp1">- EXP</span>
           </div>
         </div>
 
-        <div class="subview-card" style="border-left: 5px solid #5E2CA5;">
-          <div style="display:flex; align-items:center; gap:14px;">
-            <div class="card-icon-badge" style="background:#EDE7F6; color:#5E2CA5;">👑</div>
-            <div>
-              <h3 class="subview-card-title">Gran Maestro Amauta</h3>
-              <p class="subview-card-desc">Eleva a Kusi hasta el Nivel 5 de Sabiduría Andina.</p>
-            </div>
+        <!-- Top 3 -->
+        <div class="podium-slot podium-slot-3" id="podiumSlot3">
+          <div class="podium-avatar-wrap">
+            <div class="podium-avatar" id="podiumAvatar3">🥉</div>
           </div>
-          <div class="card-meta-row">
-            <span style="font-family:'Nourd',sans-serif; font-size:12px; font-weight:800; color:#7A695C;">🔒 BLOQUEADO</span>
-            <span class="card-price-tag">+250 INTIS 🪙</span>
+          <span class="podium-name" id="podiumName3">Cargando...</span>
+          <span class="podium-level-pill" id="podiumLevel3">Nivel -</span>
+          <div class="podium-pedestal">
+            <span class="pedestal-rank-num">3</span>
+            <span class="pedestal-exp" id="podiumExp3">- EXP</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla Completa de Posiciones -->
+      <div class="ranking-table-card">
+        <div class="ranking-table-header">
+          <span>PUESTO</span>
+          <span>EXPLORADOR</span>
+          <span>NIVEL DE KUSI</span>
+          <span>EXP TOTAL</span>
+          <span>RACHA 🔥</span>
+        </div>
+        <div id="rankingListContainer" style="display:flex; flex-direction:column; gap:8px;">
+          <!-- Filas dinámicas generadas desde Firestore -->
+          <div style="text-align:center; padding:24px; color:#8C6D53; font-family:'Nourd',sans-serif;">
+            Cargando exploradores desde la base de datos... ⏳
           </div>
         </div>
       </div>

@@ -531,6 +531,11 @@ window.abrirSeccionVisual = function(seccionKey, titulo) {
   var targetViewId = "view-" + seccionKey;
   var targetView = document.getElementById(targetViewId);
 
+  // Si es Ranking, cargar datos frescos de Firestore y actualizar podio
+  if (seccionKey === "ranking") {
+    window.cargarRankingEnVivo();
+  }
+
   // Si es una materia extra (fauna, gastronomia, cultura, turismo)
   var materiasExtra = {
     fauna: { tag: "🌿 BIODIVERSIDAD PERUANA", title: "Flora y Fauna del Perú", desc: "Descubre los ecosistemas más asombrosos del Perú: Costa, Andes y Amazonía." },
@@ -578,8 +583,10 @@ window.abrirSeccionVisual = function(seccionKey, titulo) {
     window.KichaySound.playSoftClick();
   }
 
-  // Mostrar la ventana emergente informativa requerida
-  mostrarModalVisualizacion(titulo || seccionKey);
+  // Mostrar modal de vista previa en secciones en construcción (excepto ranking y perfil)
+  if (seccionKey !== "ranking" && seccionKey !== "perfil") {
+    mostrarModalVisualizacion(titulo || seccionKey);
+  }
 };
 
 window.mostrarModalVisualizacion = function(nombreSeccion) {
@@ -604,6 +611,190 @@ window.cerrarModalVisualizacion = function(e) {
   var modal = document.getElementById("modalSoloVisualizacion");
   if (modal) modal.style.display = "none";
 };
+
+// ══════════════════════════════════════════════════════════════
+// SECCIÓN RANKING: CARGA EN TIEMPO REAL DESDE FIRESTORE (1 MIN)
+// ══════════════════════════════════════════════════════════════
+window.cargarRankingEnVivo = function() {
+  var container = document.getElementById("rankingListContainer");
+  if (!container) return;
+
+  var currentUid = sessionStorage.getItem("kichay_uid") || "";
+  var currentUser = sessionStorage.getItem("kichay_user") || "Tú";
+  var currentExp = parseInt(sessionStorage.getItem("kichay_exp") || "0", 10);
+  var currentLevelInfo = window.calcularNivelKusi ? window.calcularNivelKusi(currentExp) : { nivel: 1 };
+  var currentRacha = parseInt(sessionStorage.getItem("kichay_racha") || "0", 10);
+  var currentPhoto = sessionStorage.getItem("kichay_photo") || "";
+
+  var fetchPromise = (window._firebaseMod && typeof window._firebaseMod.obtenerRankingUsuarios === "function")
+    ? window._firebaseMod.obtenerRankingUsuarios()
+    : Promise.resolve([]);
+
+  fetchPromise.then(function(usuariosDB) {
+    var listaCompleta = (usuariosDB && usuariosDB.length > 0) ? usuariosDB.slice() : [];
+
+    // Asegurar que el usuario actual esté presente con sus datos más frescos
+    var existeActual = false;
+    for (var i = 0; i < listaCompleta.length; i++) {
+      if (listaCompleta[i].uid === currentUid || (currentUid && listaCompleta[i].nombre === currentUser)) {
+        listaCompleta[i].nombre = currentUser;
+        listaCompleta[i].experiencia = currentExp;
+        listaCompleta[i].nivel = currentLevelInfo.nivel;
+        listaCompleta[i].racha = currentRacha;
+        listaCompleta[i].photoURL = currentPhoto || listaCompleta[i].photoURL;
+        existeActual = true;
+        break;
+      }
+    }
+    if (!existeActual && currentUser) {
+      listaCompleta.push({
+        uid: currentUid || "temp_user",
+        nombre: currentUser,
+        photoURL: currentPhoto,
+        experiencia: currentExp,
+        nivel: currentLevelInfo.nivel,
+        racha: currentRacha,
+        intis: parseInt(sessionStorage.getItem("kichay_intis") || "0", 10),
+        isCurrent: true
+      });
+    }
+
+    // Guardianes de ejemplo si la base de datos es nueva para que el ranking siempre sea emocionante
+    if (listaCompleta.length < 5) {
+      var guardianesExtra = [
+        { uid: "g1", nombre: "Amauta Yupanqui", photoURL: "", experiencia: 1850, nivel: 5, racha: 12, intis: 340 },
+        { uid: "g2", nombre: "Chasca de los Andes", photoURL: "", experiencia: 1200, nivel: 4, racha: 8, intis: 220 },
+        { uid: "g3", nombre: "Inti Raymi", photoURL: "", experiencia: 850, nivel: 3, racha: 5, intis: 160 },
+        { uid: "g4", nombre: "Sayri Tupac", photoURL: "", experiencia: 450, nivel: 2, racha: 4, intis: 90 },
+        { uid: "g5", nombre: "Urpi Sabia", photoURL: "", experiencia: 150, nivel: 1, racha: 2, intis: 40 }
+      ];
+      guardianesExtra.forEach(function(g) {
+        if (!listaCompleta.some(function(u){ return u.nombre === g.nombre; })) {
+          listaCompleta.push(g);
+        }
+      });
+    }
+
+    // Reordenar por nivel y experiencia descendente
+    listaCompleta.sort(function(a, b) {
+      var nA = parseInt(a.nivel || 1, 10);
+      var nB = parseInt(b.nivel || 1, 10);
+      if (nB !== nA) return nB - nA;
+      return parseInt(b.experiencia || 0, 10) - parseInt(a.experiencia || 0, 10);
+    });
+
+    // Actualizar Podio (Top 1, 2, 3)
+    renderizarPodio(listaCompleta.slice(0, 3));
+
+    // Renderizar Tabla
+    renderizarTablaRanking(listaCompleta, currentUid, currentUser);
+  }).catch(function(e) {
+    console.warn("[KICHAY Ranking] Error:", e);
+  });
+};
+
+function renderizarPodio(top3) {
+  // Top 1
+  if (top3[0]) {
+    var p1 = top3[0];
+    setEl("podiumName1", p1.nombre);
+    setEl("podiumLevel1", "Nivel " + (p1.nivel || 1));
+    setEl("podiumExp1", (p1.experiencia || 0) + " EXP");
+    var av1 = document.getElementById("podiumAvatar1");
+    if (av1) {
+      if (p1.photoURL) {
+        av1.innerHTML = '<img src="' + p1.photoURL + '" alt="' + p1.nombre + '" referrerpolicy="no-referrer" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" />';
+      } else {
+        av1.textContent = p1.nombre.charAt(0).toUpperCase();
+      }
+    }
+  }
+
+  // Top 2
+  if (top3[1]) {
+    var p2 = top3[1];
+    setEl("podiumName2", p2.nombre);
+    setEl("podiumLevel2", "Nivel " + (p2.nivel || 1));
+    setEl("podiumExp2", (p2.experiencia || 0) + " EXP");
+    var av2 = document.getElementById("podiumAvatar2");
+    if (av2) {
+      if (p2.photoURL) {
+        av2.innerHTML = '<img src="' + p2.photoURL + '" alt="' + p2.nombre + '" referrerpolicy="no-referrer" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" />';
+      } else {
+        av2.textContent = p2.nombre.charAt(0).toUpperCase();
+      }
+    }
+  }
+
+  // Top 3
+  if (top3[2]) {
+    var p3 = top3[2];
+    setEl("podiumName3", p3.nombre);
+    setEl("podiumLevel3", "Nivel " + (p3.nivel || 1));
+    setEl("podiumExp3", (p3.experiencia || 0) + " EXP");
+    var av3 = document.getElementById("podiumAvatar3");
+    if (av3) {
+      if (p3.photoURL) {
+        av3.innerHTML = '<img src="' + p3.photoURL + '" alt="' + p3.nombre + '" referrerpolicy="no-referrer" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" />';
+      } else {
+        av3.textContent = p3.nombre.charAt(0).toUpperCase();
+      }
+    }
+  }
+}
+
+function renderizarTablaRanking(lista, currentUid, currentNombre) {
+  var container = document.getElementById("rankingListContainer");
+  if (!container) return;
+  container.innerHTML = "";
+
+  var rangosAndinos = [
+    "Iniciado de los Andes",
+    "Explorador Valiente",
+    "Guardián del Sol",
+    "Sabio del Tahuantinsuyo",
+    "Gran Amauta Imperial"
+  ];
+
+  lista.forEach(function(usr, index) {
+    var puesto = index + 1;
+    var esActual = (usr.uid === currentUid) || (usr.isCurrent) || (usr.nombre === currentNombre && currentNombre !== "Explorador");
+    var row = document.createElement("div");
+    row.className = "ranking-row" + (esActual ? " current-user-row" : "");
+
+    var posClass = (puesto === 1) ? "rank-pos-1" : ((puesto === 2) ? "rank-pos-2" : ((puesto === 3) ? "rank-pos-3" : ""));
+    var posBadge = '<div class="rank-pos-badge ' + posClass + '">' + (puesto === 1 ? '🥇' : (puesto === 2 ? '🥈' : (puesto === 3 ? '🥉' : ('#' + puesto)))) + '</div>';
+
+    var avHtml = usr.photoURL
+      ? '<img src="' + usr.photoURL + '" class="rank-avatar" alt="' + usr.nombre + '" referrerpolicy="no-referrer" />'
+      : '<div class="rank-avatar">' + (usr.nombre ? usr.nombre.charAt(0).toUpperCase() : "E") + '</div>';
+
+    var rangoTexto = rangosAndinos[Math.min(rangosAndinos.length - 1, Math.max(0, (usr.nivel || 1) - 1))];
+
+    row.innerHTML = 
+      posBadge +
+      '<div class="rank-user-info">' +
+        avHtml +
+        '<div class="rank-name-wrap">' +
+          '<span class="rank-name">' + (usr.nombre || "Explorador") + (esActual ? ' <strong style="color:#D35400; font-size:12px;">(Tú)</strong>' : '') + '</span>' +
+          '<span class="rank-title-badge">' + rangoTexto + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="rank-level-col"><span>⚡ Nivel ' + (usr.nivel || 1) + '</span></div>' +
+      '<div class="rank-exp-col">' + (usr.experiencia || 0) + ' EXP</div>' +
+      '<div class="rank-streak-col">' + (usr.racha || 0) + ' días 🔥</div>';
+
+    container.appendChild(row);
+  });
+}
+
+// Iniciar actualización periódica de Ranking cada 1 minuto (60,000 ms)
+setInterval(function() {
+  var rankingView = document.getElementById("view-ranking");
+  if (rankingView && rankingView.style.display !== "none") {
+    window.cargarRankingEnVivo();
+  }
+}, 60000);
 
 // ══════════════════════════════════════════════════════════════
 // DROPDOWN Y PROGRESIÓN SECUENCIAL DE ÉPOCAS HISTÓRICAS
