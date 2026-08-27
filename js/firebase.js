@@ -5,7 +5,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
   getFirestore, doc, getDoc, setDoc, serverTimestamp,
-  collection, query, where, getDocs
+  collection, query, where, getDocs, onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import {
   getAuth, GoogleAuthProvider, signInWithCredential, signOut, onAuthStateChanged
@@ -201,6 +201,27 @@ async function obtenerRankingUsuarios() {
   }
 }
 
+function escucharUsuarioEnVivo(uid, callback) {
+  if (!uid) return null;
+  try {
+    const userRef = doc(db, "usuarios", uid);
+    return onSnapshot(userRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.data();
+        localStorage.setItem("kichay_user_cache_" + uid, JSON.stringify(data));
+        if (typeof callback === "function") {
+          callback(data);
+        }
+      }
+    }, (err) => {
+      console.warn("[KICHAY Realtime] Error en listener onSnapshot:", err);
+    });
+  } catch (e) {
+    console.warn("[KICHAY Realtime] No se pudo inicializar onSnapshot:", e);
+    return null;
+  }
+}
+
 async function cerrarSesion() {
   sessionStorage.clear();
   try {
@@ -213,7 +234,7 @@ window.KichayFirebase = {
   GoogleAuthProvider, signInWithCredential, onAuthStateChanged,
   obtenerUsuario, crearUsuario, completarPerfil,
   actualizarAcceso, guardarProgresoUsuario, cerrarSesion, calcularRacha,
-  obtenerRankingUsuarios
+  obtenerRankingUsuarios, escucharUsuarioEnVivo
 };
 
 export {
@@ -221,5 +242,5 @@ export {
   GoogleAuthProvider, signInWithCredential, onAuthStateChanged,
   obtenerUsuario, crearUsuario, completarPerfil,
   actualizarAcceso, guardarProgresoUsuario, cerrarSesion, calcularRacha,
-  obtenerRankingUsuarios
+  obtenerRankingUsuarios, escucharUsuarioEnVivo
 };

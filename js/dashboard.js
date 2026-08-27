@@ -333,6 +333,39 @@ function poblarDashboard(datos, racha) {
   });
 })();
 
+function aplicarDatosUsuario(datos, rachaParam) {
+  if (!datos) return;
+  var progMap = datos.progresoHistoria || datos.progreso || {};
+  
+  if (datos.uid) sessionStorage.setItem("kichay_uid", datos.uid);
+  if (datos.nombre) sessionStorage.setItem("kichay_user", datos.nombre);
+  if (datos.photoURL || datos.foto) sessionStorage.setItem("kichay_photo", datos.photoURL || datos.foto);
+  if (datos.intis !== undefined) sessionStorage.setItem("kichay_intis", datos.intis);
+  if (datos.experiencia !== undefined || datos.expKusi !== undefined) {
+    sessionStorage.setItem("kichay_exp", datos.experiencia !== undefined ? datos.experiencia : datos.expKusi);
+  }
+  if (datos.kusiNivel !== undefined || datos.nivelKusi !== undefined) {
+    sessionStorage.setItem("kichay_kusi_nivel", datos.kusiNivel || datos.nivelKusi);
+  }
+  sessionStorage.setItem("kichay_progreso_historia", JSON.stringify(progMap));
+  sessionStorage.setItem("kichay_progreso", JSON.stringify(progMap));
+  sessionStorage.setItem("kichay_misiones_reclamadas", JSON.stringify(datos.misionesReclamadas || {}));
+  sessionStorage.setItem("kichay_perfil_completo", "1");
+
+  if (progMap.preinca_5) sessionStorage.setItem("unlocked_inca", "true");
+  if (progMap.inca_5) sessionStorage.setItem("unlocked_virreinato", "true");
+  if (progMap.virreinato_5) sessionStorage.setItem("unlocked_emancipacion", "true");
+  if (progMap.emancipacion_5) sessionStorage.setItem("unlocked_republica", "true");
+
+  var racha = rachaParam !== undefined ? rachaParam : (datos.racha || parseInt(sessionStorage.getItem("kichay_racha") || "1", 10));
+  sessionStorage.setItem("kichay_racha", racha);
+
+  poblarDashboard(datos, racha);
+  if (window.renderizarNodosHistoria) window.renderizarNodosHistoria();
+  if (window.actualizarEstadoDropdownEpocas) window.actualizarEstadoDropdownEpocas();
+  if (window.cargarRankingEnVivo) window.cargarRankingEnVivo();
+}
+
 // ── Cargar Firebase y datos reales de Firestore ──────────────────
 var firebaseUrl = new URL("./firebase.js", document.currentScript
   ? document.currentScript.src
@@ -357,42 +390,38 @@ import(firebaseUrl).then(function(mod) {
     window._firebaseMod = mod;
     window._firebaseAuth = mod.auth;
 
-    // Cargar datos de Firestore buscando por UID y Email
+    // 1. Cargar datos iniciales y sincronizar racha
     mod.obtenerUsuario(activeUid, activeEmail).then(function(datos) {
       if (!datos) return;
-
-      var progMap = datos.progresoHistoria || datos.progreso || {};
-      sessionStorage.setItem("kichay_uid",               fbUser.uid);
-      sessionStorage.setItem("kichay_user",              datos.nombre || fbUser.displayName || "Explorador");
-      sessionStorage.setItem("kichay_photo",             datos.photoURL || fbUser.photoURL || "");
-      sessionStorage.setItem("kichay_intis",             datos.intis !== undefined ? datos.intis : 0);
-      sessionStorage.setItem("kichay_exp",               datos.experiencia || datos.expKusi || 0);
-      sessionStorage.setItem("kichay_kusi_nivel",        datos.kusiNivel || datos.nivelKusi || 1);
-      sessionStorage.setItem("kichay_progreso_historia", JSON.stringify(progMap));
-      sessionStorage.setItem("kichay_progreso",          JSON.stringify(progMap));
-      sessionStorage.setItem("kichay_misiones_reclamadas", JSON.stringify(datos.misionesReclamadas || {}));
-      sessionStorage.setItem("kichay_perfil_completo",   "1");
-
-      if (progMap.preinca_5)     sessionStorage.setItem("unlocked_inca", "true");
-      if (progMap.inca_5)        sessionStorage.setItem("unlocked_virreinato", "true");
-      if (progMap.virreinato_5)  sessionStorage.setItem("unlocked_emancipacion", "true");
-      if (progMap.emancipacion_5)sessionStorage.setItem("unlocked_republica", "true");
-
-      // Actualizar racha diaria
-      mod.actualizarAcceso(fbUser.uid, datos.racha || 0, datos.ultimoAcceso || null)
+      mod.actualizarAcceso(activeUid, datos.racha || 0, datos.ultimoAcceso || null)
         .then(function(nuevaRacha) {
-          sessionStorage.setItem("kichay_racha", nuevaRacha);
-          poblarDashboard(datos, nuevaRacha);
-          if (window.renderizarNodosHistoria) window.renderizarNodosHistoria();
-          if (window.actualizarEstadoDropdownEpocas) window.actualizarEstadoDropdownEpocas();
+          aplicarDatosUsuario(datos, nuevaRacha);
         }).catch(function() {
-          poblarDashboard(datos, datos.racha || 1);
-          if (window.renderizarNodosHistoria) window.renderizarNodosHistoria();
-          if (window.actualizarEstadoDropdownEpocas) window.actualizarEstadoDropdownEpocas();
+          aplicarDatosUsuario(datos, datos.racha || 1);
         });
     }).catch(function(err) {
       console.warn("[KICHAY] Error Firestore, usando sessionStorage:", err);
     });
+
+    // 2. SINCRONIZACIÓN EN TIEMPO REAL (onSnapshot): Refleja cambios entre PC, Laptop y Celular al instante
+    if (typeof mod.escucharUsuarioEnVivo === "function") {
+      mod.escucharUsuarioEnVivo(activeUid, function(datosEnVivo) {
+        if (datosEnVivo) {
+          aplicarDatosUsuario(datosEnVivo);
+        }
+      });
+    }
+
+    // 3. Re-sincronizar al volver a la pestaña o desbloquear celular
+    function resincronizarAlFoco() {
+      if (document.visibilityState === "visible") {
+        mod.obtenerUsuario(activeUid, activeEmail).then(function(datosFrescos) {
+          if (datosFrescos) aplicarDatosUsuario(datosFrescos);
+        }).catch(function() {});
+      }
+    }
+    document.addEventListener("visibilitychange", resincronizarAlFoco);
+    window.addEventListener("focus", resincronizarAlFoco);
   });
 
   // ── Cerrar sesion ──────────────────────────────────────────────
