@@ -1538,21 +1538,29 @@ body.page-exit .content {
   box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
-/* Posiciones de los Cultivos en los Andenes (Calibradas con IMG/granja_mapa.png) */
-.crop-pos-1 { top: 82%; left: 24%; }
-.crop-pos-2 { top: 80%; left: 46%; }
-.crop-pos-3 { top: 78%; left: 68%; }
+/* Posiciones de los Cultivos ordenados por escalón (Calibrados con andenes) */
+/* Escalón 1 (Inferior) */
+.crop-pos-1 { top: 66%; left: 23%; }
+.crop-pos-2 { top: 71%; left: 34%; }
+.crop-pos-3 { top: 74%; left: 47%; }
+.crop-pos-4 { top: 69%; left: 58%; }
 
-.crop-pos-4 { top: 70%; left: 33%; }
-.crop-pos-5 { top: 68%; left: 52%; }
-.crop-pos-6 { top: 66%; left: 70%; }
+/* Escalón 2 (Segunda Terraza) */
+.crop-pos-5 { top: 54%; left: 38%; }
+.crop-pos-6 { top: 58%; left: 48%; }
+.crop-pos-7 { top: 56%; left: 63%; }
+.crop-pos-8 { top: 53%; left: 74%; }
 
-.crop-pos-7 { top: 57%; left: 40%; }
-.crop-pos-8 { top: 55%; left: 58%; }
-.crop-pos-9 { top: 53%; left: 74%; }
+/* Escalón 3 (Tercera Terraza) */
+.crop-pos-9 { top: 44%; left: 44%; }
+.crop-pos-10 { top: 46%; left: 54%; }
+.crop-pos-11 { top: 44%; left: 67%; }
 
-.crop-pos-10 { top: 44%; left: 50%; }
-.crop-pos-12 { top: 30%; left: 74%; }
+/* Escalón 4 (Cuarta Terraza) */
+.crop-pos-12 { top: 36%; left: 57%; }
+
+/* Escalón 5 (Cúspide / Choza Sagrada) */
+.crop-pos-guardian { top: 24%; left: 71%; }
 
 /* Barra Inferior Completa Acoplada de Cosecha */
 .granja-bottom-panel {

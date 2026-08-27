@@ -9,8 +9,8 @@
   <title>KICHAY – Inicio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="css/fonts.css?v=3.4.2" />
-  <link rel="stylesheet" href="css/dashboard.css?v=3.4.2" />
+  <link rel="stylesheet" href="css/fonts.css?v=3.4.3" />
+  <link rel="stylesheet" href="css/dashboard.css?v=3.4.3" />
   <script>
     // Guard suave: si no hay uid en sessionStorage Y no hay sesión de Firebase,
     // el guard definitivo está en dashboard.js (onAuthStateChanged)
@@ -431,10 +431,10 @@
             </button>
           </div>
 
-          <!-- Nodos interactivos de Cultivos ubicados sobre las terrazas -->
+          <!-- Nodos interactivos de Cultivos ordenados por escalón (andenes) -->
           <div id="granjaCropsContainer">
-            <!-- Terraza 1 (Inferior) -->
-            <div class="crop-node crop-pos-1" onclick="abrirModalCultivo('papa', 'Papa Nativa', 10, '¡Cultivo ancestral listo para cosechar!')">
+            <!-- Escalón 1 (Terraza Inferior) -->
+            <div class="crop-node crop-pos-1" onclick="abrirModalCultivo('papa', 'Papa Nativa', 10, '¡Cultivo ancestral de la terraza baja listo para cosechar!')">
               <div class="crop-disc ready">
                 <span class="crop-emoji">🥔</span>
                 <div class="crop-pulse-ring"></div>
@@ -450,7 +450,15 @@
               <span class="crop-badge">+24 🪙</span>
             </div>
 
-            <div class="crop-node crop-pos-3" onclick="abrirModalCultivo('mani', 'Maní Andino', 36, '¡Cosecha abundante de maní!')">
+            <div class="crop-node crop-pos-3" onclick="abrirModalCultivo('aji', 'Ají Amarillo', 30, '¡El sabor emblemático de los Andes!')">
+              <div class="crop-disc ready">
+                <span class="crop-emoji">🌶️</span>
+                <div class="crop-pulse-ring"></div>
+              </div>
+              <span class="crop-badge">+30 🪙</span>
+            </div>
+
+            <div class="crop-node crop-pos-4" onclick="abrirModalCultivo('mani', 'Maní Andino', 36, '¡Cosecha abundante de maní!')">
               <div class="crop-disc ready">
                 <span class="crop-emoji">🥜</span>
                 <div class="crop-pulse-ring"></div>
@@ -458,8 +466,8 @@
               <span class="crop-badge">+36 🪙</span>
             </div>
 
-            <!-- Terraza 2 -->
-            <div class="crop-node crop-pos-4" onclick="abrirModalCultivo('maiz', 'Maíz Sagrado', 16, '¡Granos dorados listos para la ofrenda!')">
+            <!-- Escalón 2 (Segunda Terraza) -->
+            <div class="crop-node crop-pos-5" onclick="abrirModalCultivo('maiz', 'Maíz Sagrado', 16, '¡Granos dorados de la segunda terraza!')">
               <div class="crop-disc ready">
                 <span class="crop-emoji">🌽</span>
                 <div class="crop-pulse-ring"></div>
@@ -467,7 +475,7 @@
               <span class="crop-badge">+16 🪙</span>
             </div>
 
-            <div class="crop-node crop-pos-5" onclick="abrirModalCultivo('quinua', 'Quinua Real', 20, '¡El superalimento de los Andes!')">
+            <div class="crop-node crop-pos-6" onclick="abrirModalCultivo('quinua', 'Quinua Real', 20, '¡El superalimento andino!')">
               <div class="crop-disc ready">
                 <span class="crop-emoji">🫘</span>
                 <div class="crop-pulse-ring"></div>
@@ -475,7 +483,7 @@
               <span class="crop-badge">+20 🪙</span>
             </div>
 
-            <div class="crop-node crop-pos-6" onclick="abrirModalCultivo('maiz_morado', 'Maíz Morado', 16, '¡Mazorca sagrada para la chicha morada!')">
+            <div class="crop-node crop-pos-7" onclick="abrirModalCultivo('maiz_morado', 'Maíz Morado', 16, '¡Mazorca sagrada para la chicha morada!')">
               <div class="crop-disc ready">
                 <span class="crop-emoji">🌽</span>
                 <div class="crop-pulse-ring"></div>
@@ -483,16 +491,16 @@
               <span class="crop-badge">+16 🪙</span>
             </div>
 
-            <!-- Terraza 3 -->
-            <div class="crop-node crop-pos-7" onclick="abrirModalCultivo('aji', 'Ají Amarillo', 30, '¡El sabor emblemático de la cocina!')">
+            <div class="crop-node crop-pos-8" onclick="abrirModalCultivo('papa_amarilla', 'Papa Amarilla', 12, '¡Papa arenosa y suave de exportación!')">
               <div class="crop-disc ready">
-                <span class="crop-emoji">🌶️</span>
+                <span class="crop-emoji">🥔</span>
                 <div class="crop-pulse-ring"></div>
               </div>
-              <span class="crop-badge">+30 🪙</span>
+              <span class="crop-badge">+12 🪙</span>
             </div>
 
-            <div class="crop-node crop-pos-8" onclick="abrirModalCultivo('cacao', 'Cacao Fino', 50, '¡Fruto de aroma de exportación!')">
+            <!-- Escalón 3 (Tercera Terraza) -->
+            <div class="crop-node crop-pos-9" onclick="abrirModalCultivo('cacao', 'Cacao Fino', 50, '¡Fruto de aroma de exportación!')">
               <div class="crop-disc ready">
                 <span class="crop-emoji">🍫</span>
                 <div class="crop-pulse-ring"></div>
@@ -500,7 +508,7 @@
               <span class="crop-badge">+50 🪙</span>
             </div>
 
-            <div class="crop-node crop-pos-9" onclick="abrirModalCultivo('rocoto', 'Rocoto Andino', 30, '¡Ají volcánico de las alturas!')">
+            <div class="crop-node crop-pos-10" onclick="abrirModalCultivo('rocoto', 'Rocoto Andino', 30, '¡Ají volcánico de las alturas!')">
               <div class="crop-disc ready">
                 <span class="crop-emoji">🌶️</span>
                 <div class="crop-pulse-ring"></div>
@@ -508,8 +516,7 @@
               <span class="crop-badge">+30 🪙</span>
             </div>
 
-            <!-- Terraza 4 -->
-            <div class="crop-node crop-pos-10" onclick="abrirModalCultivo('cafe', 'Café de Altura', 60, '¡Grano premium de la selva alta!')">
+            <div class="crop-node crop-pos-11" onclick="abrirModalCultivo('cafe', 'Café de Altura', 60, '¡Grano premium de la selva alta!')">
               <div class="crop-disc ready">
                 <span class="crop-emoji">☕</span>
                 <div class="crop-pulse-ring"></div>
@@ -517,8 +524,17 @@
               <span class="crop-badge">+60 🪙</span>
             </div>
 
-            <!-- Cúspide: Espantapájaros Sagrado -->
-            <div class="crop-node crop-pos-12" onclick="abrirMejorasGranja()">
+            <!-- Escalón 4 (Cuarta Terraza) -->
+            <div class="crop-node crop-pos-12" onclick="abrirModalCultivo('quinua_roja', 'Quinua Roja', 25, '¡Grano sagrado de los Amautas!')">
+              <div class="crop-disc ready">
+                <span class="crop-emoji">🫘</span>
+                <div class="crop-pulse-ring"></div>
+              </div>
+              <span class="crop-badge">+25 🪙</span>
+            </div>
+
+            <!-- Escalón 5 (Cúspide / Choza Sagrada) -->
+            <div class="crop-node crop-pos-guardian" onclick="abrirMejorasGranja()">
               <div class="crop-disc mascot-disc">
                 <span class="crop-emoji">🌾</span>
               </div>
@@ -526,7 +542,6 @@
             </div>
           </div>
 
-          </div>
         </div>
       </div>
 
@@ -1171,9 +1186,9 @@
     </div>
   </div>
 
-  <script src="js/sound.js?v=3.4.2"></script>
-  <script src="js/cuestionario.js?v=3.4.2"></script>
+  <script src="js/sound.js?v=3.4.3"></script>
+  <script src="js/cuestionario.js?v=3.4.3"></script>
   <!-- Dashboard con Firebase (import dinamico interno) -->
-  <script src="js/dashboard.js?v=3.4.2"></script>
+  <script src="js/dashboard.js?v=3.4.3"></script>
 </body>
 </html>
