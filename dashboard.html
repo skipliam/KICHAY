@@ -9,8 +9,8 @@
   <title>KICHAY – Inicio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="css/fonts.css?v=3.4.4" />
-  <link rel="stylesheet" href="css/dashboard.css?v=3.4.4" />
+  <link rel="stylesheet" href="css/fonts.css?v=3.4.5" />
+  <link rel="stylesheet" href="css/dashboard.css?v=3.4.5" />
   <script>
     // Guard suave: si no hay uid en sessionStorage Y no hay sesión de Firebase,
     // el guard definitivo está en dashboard.js (onAuthStateChanged)
@@ -310,7 +310,7 @@
       <!-- Contenedor del Mapa con el camino -->
       <div class="historia-map-container">
         <div class="historia-map-viewport" id="historiaMapViewport">
-          <img src="IMG/camino_historia.png" alt="Camino de la Historia" class="historia-bg-image" />
+          <img src="IMG/camino_historia.png" alt="Camino de la Historia" class="historia-bg-image" id="historiaBgImage" />
 
           <!-- Nodos de niveles interactivos ubicados dinámicamente -->
           <div id="historiaNodesContainer">
@@ -1186,9 +1186,9 @@
     </div>
   </div>
 
-  <script src="js/sound.js?v=3.4.4"></script>
-  <script src="js/cuestionario.js?v=3.4.4"></script>
+  <script src="js/sound.js?v=3.4.5"></script>
+  <script src="js/cuestionario.js?v=3.4.5"></script>
   <!-- Dashboard con Firebase (import dinamico interno) -->
-  <script src="js/dashboard.js?v=3.4.4"></script>
+  <script src="js/dashboard.js?v=3.4.5"></script>
 </body>
 </html>

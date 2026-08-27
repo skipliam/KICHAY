@@ -988,6 +988,26 @@ window.cambiarEpocaHistoria = function(epocaKey) {
     badge.textContent = titulos[_epocaSeleccionada] || _epocaSeleccionada.toUpperCase();
   }
 
+  // Actualizar imagen de fondo y clase de época
+  var bgImg = document.getElementById("historiaBgImage");
+  var mapViewport = document.getElementById("historiaMapViewport");
+  
+  if (bgImg) {
+    if (_epocaSeleccionada === "virreinato") {
+      bgImg.src = "IMG/camino_virreyinato.png";
+    } else {
+      bgImg.src = "IMG/camino_historia.png";
+    }
+  }
+
+  if (mapViewport) {
+    if (_epocaSeleccionada === "virreinato") {
+      mapViewport.classList.add("epoca-virreinato");
+    } else {
+      mapViewport.classList.remove("epoca-virreinato");
+    }
+  }
+
   actualizarEstadoDropdownEpocas();
   renderizarNodosHistoria();
 

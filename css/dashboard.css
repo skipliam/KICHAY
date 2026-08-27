@@ -1180,13 +1180,24 @@ body.page-exit .content {
   to { opacity: 1; transform: scale(1.04); }
 }
 
-/* Posiciones proporcionales de los nodos (con Nivel I protegido y elevado de safe area) */
+/* Posiciones proporcionales de los nodos (Preinca / Inca) */
 .node-pos-1 { top: 85%; left: 45%; }
 .node-pos-2 { top: 71%; left: 63%; }
 .node-pos-3 { top: 57%; left: 51%; }
 .chest-pos-1 { top: 47%; left: 36%; }
 .node-pos-4 { top: 35%; left: 51%; }
 .node-pos-5 { top: 19%; left: 48%; }
+
+/* Posiciones exactas para VIRREINATO (alineadas con los círculos dorados de camino_virreyinato.png) */
+.historia-map-viewport.epoca-virreinato .node-pos-1 { left: 40.6%; top: 91.1%; }
+.historia-map-viewport.epoca-virreinato .node-pos-2 { left: 31.2%; top: 67.5%; }
+.historia-map-viewport.epoca-virreinato .node-pos-3 { left: 31.6%; top: 43.9%; }
+.historia-map-viewport.epoca-virreinato .node-pos-4 { left: 31.9%; top: 29.0%; }
+.historia-map-viewport.epoca-virreinato .node-pos-5 { left: 24.4%; top: 20.8%; }
+
+/* Cofre de Virreinato (en la plaza colonial junto a la fuente) */
+.historia-map-viewport.epoca-virreinato .map-chest,
+.historia-map-viewport.epoca-virreinato .chest-pos-1 { left: 60.8%; top: 65.1%; }
 
 /* Cofre flotante */
 .map-chest {
