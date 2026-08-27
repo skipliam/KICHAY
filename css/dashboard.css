@@ -1024,38 +1024,61 @@ body.page-exit .content {
   touch-action: manipulation;
 }
 
-/* Contenedor del Mapa con Scroll Vertical Libre y Safe Areas */
 .historia-map-container {
   flex: 1;
   width: 100%;
   height: 100%;
   position: relative;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   background: #18110D;
   padding: 0 !important;
   margin: 0 !important;
-  scroll-behavior: smooth;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .historia-map-viewport {
   position: relative;
   width: 100%;
-  min-height: 780px;
-  padding-bottom: 0 !important;
+  min-width: 960px;
+  max-width: 1920px;
+  aspect-ratio: 5504 / 3072;
   overflow: hidden;
+  flex-shrink: 0;
+  margin: 0 auto;
 }
 
 .historia-bg-image {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  min-height: 780px;
   display: block;
-  object-fit: cover;
-  object-position: center bottom;
+  object-fit: fill;
   user-select: none;
   pointer-events: none;
+  transition: opacity 0.16s ease;
+}
+
+.historia-bg-default {
+  opacity: 1;
+  z-index: 1;
+}
+
+.historia-bg-virreinato {
+  opacity: 0;
+  z-index: 2;
+}
+
+.historia-map-viewport.epoca-virreinato .historia-bg-default {
+  opacity: 0;
+}
+
+.historia-map-viewport.epoca-virreinato .historia-bg-virreinato {
+  opacity: 1;
 }
 
 /* Nodos de nivel sobre el mapa */

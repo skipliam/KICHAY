@@ -3,6 +3,14 @@
    Patron: import() dinamico de Firebase + fallback sessionStorage
 ================================================================ */
 
+// ── Precarga inmediata en memoria para transiciones en 0 ms ────────
+(function preloadKichayMapAssets() {
+  ["IMG/camino_virreyinato.png", "IMG/camino_historia.png", "IMG/granja_mapa.png"].forEach(function(src) {
+    var img = new Image();
+    img.src = src;
+  });
+})();
+
 // ── Helpers UI ───────────────────────────────────────────────────
 function setEl(id, value) {
   var el = document.getElementById(id);
@@ -988,18 +996,8 @@ window.cambiarEpocaHistoria = function(epocaKey) {
     badge.textContent = titulos[_epocaSeleccionada] || _epocaSeleccionada.toUpperCase();
   }
 
-  // Actualizar imagen de fondo y clase de época
-  var bgImg = document.getElementById("historiaBgImage");
+  // Activar clase para cambio visual instantáneo (0 ms)
   var mapViewport = document.getElementById("historiaMapViewport");
-  
-  if (bgImg) {
-    if (_epocaSeleccionada === "virreinato") {
-      bgImg.src = "IMG/camino_virreyinato.png";
-    } else {
-      bgImg.src = "IMG/camino_historia.png";
-    }
-  }
-
   if (mapViewport) {
     if (_epocaSeleccionada === "virreinato") {
       mapViewport.classList.add("epoca-virreinato");
