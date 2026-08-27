@@ -493,7 +493,7 @@ if (sidebarBackdrop) sidebarBackdrop.addEventListener("click", function() { togg
 
 document.querySelectorAll(".sidebar-nav .nav-item").forEach(function(item) {
   item.addEventListener("click", function() {
-    if (window.innerWidth <= 768) toggleMobileSidebar(false);
+    toggleMobileSidebar(false);
   });
 });
 

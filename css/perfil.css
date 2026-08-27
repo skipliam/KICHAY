@@ -8,7 +8,7 @@
 
 body {
   font-family: 'Nourd', 'Balsamiq Sans', -apple-system, sans-serif;
-  min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -16,6 +16,8 @@ body {
   padding: 24px;
   position: relative;
   background: #181411;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ── Fondo con enfoque cinematográfico ── */
@@ -341,7 +343,7 @@ body.page-exit .card {
     padding: 16px 12px;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 100dvh;
     overflow-y: auto;
   }
 

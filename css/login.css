@@ -333,15 +333,18 @@ body.page-exit .login-card {
 @media (max-width: 768px) {
   html, body {
     width: 100%;
+    min-height: 100dvh;
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
     background: #110d0b;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .hero {
     position: relative;
-    min-height: 100vh;
+    min-height: 100dvh;
     min-height: -webkit-fill-available;
     display: flex;
     flex-direction: column;
