@@ -1142,6 +1142,35 @@ body.page-exit .content {
   gap: 5px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
   animation: floatChest 2.5s infinite ease-in-out;
+  transition: all 0.2s ease;
+}
+
+.chest-bubble.locked {
+  background: #5D524A;
+  border-color: #A1887F;
+  opacity: 0.85;
+}
+
+.chest-bubble.locked .chest-amount {
+  color: #E0E0E0;
+}
+
+.chest-bubble.unlocked {
+  background: linear-gradient(135deg, #FFB300 0%, #F57F17 100%);
+  border-color: #FFFDE7;
+  box-shadow: 0 0 16px rgba(255, 179, 0, 0.6), 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.chest-bubble.claimed {
+  background: #3E2723;
+  border-color: #795548;
+  opacity: 0.7;
+  animation: none;
+}
+
+.chest-bubble.claimed .chest-amount {
+  color: #BCAAA4;
+  font-size: 10px;
 }
 
 @keyframes floatChest {

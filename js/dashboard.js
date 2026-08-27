@@ -1035,6 +1035,50 @@ function renderizarNodosHistoria() {
 
     container.appendChild(nodeDiv);
   });
+
+  // Actualizar estado del Cofre de Recompensa (+50 INTIS) en la época actual
+  var chestNode = document.getElementById("mapChestNode");
+  var chestBubble = document.getElementById("mapChestBubble");
+  var chestEmoji = document.getElementById("mapChestEmoji");
+  var chestAmount = document.getElementById("mapChestAmount");
+
+  if (chestNode && chestBubble) {
+    var nivel3Completado = !!progreso[_epocaSeleccionada + "_3"];
+    var cofreYaReclamado = !!(progreso[_epocaSeleccionada + "_cofre_reclamado"] || progreso[_epocaSeleccionada + "_cofre"]);
+
+    chestBubble.classList.remove("locked", "unlocked", "claimed", "pulse-chest");
+
+    if (cofreYaReclamado) {
+      chestBubble.classList.add("claimed");
+      if (chestEmoji) chestEmoji.textContent = "✓";
+      if (chestAmount) chestAmount.textContent = "RECLAMADO";
+      chestNode.onclick = function() {
+        window.mostrarModalBloqueado(
+          "✓ COFRE YA RECLAMADO",
+          "¡Recompensa ya reclamada! 🎁",
+          "Ya has reclamado los +50 INTIS de este cofre en " + _epocaSeleccionada.toUpperCase() + "."
+        );
+      };
+    } else if (nivel3Completado) {
+      chestBubble.classList.add("unlocked", "pulse-chest");
+      if (chestEmoji) chestEmoji.textContent = "🎁";
+      if (chestAmount) chestAmount.textContent = "+50 INTIS";
+      chestNode.onclick = function() {
+        window.abrirModalCofre(50, "Cofre del Saber — " + _epocaSeleccionada.toUpperCase());
+      };
+    } else {
+      chestBubble.classList.add("locked");
+      if (chestEmoji) chestEmoji.textContent = "🔒";
+      if (chestAmount) chestAmount.textContent = "+50 INTIS";
+      chestNode.onclick = function() {
+        window.mostrarModalBloqueado(
+          "🔒 COFRE BLOQUEADO",
+          "¡Cofre Bloqueado! 🎁",
+          "Para desbloquear este cofre y obtener +50 INTIS, primero debes completar el Nivel III de esta época."
+        );
+      };
+    }
+  }
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1180,6 +1224,22 @@ window.cerrarModalCofre = function(e) {
 };
 
 window.reclamarCofre = function() {
+  var progresoStr = sessionStorage.getItem("kichay_progreso_historia") || "{}";
+  var progreso = {};
+  try { progreso = JSON.parse(progresoStr); } catch (e) {}
+
+  var cofreKey = _epocaSeleccionada + "_cofre_reclamado";
+  if (progreso[cofreKey] || progreso[_epocaSeleccionada + "_cofre"]) {
+    cerrarModalCofre();
+    return;
+  }
+
+  // Marcar como reclamado permanentemente en la época actual
+  progreso[cofreKey] = true;
+  progreso[_epocaSeleccionada + "_cofre"] = true;
+  sessionStorage.setItem("kichay_progreso_historia", JSON.stringify(progreso));
+  sessionStorage.setItem("kichay_progreso", JSON.stringify(progreso));
+
   var hudIntis = document.getElementById("hud-intis");
   var actual = parseInt(sessionStorage.getItem("kichay_intis") || "0", 10);
   var nuevo  = actual + _cofreValor;
@@ -1189,7 +1249,11 @@ window.reclamarCofre = function() {
 
   var uid = sessionStorage.getItem("kichay_uid") || (window._firebaseAuth && window._firebaseAuth.currentUser && window._firebaseAuth.currentUser.uid);
   if (window._firebaseMod && uid && window._firebaseMod.guardarProgresoUsuario) {
-    window._firebaseMod.guardarProgresoUsuario(uid, { intis: nuevo });
+    window._firebaseMod.guardarProgresoUsuario(uid, {
+      intis: nuevo,
+      progresoHistoria: progreso,
+      progreso: progreso
+    });
   }
 
   if (window.KichaySound && typeof window.KichaySound.playChime === "function") {
@@ -1197,4 +1261,5 @@ window.reclamarCofre = function() {
   }
 
   cerrarModalCofre();
+  renderizarNodosHistoria();
 };
