@@ -1370,36 +1370,39 @@ body.page-exit .content {
   touch-action: manipulation;
 }
 
-/* Contenedor del Mapa con Scroll Vertical Libre y Safe Areas */
+/* Contenedor del Mapa con Scroll y lienzo bloqueado al aspecto 2732x1536 */
 .granja-map-container {
   flex: 1;
   width: 100%;
   height: 100%;
   position: relative;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  background: #14180E;
+  background: #191B0F;
   padding: 0 !important;
   margin: 0 !important;
-  scroll-behavior: smooth;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .granja-map-viewport {
   position: relative;
   width: 100%;
-  min-height: 840px;
-  padding-bottom: 0 !important;
+  min-width: 960px;
+  max-width: 1920px;
+  aspect-ratio: 2732 / 1536;
   overflow: hidden;
+  flex-shrink: 0;
+  margin: 0 auto;
 }
 
 .granja-bg-image {
   width: 100%;
   height: 100%;
-  min-height: 840px;
   display: block;
-  object-fit: cover;
-  object-position: center bottom;
+  object-fit: fill;
   user-select: none;
   pointer-events: none;
 }
@@ -1408,16 +1411,16 @@ body.page-exit .content {
 .granja-side-actions {
   position: absolute;
   top: 14%;
-  right: 14px;
+  right: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   z-index: 25;
 }
 
 .granja-side-btn {
-  width: 52px;
-  height: 52px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.95);
   border: 2px solid #EBE2D5;
@@ -1473,8 +1476,8 @@ body.page-exit .content {
 }
 
 .crop-disc {
-  width: 52px;
-  height: 52px;
+  width: 54px;
+  height: 54px;
   min-width: 44px;
   min-height: 44px;
   border-radius: 50%;
@@ -1505,8 +1508,8 @@ body.page-exit .content {
 
 .crop-pulse-ring {
   position: absolute;
-  width: 66px;
-  height: 66px;
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
   border: 2.5px solid rgba(67, 160, 71, 0.75);
   animation: cropPulse 2s infinite ease-out;
@@ -1519,18 +1522,18 @@ body.page-exit .content {
 }
 
 .crop-emoji {
-  font-size: 24px;
+  font-size: 26px;
   line-height: 1;
 }
 
 .crop-badge {
   font-family: 'Nourd', sans-serif;
-  font-size: 10px;
+  font-size: 10.5px;
   font-weight: 900;
   color: #FFFFFF;
   background: rgba(27, 94, 32, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 2px 7px;
+  padding: 2px 8px;
   border-radius: 10px;
   margin-top: 2px;
   letter-spacing: 0.3px;
@@ -1538,29 +1541,31 @@ body.page-exit .content {
   box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
-/* Posiciones de los Cultivos ordenados por escalón (Calibrados con andenes) */
+/* ══════════════════════════════════════════════
+   COORDENADAS EXACTAS POR ESCALÓN (Aspect Ratio 2732x1536)
+══════════════════════════════════════════════ */
 /* Escalón 1 (Inferior) */
-.crop-pos-1 { top: 66%; left: 23%; }
-.crop-pos-2 { top: 71%; left: 34%; }
-.crop-pos-3 { top: 74%; left: 47%; }
-.crop-pos-4 { top: 69%; left: 58%; }
+.crop-pos-1 { left: 23.4%; top: 67.1%; }
+.crop-pos-2 { left: 34.4%; top: 71.6%; }
+.crop-pos-3 { left: 47.2%; top: 74.2%; }
+.crop-pos-4 { left: 58.2%; top: 69.7%; }
 
 /* Escalón 2 (Segunda Terraza) */
-.crop-pos-5 { top: 54%; left: 38%; }
-.crop-pos-6 { top: 58%; left: 48%; }
-.crop-pos-7 { top: 56%; left: 63%; }
-.crop-pos-8 { top: 53%; left: 74%; }
+.crop-pos-5 { left: 38.1%; top: 54.0%; }
+.crop-pos-6 { left: 48.3%; top: 57.9%; }
+.crop-pos-7 { left: 63.3%; top: 56.0%; }
+.crop-pos-8 { left: 73.9%; top: 52.7%; }
 
 /* Escalón 3 (Tercera Terraza) */
-.crop-pos-9 { top: 44%; left: 44%; }
-.crop-pos-10 { top: 46%; left: 54%; }
-.crop-pos-11 { top: 44%; left: 67%; }
+.crop-pos-9  { left: 43.9%; top: 44.3%; }
+.crop-pos-10 { left: 54.2%; top: 46.2%; }
+.crop-pos-11 { left: 67.3%; top: 44.3%; }
 
 /* Escalón 4 (Cuarta Terraza) */
-.crop-pos-12 { top: 36%; left: 57%; }
+.crop-pos-12 { left: 57.1%; top: 36.5%; }
 
 /* Escalón 5 (Cúspide / Choza Sagrada) */
-.crop-pos-guardian { top: 24%; left: 71%; }
+.crop-pos-guardian { left: 71.0%; top: 24.1%; }
 
 /* Barra Inferior Completa Acoplada de Cosecha */
 .granja-bottom-panel {

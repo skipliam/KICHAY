@@ -616,6 +616,16 @@ window.abrirSeccionVisual = function(seccionKey, titulo) {
     }
   }
 
+  if (seccionKey === "granja") {
+    setTimeout(function() {
+      var container = document.querySelector(".granja-map-container");
+      var viewport = document.getElementById("granjaMapViewport");
+      if (container && viewport && viewport.scrollWidth > container.clientWidth) {
+        container.scrollLeft = (viewport.scrollWidth - container.clientWidth) / 2;
+      }
+    }, 60);
+  }
+
   if (targetView) {
     targetView.style.display = "flex";
     targetView.scrollTop = 0;
