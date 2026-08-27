@@ -91,7 +91,7 @@ async function crearUsuario(uid, datos) {
     sexo:           "",
     edad:           null,
     racha:          1,
-    intis:          0,
+    intis:          50,
     nivelKusi:      1,
     expKusi:        0,
     ultimoAcceso:   new Date().toISOString().slice(0, 10),

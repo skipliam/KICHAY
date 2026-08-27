@@ -799,6 +799,39 @@
       </div>
     </div>
 
+    <!-- ══════════ MODAL GLOBAL: RESULTADOS DEL CUESTIONARIO (RESUMEN / VICTORIA) ══════════ -->
+    <div class="kichay-modal-overlay" id="quizVictoryModal" style="display:none;" onclick="event.stopPropagation()">
+      <div class="kichay-modal-card victory-card" onclick="event.stopPropagation()">
+        <div class="victory-mascot-wrap">
+          <img src="IMG/feliz.png" alt="¡Completado!" class="victory-mascot-pic" id="victoryMascotPic" />
+        </div>
+        <div class="modal-pill-tag" id="victoryEraTag" style="background:#FFF3E0; color:#D35400; border-color:#FFE0B2; margin-bottom:6px;">HISTORIA · PREINCA</div>
+        <h2 class="victory-title" id="victoryTitleText">¡Cuestionario Completado! 🎉</h2>
+        <div class="victory-stars" id="victoryStars">⭐⭐⭐</div>
+        
+        <!-- Resumen detallado de preguntas acertadas y equivocadas -->
+        <div class="victory-feedback-box" style="background:#FFF9F0; border:1.5px solid #FFE0B2; border-radius:14px; padding:12px 16px; margin-bottom:16px; width:100%; text-align:center;">
+          <p class="victory-subtitle" id="victorySubtitle" style="margin:0 0 4px; font-weight:800; color:#2D241E; font-size:15px;">Acertaste 5 de 5 preguntas (100 pts).</p>
+          <p id="victoryMistakesText" style="margin:0; font-family:'Balsamiq Sans',sans-serif; font-size:13px; color:#795548; font-weight:700;">¡Puntaje perfecto! Eres todo un Amauta.</p>
+        </div>
+        
+        <div class="victory-rewards-grid">
+          <div class="victory-reward-box">
+            <span class="victory-reward-num" id="victoryIntisEarned">+30</span>
+            <span class="victory-reward-txt">INTIS GANADOS <img src="IMG/moneda_inti.png" alt="Intis" style="width: 18px; height: 18px; vertical-align: -3px; display: inline-block;" /></span>
+          </div>
+          <div class="victory-reward-box">
+            <span class="victory-reward-num" id="victoryExpEarned">+50</span>
+            <span class="victory-reward-txt">EXP DE KUSI ⚡</span>
+          </div>
+        </div>
+
+        <button class="modal-btn-confirm" onclick="finalizarQuizYVolver()">
+          ¡Continuar al Mapa! 🗺️
+        </button>
+      </div>
+    </div>
+
     <!-- ══════════ MODAL: PRÓXIMAMENTE DISPONIBLE ══════════ -->
     <div class="kichay-modal-overlay" id="modalProximamente" style="display:none;" onclick="cerrarModalProximamente(event)">
       <div class="kichay-modal-card" onclick="event.stopPropagation()">

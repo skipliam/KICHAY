@@ -161,7 +161,7 @@ import(firebaseUrl).then(function(mod) {
         sessionStorage.setItem("kichay_user",              datosFS.nombre || nombre);
         sessionStorage.setItem("kichay_photo",             datosFS.photoURL || googlePhoto || "");
         sessionStorage.setItem("kichay_racha",             nuevaRacha);
-        sessionStorage.setItem("kichay_intis",             datosFS.intis !== undefined ? datosFS.intis : 0);
+        sessionStorage.setItem("kichay_intis",             datosFS.intis !== undefined ? datosFS.intis : 50);
         sessionStorage.setItem("kichay_exp",               datosFS.experiencia || datosFS.expKusi || 0);
         sessionStorage.setItem("kichay_kusi_nivel",        datosFS.kusiNivel || datosFS.nivelKusi || 1);
         sessionStorage.setItem("kichay_progreso_historia", JSON.stringify(progMap));

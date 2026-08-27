@@ -2683,9 +2683,79 @@ body.page-exit .content {
   }
   .ranking-table-header, .ranking-row {
     grid-template-columns: 40px 1fr 80px;
+    padding: 10px 12px;
   }
   .rank-exp-col, .rank-streak-col {
     display: none;
+  }
+
+  /* Cuestionario Móvil */
+  .quiz-layout-wrap {
+    padding: 12px 10px 24px;
+    min-height: calc(100vh - 60px);
+  }
+  .quiz-topbar {
+    margin-bottom: 12px;
+    gap: 8px;
+  }
+  .quiz-card {
+    padding: 20px 16px 18px;
+    border-radius: 20px;
+  }
+  .quiz-question-title {
+    font-size: 17px;
+    line-height: 1.35;
+    margin-bottom: 16px;
+  }
+  .quiz-opt-btn {
+    padding: 12px 14px;
+    font-size: 14px;
+    gap: 10px;
+    border-radius: 14px;
+  }
+  .opt-letter {
+    width: 28px;
+    height: 28px;
+    font-size: 13px;
+  }
+  .quiz-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .quiz-kusi-bubble {
+    font-size: 12.5px;
+    padding: 10px 14px;
+  }
+  .quiz-actions {
+    width: 100%;
+  }
+  .btn-next-question, .btn-ask-kusi {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  /* Modal de Victoria Móvil */
+  .victory-card {
+    padding: 32px 18px 22px;
+    max-width: 92vw;
+  }
+  .victory-mascot-wrap {
+    width: 80px;
+    height: 80px;
+    margin-top: -55px;
+  }
+  .victory-title {
+    font-size: 20px;
+  }
+  .victory-rewards-grid {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .victory-reward-num {
+    font-size: 18px;
   }
 }
 

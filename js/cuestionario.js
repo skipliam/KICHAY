@@ -1183,7 +1183,14 @@ window.QuizEngine = {
     if (scoreEl) scoreEl.textContent = this.puntaje;
 
     if (btnAsk)  btnAsk.style.display  = "none";
-    if (btnNext) btnNext.style.display = "inline-flex";
+    if (btnNext) {
+      if (this.preguntaIndex >= this.nivelData.preguntas.length - 1) {
+        btnNext.innerHTML = "Finalizar Cuestionario ➔";
+      } else {
+        btnNext.innerHTML = "Siguiente Pregunta ➔";
+      }
+      btnNext.style.display = "inline-flex";
+    }
   },
 
   pedirPista: function() {
@@ -1206,15 +1213,20 @@ window.QuizEngine = {
 
   siguientePregunta: function() {
     this.preguntaIndex++;
-    this.cargarPreguntaActual();
+    if (!this.nivelData || !this.nivelData.preguntas || this.preguntaIndex >= this.nivelData.preguntas.length) {
+      this.finalizarQuiz();
+    } else {
+      this.cargarPreguntaActual();
+    }
   },
 
   finalizarQuiz: function() {
-    var totalQ = this.nivelData.preguntas.length;
-    var aciertos = this.respuestasCorrectas;
+    var totalQ = (this.nivelData && this.nivelData.preguntas) ? this.nivelData.preguntas.length : 5;
+    var aciertos = this.respuestasCorrectas || 0;
+    var errores = totalQ - aciertos;
     var estrellas = 1;
-    var intisBase = this.nivelData.intis || 30;
-    var expBase   = this.nivelData.exp || 50;
+    var intisBase = (this.nivelData && this.nivelData.intis) ? this.nivelData.intis : 30;
+    var expBase   = (this.nivelData && this.nivelData.exp) ? this.nivelData.exp : 50;
 
     if (aciertos === 5) {
       estrellas = 3;
@@ -1228,19 +1240,39 @@ window.QuizEngine = {
     var expGanada    = Math.round((expBase * aciertos) / totalQ);
     if (aciertos === 0) { intisGanados = 5; expGanada = 10; }
 
-    var vicModal = document.getElementById("quizVictoryModal");
-    var starsEl  = document.getElementById("victoryStars");
-    var subEl    = document.getElementById("victorySubtitle");
-    var intisEl  = document.getElementById("victoryIntisEarned");
-    var expEl    = document.getElementById("victoryExpEarned");
+    var vicModal  = document.getElementById("quizVictoryModal");
+    var starsEl   = document.getElementById("victoryStars");
+    var subEl     = document.getElementById("victorySubtitle");
+    var mistEl    = document.getElementById("victoryMistakesText");
+    var intisEl   = document.getElementById("victoryIntisEarned");
+    var expEl     = document.getElementById("victoryExpEarned");
+    var titleEl   = document.getElementById("victoryTitleText");
+    var mascotPic = document.getElementById("victoryMascotPic");
+    var eraTag    = document.getElementById("victoryEraTag");
 
     var estrellasStr = "⭐☆☆";
     if (estrellas === 2) estrellasStr = "⭐⭐☆";
     if (estrellas === 3) estrellasStr = "⭐⭐⭐";
 
+    if (eraTag) eraTag.textContent = (this.epocaActual || "Historia").toUpperCase() + " · NIVEL " + (this.nivelData ? this.nivelData.nivel : 1);
     if (starsEl) starsEl.textContent = estrellasStr;
+    if (titleEl) {
+      titleEl.textContent = (aciertos >= 3) ? "¡Cuestionario Completado! 🎉" : "¡Lección Finalizada! 📚";
+    }
+    if (mascotPic) {
+      mascotPic.src = (aciertos >= 3) ? "IMG/feliz.png" : "IMG/sorprendido.png";
+    }
     if (subEl) {
       subEl.textContent = "Acertaste " + aciertos + " de " + totalQ + " preguntas (" + this.puntaje + " pts).";
+    }
+    if (mistEl) {
+      if (aciertos === totalQ) {
+        mistEl.innerHTML = "🌟 <strong>¡Puntaje perfecto!</strong> Eres todo un Amauta.";
+      } else if (errores === 1) {
+        mistEl.innerHTML = "📝 Te equivocaste en <strong>1 pregunta</strong>. ¡Gran esfuerzo!";
+      } else {
+        mistEl.innerHTML = "📝 Te equivocaste en <strong>" + errores + " preguntas</strong>. ¡Sigue practicando!";
+      }
     }
     if (intisEl) intisEl.textContent = "+" + intisGanados;
     if (expEl)   expEl.textContent   = "+" + expGanada;
@@ -1251,7 +1283,7 @@ window.QuizEngine = {
       window.KichaySound.playChime();
     }
 
-    this.guardarProgresoEnFirebase(this.epocaActual, this.nivelData.nivel, estrellas, aciertos, intisGanados, expGanada);
+    this.guardarProgresoEnFirebase(this.epocaActual, this.nivelData ? this.nivelData.nivel : 1, estrellas, aciertos, intisGanados, expGanada);
   },
 
   guardarProgresoEnFirebase: function(epoca, nivelNum, estrellas, aciertos, intisGanados, expGanada) {
