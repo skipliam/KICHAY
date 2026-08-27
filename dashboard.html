@@ -9,8 +9,8 @@
   <title>KICHAY – Inicio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="css/fonts.css?v=3.4.1" />
-  <link rel="stylesheet" href="css/dashboard.css?v=3.4.1" />
+  <link rel="stylesheet" href="css/fonts.css?v=3.4.2" />
+  <link rel="stylesheet" href="css/dashboard.css?v=3.4.2" />
   <script>
     // Guard suave: si no hay uid en sessionStorage Y no hay sesión de Firebase,
     // el guard definitivo está en dashboard.js (onAuthStateChanged)
@@ -526,42 +526,44 @@
             </div>
           </div>
 
-          <!-- Barra flotante inferior de Cosecha estilo KICHAY_page-0034 -->
-          <div class="granja-bottom-panel">
-            <div class="harvest-info-card">
-              <span class="harvest-info-tag">Disponibles</span>
-              <div class="harvest-rewards-row">
-                <div class="harvest-chip">
-                  <span class="chip-icon">🪙</span>
-                  <span class="chip-val" id="granjaIntisListos">+35 INTIS</span>
-                </div>
-                <div class="harvest-chip">
-                  <span class="chip-icon">🌾</span>
-                  <span class="chip-val">3 GUANO</span>
-                </div>
-              </div>
-            </div>
-
-            <button class="btn-harvest-all" id="btnCosecharTodo" onclick="cosecharTodoLaGranja()">
-              <span class="btn-harvest-text">Cosechar todo</span>
-              <span class="btn-harvest-icon">🧺</span>
-            </button>
-
-            <div class="harvest-tools-row">
-              <button class="tool-btn" onclick="mostrarModalVisualizacion('Guano de Islas')" title="Abono de Guano">
-                <span>🌾</span>
-              </button>
-              <button class="tool-btn" onclick="mostrarModalVisualizacion('Chaquitaclla')" title="Chaquitaclla">
-                <span>⛏️</span>
-              </button>
-              <button class="tool-btn" onclick="mostrarModalVisualizacion('Riego')" title="Agua de Andenes">
-                <span>🪣</span>
-              </button>
-            </div>
           </div>
-
         </div>
       </div>
+
+      <!-- Barra completa acoplada inferior de Cosecha estilo KICHAY_page-0034 -->
+      <div class="granja-bottom-panel">
+        <div class="harvest-info-card">
+          <span class="harvest-info-tag">Disponibles</span>
+          <div class="harvest-rewards-row">
+            <div class="harvest-chip">
+              <span class="chip-icon">🪙</span>
+              <span class="chip-val" id="granjaIntisListos">+35 INTIS</span>
+            </div>
+            <div class="harvest-chip">
+              <span class="chip-icon">🌾</span>
+              <span class="chip-val">3 GUANO</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-harvest-all" id="btnCosecharTodo" onclick="cosecharTodoLaGranja()">
+          <span class="btn-harvest-text">Cosechar todo</span>
+          <span class="btn-harvest-icon">🧺</span>
+        </button>
+
+        <div class="harvest-tools-row">
+          <button class="tool-btn" onclick="mostrarModalVisualizacion('Guano de Islas')" title="Abono de Guano">
+            <span>🌾</span>
+          </button>
+          <button class="tool-btn" onclick="mostrarModalVisualizacion('Chaquitaclla')" title="Chaquitaclla">
+            <span>⛏️</span>
+          </button>
+          <button class="tool-btn" onclick="mostrarModalVisualizacion('Riego')" title="Agua de Andenes">
+            <span>🪣</span>
+          </button>
+        </div>
+      </div>
+
     </main>
 
     <!-- ══════════ VISTA: TIENDA DEL SOL ══════════ -->
@@ -1169,9 +1171,9 @@
     </div>
   </div>
 
-  <script src="js/sound.js?v=3.4.0"></script>
-  <script src="js/cuestionario.js?v=3.4.0"></script>
+  <script src="js/sound.js?v=3.4.2"></script>
+  <script src="js/cuestionario.js?v=3.4.2"></script>
   <!-- Dashboard con Firebase (import dinamico interno) -->
-  <script src="js/dashboard.js?v=3.4.0"></script>
+  <script src="js/dashboard.js?v=3.4.2"></script>
 </body>
 </html>

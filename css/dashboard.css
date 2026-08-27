@@ -884,7 +884,7 @@ body.page-exit .content {
   }
 
   .historia-map-container {
-    padding-bottom: calc(110px + env(safe-area-inset-bottom, 24px)) !important;
+    padding-bottom: 0 !important;
   }
 
   .granja-subbar {
@@ -899,7 +899,12 @@ body.page-exit .content {
   }
 
   .granja-map-container {
-    padding-bottom: calc(140px + env(safe-area-inset-bottom, 32px)) !important;
+    padding-bottom: 0 !important;
+  }
+
+  .granja-bottom-panel {
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 6px)) !important;
+    gap: 6px !important;
   }
 }
 
@@ -1038,7 +1043,7 @@ body.page-exit .content {
   position: relative;
   width: 100%;
   min-height: 780px;
-  padding-bottom: calc(110px + env(safe-area-inset-bottom, 24px));
+  padding-bottom: 0 !important;
   overflow: hidden;
 }
 
@@ -1384,7 +1389,7 @@ body.page-exit .content {
   position: relative;
   width: 100%;
   min-height: 840px;
-  padding-bottom: calc(140px + env(safe-area-inset-bottom, 32px));
+  padding-bottom: 0 !important;
   overflow: hidden;
 }
 
@@ -1403,7 +1408,7 @@ body.page-exit .content {
 .granja-side-actions {
   position: absolute;
   top: 14%;
-  right: 10px;
+  right: 14px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1534,39 +1539,34 @@ body.page-exit .content {
 }
 
 /* Posiciones de los Cultivos en los Andenes (Calibradas con IMG/granja_mapa.png) */
-.crop-pos-1 { top: 80%; left: 24%; }
-.crop-pos-2 { top: 78%; left: 46%; }
-.crop-pos-3 { top: 76%; left: 68%; }
+.crop-pos-1 { top: 82%; left: 24%; }
+.crop-pos-2 { top: 80%; left: 46%; }
+.crop-pos-3 { top: 78%; left: 68%; }
 
-.crop-pos-4 { top: 68%; left: 33%; }
-.crop-pos-5 { top: 66%; left: 52%; }
-.crop-pos-6 { top: 64%; left: 70%; }
+.crop-pos-4 { top: 70%; left: 33%; }
+.crop-pos-5 { top: 68%; left: 52%; }
+.crop-pos-6 { top: 66%; left: 70%; }
 
-.crop-pos-7 { top: 55%; left: 40%; }
-.crop-pos-8 { top: 53%; left: 58%; }
-.crop-pos-9 { top: 51%; left: 74%; }
+.crop-pos-7 { top: 57%; left: 40%; }
+.crop-pos-8 { top: 55%; left: 58%; }
+.crop-pos-9 { top: 53%; left: 74%; }
 
-.crop-pos-10 { top: 42%; left: 50%; }
-.crop-pos-12 { top: 28%; left: 74%; }
+.crop-pos-10 { top: 44%; left: 50%; }
+.crop-pos-12 { top: 30%; left: 74%; }
 
-/* Panel Flotante Inferior de Cosecha */
+/* Barra Inferior Completa Acoplada de Cosecha */
 .granja-bottom-panel {
-  position: absolute;
-  bottom: calc(14px + env(safe-area-inset-bottom, 12px));
-  left: 10px;
-  right: 10px;
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 2px solid #EBE2D5;
-  border-radius: 20px;
-  padding: 8px 10px;
+  width: 100%;
+  background: #FCF7EE;
+  border-top: 2px solid #E2D7C7;
+  padding: 10px 24px calc(10px + env(safe-area-inset-bottom, 8px));
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
-  z-index: 35;
+  gap: 14px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.22);
+  z-index: 40;
+  flex-shrink: 0;
 }
 
 .harvest-info-card {
@@ -1578,7 +1578,7 @@ body.page-exit .content {
 
 .harvest-info-tag {
   font-family: 'Nourd', sans-serif;
-  font-size: 8.5px;
+  font-size: 9px;
   font-weight: 800;
   color: #8D7B70;
   text-transform: uppercase;
@@ -1588,22 +1588,22 @@ body.page-exit .content {
 .harvest-rewards-row {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 .harvest-chip {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
   background: #FFF8E1;
   border: 1px solid #FFE082;
-  padding: 2px 6px;
+  padding: 3px 8px;
   border-radius: 8px;
 }
 
 .chip-val {
   font-family: 'Nourd', sans-serif;
-  font-size: 10.5px;
+  font-size: 11.5px;
   font-weight: 900;
   color: #D35400;
   white-space: nowrap;
@@ -1614,13 +1614,13 @@ body.page-exit .content {
   color: #FFFFFF;
   border: none;
   border-radius: 14px;
-  padding: 10px 14px;
+  padding: 10px 22px;
   font-family: 'Nourd', sans-serif;
-  font-size: 12.5px;
+  font-size: 13.5px;
   font-weight: 900;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(46, 125, 50, 0.45);
   transition: transform 0.15s ease;
@@ -1637,21 +1637,21 @@ body.page-exit .content {
 .harvest-tools-row {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 .tool-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   background: #F4EFE6;
   border: 1.5px solid #E5D9C8;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
-  transition: transform 0.15s ease;
+  transition: transform 0.15s ease, background 0.15s ease;
   touch-action: manipulation;
 }
 
