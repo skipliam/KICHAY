@@ -1021,6 +1021,7 @@ window.QuizEngine = {
     this.puntaje = 0;
     this.respuestasCorrectas = 0;
     this.haRespondido = false;
+    this.haFinalizado = false;
 
     // Ocultar todas las vistas
     var todasVistas = document.querySelectorAll(".main-wrap > main, .main-wrap .content");
@@ -1079,7 +1080,10 @@ window.QuizEngine = {
     if (titleEl) titleEl.textContent = q.pregunta;
     if (scoreEl) scoreEl.textContent = this.puntaje;
 
-    if (btnNext) btnNext.style.display = "none";
+    if (btnNext) {
+      btnNext.disabled = false;
+      btnNext.style.display = "none";
+    }
     if (btnAsk)  btnAsk.style.display  = "inline-flex";
     if (bubble)  bubble.style.display  = "none";
     if (avatar)  avatar.src = "IMG/sorprendido.png";
@@ -1219,6 +1223,16 @@ window.QuizEngine = {
   },
 
   finalizarQuiz: function() {
+    if (this.haFinalizado) return;
+    this.haFinalizado = true;
+
+    // Deshabilitar y ocultar el botón para evitar clics repetidos
+    var btnNext = document.getElementById("btnNextQuestion");
+    if (btnNext) {
+      btnNext.disabled = true;
+      btnNext.style.display = "none";
+    }
+
     var totalQ = (this.nivelData && this.nivelData.preguntas) ? this.nivelData.preguntas.length : 5;
     var aciertos = this.respuestasCorrectas || 0;
     var errores = totalQ - aciertos;
@@ -1275,13 +1289,21 @@ window.QuizEngine = {
     if (intisEl) intisEl.textContent = "+" + intisGanados;
     if (expEl)   expEl.textContent   = "+" + expGanada;
 
-    if (vicModal) vicModal.style.display = "flex";
+    if (vicModal) {
+      vicModal.style.setProperty("display", "flex", "important");
+      vicModal.style.display = "flex";
+      vicModal.classList.add("modal-visible");
+    }
 
     if (window.KichaySound && typeof window.KichaySound.playChime === "function") {
       window.KichaySound.playChime();
     }
 
-    this.guardarProgresoEnFirebase(this.epocaActual, this.nivelData ? this.nivelData.nivel : 1, estrellas, aciertos, intisGanados, expGanada);
+    try {
+      this.guardarProgresoEnFirebase(this.epocaActual, this.nivelData ? this.nivelData.nivel : 1, estrellas, aciertos, intisGanados, expGanada);
+    } catch (e) {
+      console.warn("[KICHAY] Error guardando progreso:", e);
+    }
   },
 
   guardarProgresoEnFirebase: function(epoca, nivelNum, estrellas, aciertos, intisGanados, expGanada) {
