@@ -21,50 +21,70 @@ function setAvatarPhoto(photoUrl, nombre) {
   }
 }
 
-// ── SISTEMA DE MISIONES DINÁMICAS Y CONSECUTIVAS ──────────────────
+// ── SISTEMA DE MISIONES DIARIAS EQUILIBRADAS DE KICHAY ────────────
 var LISTA_MISIONES = [
   {
-    id: "mis_preinca_1",
-    tag: "Misión 1: Preinca",
-    titulo: "¡Primeros Pasos Ancestrales!",
-    desc: "Completa el Nivel 1 de la época Preinca (Primeras civilizaciones).",
+    id: "mis_facil_1",
+    tag: "🟢 Misión Fácil",
+    titulo: "Completa 1 lección",
+    desc: "Supera al menos 1 nivel de cualquier época histórica.",
+    recompensa: 20,
+    accion: function() { abrirVistaHistoria('preinca'); },
+    esCumplida: function(progreso) {
+      var count = 0;
+      for (var k in progreso) {
+        if (!k.endsWith("_stars") && !k.endsWith("_cofre") && !k.endsWith("_reclamado") && progreso[k] === true) count++;
+      }
+      return count >= 1;
+    }
+  },
+  {
+    id: "mis_media_2",
+    tag: "🟡 Misión Media",
+    titulo: "Responde 10 preguntas correctamente",
+    desc: "Demuestra tus conocimientos ancestrales en 2 lecciones.",
     recompensa: 30,
     accion: function() { abrirVistaHistoria('preinca'); },
-    esCumplida: function(progreso) { return !!progreso['preinca_1']; }
+    esCumplida: function(progreso) {
+      var count = 0;
+      for (var k in progreso) {
+        if (!k.endsWith("_stars") && !k.endsWith("_cofre") && !k.endsWith("_reclamado") && progreso[k] === true) count++;
+      }
+      return count >= 2;
+    }
   },
   {
-    id: "mis_preinca_2",
-    tag: "Misión 2: Preinca",
-    titulo: "El Misterio de Caral y Chavín",
-    desc: "Supera el Nivel 2 de Preinca y gana tus estrellas.",
-    recompensa: 40,
-    accion: function() { abrirVistaHistoria('preinca'); },
-    esCumplida: function(progreso) { return !!progreso['preinca_2']; }
-  },
-  {
-    id: "mis_preinca_all",
-    tag: "Misión 3: Época Preinca",
-    titulo: "¡Conquistador de la Época Preinca!",
-    desc: "Supera los 5 niveles de Preinca para desbloquear el Imperio Inca.",
-    recompensa: 60,
-    accion: function() { abrirVistaHistoria('preinca'); },
-    esCumplida: function(progreso) { return !!progreso['preinca_5']; }
-  },
-  {
-    id: "mis_inca_1",
-    tag: "Misión 4: Imperio Inca",
-    titulo: "Los Secretos del Tahuantinsuyo",
-    desc: "Avanza y supera el Nivel 1 de la época Inca.",
+    id: "mis_dificil_3",
+    tag: "🔴 Misión Difícil",
+    titulo: "Completa 2 lecciones con éxito",
+    desc: "Avanza en el mapa y supera 2 retos históricos.",
     recompensa: 50,
-    accion: function() { abrirVistaHistoria('inca'); },
-    esCumplida: function(progreso) { return !!progreso['inca_1']; }
+    accion: function() { abrirVistaHistoria('preinca'); },
+    esCumplida: function(progreso) {
+      var count = 0;
+      for (var k in progreso) {
+        if (!k.endsWith("_stars") && !k.endsWith("_cofre") && !k.endsWith("_reclamado") && progreso[k] === true) count++;
+      }
+      return count >= 3;
+    }
   },
   {
-    id: "mis_sabio_3stars",
-    tag: "Misión 5: Maestro del Saber",
-    titulo: "Amauta Legendario",
+    id: "mis_bonus_diario",
+    tag: "🎁 Gran Bonus Diario",
+    titulo: "¡Trilogía Diaria Cumplida!",
+    desc: "Completaste las 3 misiones del día. Reclama tu recompensa especial.",
+    recompensa: 20,
+    accion: function() { abrirVistaHistoria('preinca'); },
+    esCumplida: function(progreso, intis, misionesReclamadas) {
+      return !!(misionesReclamadas && misionesReclamadas["mis_facil_1"] && misionesReclamadas["mis_media_2"] && misionesReclamadas["mis_dificil_3"]);
+    }
+  },
+  {
+    id: "mis_sabio_amauta",
+    tag: "🏆 Misión Maestra",
+    titulo: "Amauta Legendario (3 ⭐)",
     desc: "Consigue 3 estrellas doradas en al menos 3 lecciones distintas.",
-    recompensa: 80,
+    recompensa: 40,
     accion: function() { abrirVistaHistoria('preinca'); },
     esCumplida: function(progreso) {
       var count = 0;
@@ -73,15 +93,6 @@ var LISTA_MISIONES = [
       }
       return count >= 3;
     }
-  },
-  {
-    id: "mis_tesoro_200",
-    tag: "Misión 6: Tesoro Andino",
-    titulo: "Acumula 200 INTIS",
-    desc: "Explora los niveles de historia y reúne 200 Intis en tu monedero.",
-    recompensa: 100,
-    accion: function() { abrirVistaHistoria('preinca'); },
-    esCumplida: function(progreso, intis) { return intis >= 200; }
   }
 ];
 
@@ -1065,7 +1076,7 @@ function renderizarNodosHistoria() {
     container.appendChild(nodeDiv);
   });
 
-  // Actualizar estado del Cofre de Recompensa (+50 INTIS) en la época actual
+  // Actualizar estado del Cofre de Recompensa según la época actual
   var chestNode = document.getElementById("mapChestNode");
   var chestBubble = document.getElementById("mapChestBubble");
   var chestEmoji = document.getElementById("mapChestEmoji");
@@ -1074,6 +1085,19 @@ function renderizarNodosHistoria() {
   if (chestNode && chestBubble) {
     var nivel3Completado = !!progreso[_epocaSeleccionada + "_3"];
     var cofreYaReclamado = !!(progreso[_epocaSeleccionada + "_cofre_reclamado"] || progreso[_epocaSeleccionada + "_cofre"]);
+
+    var valorCofre = 30;
+    var nombreCofre = "Cofre de Tierra (Preinca)";
+    if (_epocaSeleccionada === "inca") {
+      valorCofre = 50;
+      nombreCofre = "Cofre de Naturaleza (Inca)";
+    } else if (_epocaSeleccionada === "virreinato" || _epocaSeleccionada === "emancipacion") {
+      valorCofre = 75;
+      nombreCofre = "Cofre de Explorador (" + _epocaSeleccionada.toUpperCase() + ")";
+    } else if (_epocaSeleccionada === "republica") {
+      valorCofre = 100;
+      nombreCofre = "Cofre del Inti (República)";
+    }
 
     chestBubble.classList.remove("locked", "unlocked", "claimed", "pulse-chest");
 
@@ -1085,25 +1109,25 @@ function renderizarNodosHistoria() {
         window.mostrarModalBloqueado(
           "✓ COFRE YA RECLAMADO",
           "¡Recompensa ya reclamada! 🎁",
-          "Ya has reclamado los +50 INTIS de este cofre en " + _epocaSeleccionada.toUpperCase() + "."
+          "Ya has reclamado los +" + valorCofre + " INTIS de este " + nombreCofre + "."
         );
       };
     } else if (nivel3Completado) {
       chestBubble.classList.add("unlocked", "pulse-chest");
       if (chestEmoji) chestEmoji.textContent = "🎁";
-      if (chestAmount) chestAmount.textContent = "+50 INTIS";
+      if (chestAmount) chestAmount.textContent = "+" + valorCofre + " INTIS";
       chestNode.onclick = function() {
-        window.abrirModalCofre(50, "Cofre del Saber — " + _epocaSeleccionada.toUpperCase());
+        window.abrirModalCofre(valorCofre, nombreCofre);
       };
     } else {
       chestBubble.classList.add("locked");
       if (chestEmoji) chestEmoji.textContent = "🔒";
-      if (chestAmount) chestAmount.textContent = "+50 INTIS";
+      if (chestAmount) chestAmount.textContent = "+" + valorCofre + " INTIS";
       chestNode.onclick = function() {
         window.mostrarModalBloqueado(
           "🔒 COFRE BLOQUEADO",
-          "¡Cofre Bloqueado! 🎁",
-          "Para desbloquear este cofre y obtener +50 INTIS, primero debes completar el Nivel III de esta época."
+          "¡" + nombreCofre + " Bloqueado! 🎁",
+          "Para desbloquear este cofre y obtener +" + valorCofre + " INTIS, primero debes completar el Nivel III de esta época."
         );
       };
     }

@@ -397,71 +397,99 @@
     <main class="content content-subview" id="view-granja" style="display:none;">
       <div class="subview-header">
         <div class="subview-header-left">
-          <span class="subview-tag">🌾 TERRAZAS SAGRADAS</span>
+          <span class="subview-tag">🌾 ANDENES SAGRADOS</span>
           <h2 class="subview-title">Granja del Sol</h2>
-          <p class="subview-desc">Cultiva los andenes del Tahuantinsuyo y produce cosechas de INTIS.</p>
+          <p class="subview-desc">Siembra semillas andinas, espera su maduración y cosecha INTIS. ¡5 cosechas seguidas otorgan +10 bonus!</p>
         </div>
         <button class="subview-btn-back" onclick="abrirVistaInicio()">✕ Volver al Inicio</button>
       </div>
 
       <div class="subview-grid-3">
-        <div class="subview-card">
-          <div class="card-icon-badge" style="background:#E8F5E9; color:#2E7D32;">🌽</div>
-          <h3 class="subview-card-title">Maíz Sagrado del Cusco</h3>
-          <p class="subview-card-desc">Crecimiento óptimo en terrazas de altura. Genera granos de oro y energía.</p>
-          <div class="card-meta-row">
-            <span class="card-price-tag">+25 INTIS 🪙</span>
-            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar</button>
-          </div>
-        </div>
-
+        <!-- Papa -->
         <div class="subview-card">
           <div class="card-icon-badge" style="background:#FFF3E0; color:#E65100;">🥔</div>
-          <h3 class="subview-card-title">Papa Nativa Huayro</h3>
-          <p class="subview-card-desc">Variedad ancestral resistente a las heladas andinas. Rinde cosechas rápidas.</p>
+          <h3 class="subview-card-title">Papa Nativa</h3>
+          <p class="subview-card-desc">Compra: 5 INTIS · Cosecha: 10 INTIS. Cultivo ancestral de crecimiento rápido.</p>
           <div class="card-meta-row">
-            <span class="card-price-tag">+40 INTIS 🪙</span>
-            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar</button>
+            <span class="card-price-tag">Cosecha: +10 🪙</span>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar (5 🪙)</button>
           </div>
         </div>
 
+        <!-- Maíz -->
         <div class="subview-card">
-          <div class="card-icon-badge" style="background:#EDE7F6; color:#5E2CA5;">🌾</div>
-          <h3 class="subview-card-title">Quinua Real Dorada</h3>
-          <p class="subview-card-desc">El grano de oro de los Incas. Aumenta la fertilidad de todas tus parcelas.</p>
+          <div class="card-icon-badge" style="background:#E8F5E9; color:#2E7D32;">🌽</div>
+          <h3 class="subview-card-title">Maíz Sagrado</h3>
+          <p class="subview-card-desc">Compra: 8 INTIS · Cosecha: 16 INTIS. Granos dorados de los valles del Cusco.</p>
           <div class="card-meta-row">
-            <span class="card-price-tag">+60 INTIS 🪙</span>
-            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar</button>
+            <span class="card-price-tag">Cosecha: +16 🪙</span>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar (8 🪙)</button>
           </div>
         </div>
 
+        <!-- Quinua -->
         <div class="subview-card">
-          <div class="card-icon-badge" style="background:#FFEBEE; color:#C62828;">🌺</div>
-          <h3 class="subview-card-title">Flor Sagrada de la Cantuta</h3>
-          <p class="subview-card-desc">Flor nacional del Perú. Embellece el santuario y otorga bendiciones al sol.</p>
+          <div class="card-icon-badge" style="background:#EDE7F6; color:#5E2CA5;">🫘</div>
+          <h3 class="subview-card-title">Quinua Real</h3>
+          <p class="subview-card-desc">Compra: 10 INTIS · Cosecha: 20 INTIS. El superalimento de los Andes peruanos.</p>
           <div class="card-meta-row">
-            <span class="card-price-tag">+80 INTIS 🪙</span>
-            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar</button>
+            <span class="card-price-tag">Cosecha: +20 🪙</span>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar (10 🪙)</button>
           </div>
         </div>
 
+        <!-- Camote -->
         <div class="subview-card">
-          <div class="card-icon-badge" style="background:#E1F5FE; color:#0277BD;">💧</div>
-          <h3 class="subview-card-title">Canal Hidráulico Inca</h3>
-          <p class="subview-card-desc">Sistema de regadío ancestral que mantiene la humedad de toda la granja.</p>
+          <div class="card-icon-badge" style="background:#FBE9E7; color:#D84315;">🍠</div>
+          <h3 class="subview-card-title">Camote Dulce</h3>
+          <p class="subview-card-desc">Compra: 12 INTIS · Cosecha: 24 INTIS. Raíz nutritiva de la costa y valles.</p>
           <div class="card-meta-row">
-            <span class="card-price-tag">Nivel 1 / 5</span>
-            <button class="mock-btn btn-gold" onclick="mostrarModalVisualizacion('Granja del Sol')">⚡ Mejorar</button>
+            <span class="card-price-tag">Cosecha: +24 🪙</span>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar (12 🪙)</button>
           </div>
         </div>
 
+        <!-- Ají -->
         <div class="subview-card">
-          <div class="card-icon-badge" style="background:#FFF8E1; color:#F57F17;">🏺</div>
-          <h3 class="subview-card-title">Colca de Almacén</h3>
-          <p class="subview-card-desc">Depósito tradicional para conservar granos y proteger tus intis cosechados.</p>
+          <div class="card-icon-badge" style="background:#FFEBEE; color:#C62828;">🌶️</div>
+          <h3 class="subview-card-title">Ají Amarillo</h3>
+          <p class="subview-card-desc">Compra: 15 INTIS · Cosecha: 30 INTIS. El sabor y color de la gastronomía nacional.</p>
           <div class="card-meta-row">
-            <span class="card-price-tag">Capacidad: 500</span>
-            <button class="mock-btn btn-gold" onclick="mostrarModalVisualizacion('Granja del Sol')">⚡ Mejorar</button>
+            <span class="card-price-tag">Cosecha: +30 🪙</span>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar (15 🪙)</button>
+          </div>
+        </div>
+
+        <!-- Maní -->
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#EFEBE9; color:#4E342E;">🥜</div>
+          <h3 class="subview-card-title">Maní de la Selva</h3>
+          <p class="subview-card-desc">Compra: 18 INTIS · Cosecha: 36 INTIS. Semilla energética cultivada desde tiempos mochicas.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">Cosecha: +36 🪙</span>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar (18 🪙)</button>
+          </div>
+        </div>
+
+        <!-- Cacao -->
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#EFEBE9; color:#3E2723;">🍫</div>
+          <h3 class="subview-card-title">Cacao Fino de Aroma</h3>
+          <p class="subview-card-desc">Compra: 25 INTIS · Cosecha: 50 INTIS. Fruto amazónico de exportación mundial.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">Cosecha: +50 🪙</span>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar (25 🪙)</button>
+          </div>
+        </div>
+
+        <!-- Café -->
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#ECEFF1; color:#37474F;">☕</div>
+          <h3 class="subview-card-title">Café de Altura</h3>
+          <p class="subview-card-desc">Compra: 30 INTIS · Cosecha: 60 INTIS. Grano premium de Chanchamayo y Cusco.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">Cosecha: +60 🪙</span>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar (30 🪙)</button>
           </div>
         </div>
       </div>
@@ -473,69 +501,235 @@
         <div class="subview-header-left">
           <span class="subview-tag">🛒 MERCADO ANDINO</span>
           <h2 class="subview-title">Tienda del Sol</h2>
-          <p class="subview-desc">Canjea atuendos para Kusi, amuletos de racha y potenciadores de EXP.</p>
+          <p class="subview-desc">Animales permanentes para tu santuario, trajes para Kusi y decoraciones ancestrales.</p>
         </div>
         <button class="subview-btn-back" onclick="abrirVistaInicio()">✕ Volver al Inicio</button>
       </div>
 
-      <div class="subview-grid-3">
-        <div class="subview-card">
-          <div class="card-icon-badge" style="background:#FFF3E0; color:#D35400;">🧶</div>
-          <h3 class="subview-card-title">Chullo Imperial de Paracas</h3>
-          <p class="subview-card-desc">Tejido con fina lana de vicuña y bordados ceremoniales andinos.</p>
-          <div class="card-meta-row">
-            <span class="card-price-tag">150 INTIS 🪙</span>
-            <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button>
+      <!-- Sección 1: Animales -->
+      <div style="margin-bottom: 24px;">
+        <h3 style="font-family:'Nourd',sans-serif; color:#2D241E; font-size:18px; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+          🐾 Santuario de Animales <span style="font-size:12px; font-weight:700; color:#795548; background:#FFF3E0; padding:2px 8px; border-radius:12px;">Compañeros Permanentes</span>
+        </h3>
+        <div class="subview-grid-3">
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#FFF3E0; color:#D35400;">🐹</div>
+            <h3 class="subview-card-title">Cuy Andino</h3>
+            <p class="subview-card-desc">Tu compañero inicial y leal explorador de los valles interandinos.</p>
+            <div class="card-meta-row">
+              <span class="card-price-tag">GRATIS ✨</span>
+              <button class="mock-btn btn-gold" onclick="mostrarModalVisualizacion('Tienda')">✓ En Compañía</button>
+            </div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#FFF8E1; color:#F57F17;">🐔</div>
+            <h3 class="subview-card-title">Gallina Andina</h3>
+            <p class="subview-card-desc">Aporta alegría matutina a tu granja andina.</p>
+            <div class="card-meta-row">
+              <span class="card-price-tag">150 INTIS 🪙</span>
+              <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Adoptar</button>
+            </div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#EDE7F6; color:#5E2CA5;">🐇</div>
+            <h3 class="subview-card-title">Conejo de Puna</h3>
+            <p class="subview-card-desc">Ágil saltador de los pajonales andinos.</p>
+            <div class="card-meta-row">
+              <span class="card-price-tag">200 INTIS 🪙</span>
+              <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Adoptar</button>
+            </div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#E0F2F1; color:#00695C;">🐑</div>
+            <h3 class="subview-card-title">Oveja Criolla</h3>
+            <p class="subview-card-desc">Productora de lana para los telares tradicionales.</p>
+            <div class="card-meta-row">
+              <span class="card-price-tag">300 INTIS 🪙</span>
+              <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Adoptar</button>
+            </div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#FFF3E0; color:#E65100;">🦙</div>
+            <h3 class="subview-card-title">Llama Andina</h3>
+            <p class="subview-card-desc">Guardián de los caminos reales del Qhapaq Ñan.</p>
+            <div class="card-meta-row">
+              <span class="card-price-tag">500 INTIS 🪙</span>
+              <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Adoptar</button>
+            </div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#F3E5F5; color:#7B1FA2;">🦙</div>
+            <h3 class="subview-card-title">Alpaca Real</h3>
+            <p class="subview-card-desc">Fina fibra sagrada apreciada en todo el imperio.</p>
+            <div class="card-meta-row">
+              <span class="card-price-tag">700 INTIS 🪙</span>
+              <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Adoptar</button>
+            </div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#E8F5E9; color:#2E7D32;">🐢</div>
+            <h3 class="subview-card-title">Taricaya Amazónica</h3>
+            <p class="subview-card-desc">Tortuga de los ríos caudalosos del oriente peruano.</p>
+            <div class="card-meta-row">
+              <span class="card-price-tag">900 INTIS 🪙</span>
+              <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Adoptar</button>
+            </div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#FFEBEE; color:#C62828;">🦜</div>
+            <h3 class="subview-card-title">Guacamayo Rojo</h3>
+            <p class="subview-card-desc">Ave de plumaje radiante que llena de color la selva.</p>
+            <div class="card-meta-row">
+              <span class="card-price-tag">1,200 INTIS 🪙</span>
+              <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Adoptar</button>
+            </div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#EFEBE9; color:#3E2723;">🐻</div>
+            <h3 class="subview-card-title">Oso de Anteojos</h3>
+            <p class="subview-card-desc">El único oso autóctono de Sudamérica, protector del bosque de neblina.</p>
+            <div class="card-meta-row">
+              <span class="card-price-tag">1,500 INTIS 🪙</span>
+              <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Adoptar</button>
+            </div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#ECEFF1; color:#263238;">🦅</div>
+            <h3 class="subview-card-title">Cóndor Andino</h3>
+            <p class="subview-card-desc">Mensajero del Hanan Pacha (mundo celestial andino).</p>
+            <div class="card-meta-row">
+              <span class="card-price-tag">2,000 INTIS 🪙</span>
+              <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Adoptar</button>
+            </div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#FFF8E1; color:#E65100;">🐆</div>
+            <h3 class="subview-card-title">Otorongo Amazónico</h3>
+            <p class="subview-card-desc">El gran felino rey del Manú y protector supremo del bosque.</p>
+            <div class="card-meta-row">
+              <span class="card-price-tag">2,500 INTIS 🪙</span>
+              <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Adoptar</button>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="subview-card">
-          <div class="card-icon-badge" style="background:#FFEBEE; color:#C62828;">👘</div>
-          <h3 class="subview-card-title">Poncho Ceremonial del Sol</h3>
-          <p class="subview-card-desc">Vestimenta reservada para los sabios amautas y exploradores nobles.</p>
-          <div class="card-meta-row">
-            <span class="card-price-tag">300 INTIS 🪙</span>
-            <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button>
+      <!-- Sección 2: Ropa y Atuendos -->
+      <div style="margin-bottom: 24px;">
+        <h3 style="font-family:'Nourd',sans-serif; color:#2D241E; font-size:18px; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+          👕 Ropa y Atuendos <span style="font-size:12px; font-weight:700; color:#1565C0; background:#E3F2FD; padding:2px 8px; border-radius:12px;">Para tu Avatar y Kusi</span>
+        </h3>
+        <div class="subview-grid-3">
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#E3F2FD; color:#1976D2;">👕</div>
+            <h3 class="subview-card-title">Polo Oficial KICHAY</h3>
+            <p class="subview-card-desc">Polo común de algodón peruano para exploradores.</p>
+            <div class="card-meta-row"><span class="card-price-tag">50 INTIS 🪙</span><button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button></div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#FFF3E0; color:#E65100;">🧢</div>
+            <h3 class="subview-card-title">Gorra Exploradora</h3>
+            <p class="subview-card-desc">Protege del sol en las expediciones de la costa y sierra.</p>
+            <div class="card-meta-row"><span class="card-price-tag">75 INTIS 🪙</span><button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button></div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#EDE7F6; color:#5E2CA5;">🎒</div>
+            <h3 class="subview-card-title">Mochila Andina</h3>
+            <p class="subview-card-desc">Para llevar tus mapas, quipus e intis acumulados.</p>
+            <div class="card-meta-row"><span class="card-price-tag">100 INTIS 🪙</span><button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button></div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#FFEBEE; color:#C62828;">🧣</div>
+            <h3 class="subview-card-title">Chullo Tradicional</h3>
+            <p class="subview-card-desc">Gorro de lana con orejeras típico del altiplano.</p>
+            <div class="card-meta-row"><span class="card-price-tag">125 INTIS 🪙</span><button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button></div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#E8F5E9; color:#2E7D32;">🧥</div>
+            <h3 class="subview-card-title">Poncho Ceremonial</h3>
+            <p class="subview-card-desc">Atuendo especial tejido por los mejores artesanos.</p>
+            <div class="card-meta-row"><span class="card-price-tag">250 INTIS 🪙</span><button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button></div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#E0F7FA; color:#00838F;">🌊</div>
+            <h3 class="subview-card-title">Atuendo Costeño</h3>
+            <p class="subview-card-desc">Vestimenta épica de los caballitos de totora y valles norteños.</p>
+            <div class="card-meta-row"><span class="card-price-tag">600 INTIS 🪙</span><button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button></div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#FCE4EC; color:#C2185B;">💃</div>
+            <h3 class="subview-card-title">Traje de Marinera</h3>
+            <p class="subview-card-desc">Elegancia criolla y tradición con pañuelo al viento.</p>
+            <div class="card-meta-row"><span class="card-price-tag">750 INTIS 🪙</span><button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button></div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#FFF8E1; color:#F57F17;">👑</div>
+            <h3 class="subview-card-title">Traje Embajador KICHAY</h3>
+            <p class="subview-card-desc">🏆 Legendario: Requiere 1,500 INTIS y completar 1 categoría al 100%.</p>
+            <div class="card-meta-row"><span class="card-price-tag">1,500 INTIS 🪙</span><button class="mock-btn btn-gold" onclick="mostrarModalVisualizacion('Tienda')">👑 Canjear</button></div>
           </div>
         </div>
+      </div>
 
-        <div class="subview-card">
-          <div class="card-icon-badge" style="background:#FFF8E1; color:#F57F17;">👑</div>
-          <h3 class="subview-card-title">Corona Mascapaicha</h3>
-          <p class="subview-card-desc">Emblema sagrado del Inca que otorga un aura dorada a tu avatar.</p>
-          <div class="card-meta-row">
-            <span class="card-price-tag">500 INTIS 🪙</span>
-            <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button>
+      <!-- Sección 3: Decoraciones -->
+      <div>
+        <h3 style="font-family:'Nourd',sans-serif; color:#2D241E; font-size:18px; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+          🏡 Decoraciones de la Aldea <span style="font-size:12px; font-weight:700; color:#2E7D32; background:#E8F5E9; padding:2px 8px; border-radius:12px;">Embellece tu entorno</span>
+        </h3>
+        <div class="subview-grid-3">
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#E8F5E9; color:#2E7D32;">🌱</div>
+            <h3 class="subview-card-title">Planta Andina</h3>
+            <p class="subview-card-desc">Pequeño toque verde para tu hogar.</p>
+            <div class="card-meta-row"><span class="card-price-tag">20 INTIS 🪙</span><button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Comprar</button></div>
           </div>
-        </div>
-
-        <div class="subview-card">
-          <div class="card-icon-badge" style="background:#E8F5E9; color:#2E7D32;">🧪</div>
-          <h3 class="subview-card-title">Poción de Racha Protectora</h3>
-          <p class="subview-card-desc">Protege tus días de racha si un día no puedes conectarte a estudiar.</p>
-          <div class="card-meta-row">
-            <span class="card-price-tag">80 INTIS 🪙</span>
-            <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#FCE4EC; color:#D81B60;">🌸</div>
+            <h3 class="subview-card-title">Flores de Cantuta</h3>
+            <p class="subview-card-desc">La flor nacional para embellecer los senderos.</p>
+            <div class="card-meta-row"><span class="card-price-tag">30 INTIS 🪙</span><button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Comprar</button></div>
           </div>
-        </div>
-
-        <div class="subview-card">
-          <div class="card-icon-badge" style="background:#EDE7F6; color:#5E2CA5;">⚡</div>
-          <h3 class="subview-card-title">Amuleto del Amauta (Doble EXP)</h3>
-          <p class="subview-card-desc">Duplica la experiencia ganada en todos los cuestionarios durante 1 hora.</p>
-          <div class="card-meta-row">
-            <span class="card-price-tag">120 INTIS 🪙</span>
-            <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#EFEBE9; color:#4E342E;">🪨</div>
+            <h3 class="subview-card-title">Piedra Andina</h3>
+            <p class="subview-card-desc">Bloque lítico labrado con precisión incaica.</p>
+            <div class="card-meta-row"><span class="card-price-tag">40 INTIS 🪙</span><button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Comprar</button></div>
           </div>
-        </div>
-
-        <div class="subview-card">
-          <div class="card-icon-badge" style="background:#E0F7FA; color:#00838F;">🎁</div>
-          <h3 class="subview-card-title">Cofre del Tahuantinsuyo</h3>
-          <p class="subview-card-desc">Contiene recompensas misteriosas, gemas raras y fragmentos de historia.</p>
-          <div class="card-meta-row">
-            <span class="card-price-tag">200 INTIS 🪙</span>
-            <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#FFF3E0; color:#E65100;">🪵</div>
+            <h3 class="subview-card-title">Cerca Rústica</h3>
+            <p class="subview-card-desc">Delimita los andenes y protege los cultivos.</p>
+            <div class="card-meta-row"><span class="card-price-tag">60 INTIS 🪙</span><button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Comprar</button></div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#E8F5E9; color:#1B5E20;">🌳</div>
+            <h3 class="subview-card-title">Árbol de Queñual</h3>
+            <p class="subview-card-desc">Árbol resistente que crece a más de 4,000 metros.</p>
+            <div class="card-meta-row"><span class="card-price-tag">80 INTIS 🪙</span><button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Comprar</button></div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#FFEBEE; color:#C62828;">🏕️</div>
+            <h3 class="subview-card-title">Fogata del Explorador</h3>
+            <p class="subview-card-desc">Calidez para las noches frías de la cordillera.</p>
+            <div class="card-meta-row"><span class="card-price-tag">100 INTIS 🪙</span><button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Comprar</button></div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#FFF8E1; color:#F57F17;">🛖</div>
+            <h3 class="subview-card-title">Casita de Adobe</h3>
+            <p class="subview-card-desc">Vivienda tradicional con techo de ichu andino.</p>
+            <div class="card-meta-row"><span class="card-price-tag">200 INTIS 🪙</span><button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Comprar</button></div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#ECEFF1; color:#37474F;">🏛️</div>
+            <h3 class="subview-card-title">Ruina Ancestral</h3>
+            <p class="subview-card-desc">Muros milenarios de templos sagrados.</p>
+            <div class="card-meta-row"><span class="card-price-tag">400 INTIS 🪙</span><button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Comprar</button></div>
+          </div>
+          <div class="subview-card">
+            <div class="card-icon-badge" style="background:#E0F7FA; color:#00838F;">🌊</div>
+            <h3 class="subview-card-title">Laguna Esmeralda</h3>
+            <p class="subview-card-desc">Espejo de agua alimentado por los glaciares.</p>
+            <div class="card-meta-row"><span class="card-price-tag">500 INTIS 🪙</span><button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Comprar</button></div>
           </div>
         </div>
       </div>
@@ -906,9 +1100,9 @@
     </div>
   </div>
 
-  <script src="js/sound.js?v=3.1.0"></script>
-  <script src="js/cuestionario.js?v=3.1.0"></script>
+  <script src="js/sound.js?v=3.2.0"></script>
+  <script src="js/cuestionario.js?v=3.2.0"></script>
   <!-- Dashboard con Firebase (import dinamico interno) -->
-  <script src="js/dashboard.js?v=3.1.0"></script>
+  <script src="js/dashboard.js?v=3.2.0"></script>
 </body>
 </html>

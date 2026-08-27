@@ -1020,6 +1020,8 @@ window.QuizEngine = {
     this.preguntaIndex = 0;
     this.puntaje = 0;
     this.respuestasCorrectas = 0;
+    this.rachaAciertosActual = 0;
+    this.rachaAciertosMax = 0;
     this.haRespondido = false;
     this.haFinalizado = false;
 
@@ -1147,6 +1149,10 @@ window.QuizEngine = {
     if (esCorrecto) {
       botonElemento.classList.add("opt-correct", "bounce-pop");
       this.respuestasCorrectas++;
+      this.rachaAciertosActual++;
+      if (this.rachaAciertosActual > this.rachaAciertosMax) {
+        this.rachaAciertosMax = this.rachaAciertosActual;
+      }
       this.puntaje += 20;
       
       var bar = document.getElementById("qbar-" + this.preguntaIndex);
@@ -1164,6 +1170,7 @@ window.QuizEngine = {
         window.KichaySound.playChime();
       }
     } else {
+      this.rachaAciertosActual = 0;
       botonElemento.classList.add("opt-incorrect", "shake-anim");
       
       var barErr = document.getElementById("qbar-" + this.preguntaIndex);
@@ -1233,12 +1240,10 @@ window.QuizEngine = {
       btnNext.style.display = "none";
     }
 
-    var totalQ = (this.nivelData && this.nivelData.preguntas) ? this.nivelData.preguntas.length : 5;
+    var totalQ = 5;
     var aciertos = this.respuestasCorrectas || 0;
     var errores = totalQ - aciertos;
     var estrellas = 1;
-    var intisBase = (this.nivelData && this.nivelData.intis) ? this.nivelData.intis : 30;
-    var expBase   = (this.nivelData && this.nivelData.exp) ? this.nivelData.exp : 50;
 
     if (aciertos === 5) {
       estrellas = 3;
@@ -1248,9 +1253,34 @@ window.QuizEngine = {
       estrellas = 1;
     }
 
-    var intisGanados = Math.round((intisBase * aciertos) / totalQ);
-    var expGanada    = Math.round((expBase * aciertos) / totalQ);
-    if (aciertos === 0) { intisGanados = 5; expGanada = 10; }
+    // ── ECONOMÍA EQUILIBRADA DE KICHAY (5 Preguntas) ──
+    // 1. +5 INTIS por cada respuesta correcta (hasta 25 INTIS)
+    var intisRespuestas = aciertos * 5;
+    
+    // 2. +5 INTIS bonus por 3 respuestas seguidas correctas
+    var bonusRacha3 = (this.rachaAciertosMax >= 3) ? 5 : 0;
+    
+    // 3. +15 INTIS por completar la lección
+    var bonusCompletar = (aciertos > 0) ? 15 : 5;
+    
+    // 4. +15 INTIS extra por conseguir 3 estrellas (5/5 aciertos)
+    var bonus3Estrellas = (estrellas === 3) ? 15 : 0;
+
+    // 5. +10 INTIS extra la primera vez que completas un nivel
+    var progresoStr = sessionStorage.getItem("kichay_progreso_historia") || "{}";
+    var progresoPrev = {};
+    try { progresoPrev = JSON.parse(progresoStr); } catch (e) {}
+    var nivelKey = this.epocaActual + "_" + (this.nivelData ? this.nivelData.nivel : 1);
+    var esPrimeraVez = !progresoPrev[nivelKey];
+    var bonusPrimeraVez = (esPrimeraVez && aciertos >= 3) ? 10 : 0;
+
+    // Total INTIS ganados (Máximo 60 INTIS por nivel normal, 70 primera vez)
+    var intisGanados = intisRespuestas + bonusRacha3 + bonusCompletar + bonus3Estrellas + bonusPrimeraVez;
+    if (aciertos === 0) intisGanados = 5; // Mínimo de participación
+
+    // EXP de Kusi: 10 EXP por acierto (hasta 50 EXP) + 15 EXP bonus por 3 estrellas
+    var expGanada = (aciertos * 10) + (estrellas === 3 ? 15 : 0);
+    if (aciertos === 0) expGanada = 10;
 
     var vicModal  = document.getElementById("quizVictoryModal");
     var starsEl   = document.getElementById("victoryStars");
@@ -1275,15 +1305,17 @@ window.QuizEngine = {
       mascotPic.src = (aciertos >= 3) ? "IMG/feliz.png" : "IMG/sorprendido.png";
     }
     if (subEl) {
-      subEl.textContent = "Acertaste " + aciertos + " de " + totalQ + " preguntas (" + this.puntaje + " pts).";
+      var desgloseTxt = "Acertaste " + aciertos + " de " + totalQ + " preguntas (" + this.puntaje + " pts).";
+      if (bonus3Estrellas > 0) desgloseTxt += " ¡Incluye bonus de 3 ⭐!";
+      subEl.textContent = desgloseTxt;
     }
     if (mistEl) {
       if (aciertos === totalQ) {
-        mistEl.innerHTML = "🌟 <strong>¡Puntaje perfecto!</strong> Eres todo un Amauta.";
+        mistEl.innerHTML = "🌟 <strong>¡Puntaje perfecto!</strong> +" + intisGanados + " INTIS (5 aciertos + lección + 3 ⭐" + (bonusPrimeraVez ? " + 1ª vez" : "") + ").";
       } else if (errores === 1) {
-        mistEl.innerHTML = "📝 Te equivocaste en <strong>1 pregunta</strong>. ¡Gran esfuerzo!";
+        mistEl.innerHTML = "📝 Te equivocaste en <strong>1 pregunta</strong>. ¡Excelente esfuerzo! +" + intisGanados + " INTIS.";
       } else {
-        mistEl.innerHTML = "📝 Te equivocaste en <strong>" + errores + " preguntas</strong>. ¡Sigue practicando!";
+        mistEl.innerHTML = "📝 Te equivocaste en <strong>" + errores + " preguntas</strong>. ¡Sigue practicando! +" + intisGanados + " INTIS.";
       }
     }
     if (intisEl) intisEl.textContent = "+" + intisGanados;
