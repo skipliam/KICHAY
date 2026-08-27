@@ -2068,29 +2068,321 @@ body.page-exit .content {
   color: #8C6D53;
 }
 
+/* ══════════════════════════════════════════════
+   SUB-VISTAS VISUALES (Granja, Tienda, Logros, Mascota, Perfil, Ajustes)
+══════════════════════════════════════════════ */
+.content-subview {
+  background: #F9F4EC;
+  padding: 32px 36px 48px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.subview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF;
+  border: 1.5px solid #EDE4D8;
+  border-radius: 20px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.subview-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.subview-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Nourd', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: #D35400;
+  background: #FFF3E0;
+  padding: 4px 10px;
+  border-radius: 20px;
+  width: fit-content;
+  border: 1px solid #FFE0B2;
+}
+
+.subview-title {
+  font-family: 'Nourd', sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  color: #2D241E;
+  margin: 2px 0 0;
+}
+
+.subview-desc {
+  font-family: 'Balsamiq Sans', 'Nourd', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #7A695C;
+  margin: 0;
+}
+
+.subview-btn-back {
+  background: #FCF7EE;
+  border: 1.5px solid #E0D4C3;
+  color: #4A3B32;
+  font-family: 'Nourd', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.subview-btn-back:hover {
+  background: #D9381E;
+  color: #FFFFFF;
+  border-color: #D9381E;
+  transform: translateY(-2px);
+}
+
+/* Grillas y Tarjetas */
+.subview-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.subview-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+.subview-card {
+  background: #FFFFFF;
+  border: 1.5px solid #EBE2D5;
+  border-radius: 20px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.subview-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.card-icon-badge {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+}
+
+.subview-card-title {
+  font-family: 'Nourd', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #2D241E;
+  margin: 0;
+}
+
+.subview-card-desc {
+  font-family: 'Balsamiq Sans', 'Nourd', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #7A695C;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.card-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px dashed #EDE4D8;
+}
+
+.card-price-tag {
+  font-family: 'Nourd', sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  color: #E67E22;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mock-btn {
+  background: #5E2CA5;
+  color: #FFFFFF;
+  border: none;
+  font-family: 'Nourd', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.mock-btn:hover {
+  background: #7338C4;
+  transform: translateY(-1px);
+}
+
+.mock-btn.btn-green {
+  background: #2E7D32;
+}
+
+.mock-btn.btn-green:hover {
+  background: #388E3C;
+}
+
+.mock-btn.btn-gold {
+  background: #D35400;
+}
+
+.mock-btn.btn-gold:hover {
+  background: #E67E22;
+}
+
+/* Mascota Hero Card */
+.mascota-hero-card {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 28px;
+  background: #FFFFFF;
+  border: 1.5px solid #EBE2D5;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.mascota-avatar-box {
+  background: linear-gradient(180deg, #FFF8E7 0%, #FFECC2 100%);
+  border: 2px solid #F39C12;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  text-align: center;
+}
+
+.mascota-avatar-box img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.15));
+}
+
+.mascota-stats-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.stat-bar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-label-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Nourd', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: #4A3B32;
+}
+
+.stat-track {
+  width: 100%;
+  height: 12px;
+  background: #EDE4D8;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.stat-fill {
+  height: 100%;
+  border-radius: 6px;
+}
+
+/* Perfil Card */
+.perfil-hero-box {
+  background: #FFFFFF;
+  border: 1.5px solid #EBE2D5;
+  border-radius: 24px;
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 28px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+.perfil-avatar-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: #FFE082;
+  border: 4px solid #F39C12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: 'Nourd', sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: #7B341E;
+}
+
+.perfil-avatar-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.perfil-info-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
 @media (max-width: 768px) {
-  .quiz-topbar {
-    padding: 10px 14px;
+  .content-subview {
+    padding: 18px 14px 32px;
   }
-  .quiz-card-box {
-    padding: 24px 18px 20px;
-  }
-  .quiz-question-title {
-    font-size: 18px;
-  }
-  .opt-text {
-    font-size: 14px;
-  }
-  .quiz-footer-row {
+  .subview-header {
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-start;
     gap: 12px;
   }
-  .quiz-actions-right {
-    justify-content: stretch;
+  .mascota-hero-card, .perfil-hero-box {
+    grid-template-columns: 1fr;
   }
-  .quiz-actions-right button {
-    flex: 1;
+  .perfil-avatar-circle {
+    margin: 0 auto;
   }
 }
 

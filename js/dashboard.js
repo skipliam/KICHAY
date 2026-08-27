@@ -487,13 +487,12 @@ window.abrirVistaHistoria = function(epocaOpcional) {
 };
 
 window.abrirVistaInicio = function() {
+  var todasVistas = document.querySelectorAll(".main-wrap .content");
+  todasVistas.forEach(function(v) { v.style.display = "none"; });
+
   var viewInicio   = document.getElementById("view-inicio");
-  var viewHistoria = document.getElementById("view-historia");
-  var viewQuiz     = document.getElementById("view-quiz");
   var navInicio    = document.getElementById("nav-inicio");
 
-  if (viewHistoria) viewHistoria.style.display = "none";
-  if (viewQuiz)     viewQuiz.style.display     = "none";
   if (viewInicio)   viewInicio.style.display   = "flex";
 
   // Actualizar clase activa en sidebar
@@ -505,6 +504,98 @@ window.abrirVistaInicio = function() {
   if (window.KichaySound && typeof window.KichaySound.playSoftClick === "function") {
     window.KichaySound.playSoftClick();
   }
+};
+
+window.abrirSeccionVisual = function(seccionKey, titulo) {
+  // Ocultar todas las vistas principales
+  var todasVistas = document.querySelectorAll(".main-wrap .content");
+  todasVistas.forEach(function(v) { v.style.display = "none"; });
+
+  // Desmarcar todos los nav-items
+  document.querySelectorAll(".sidebar-nav .nav-item").forEach(function(el) {
+    el.classList.remove("active");
+  });
+
+  // Activar nav-item correspondiente
+  var navItem = document.getElementById("nav-" + seccionKey);
+  if (navItem) navItem.classList.add("active");
+
+  // Mostrar vista correspondiente
+  var targetViewId = "view-" + seccionKey;
+  var targetView = document.getElementById(targetViewId);
+
+  // Si es una materia extra (fauna, gastronomia, cultura, turismo)
+  var materiasExtra = {
+    fauna: { tag: "🌿 BIODIVERSIDAD PERUANA", title: "Flora y Fauna del Perú", desc: "Descubre los ecosistemas más asombrosos del Perú: Costa, Andes y Amazonía." },
+    gastronomia: { tag: "🍲 SABORES ANCESTRALES", title: "Gastronomía Peruana", desc: "Aprende los secretos y sabores de los platos bandera de cada región." },
+    cultura: { tag: "🎭 TRADICIONES Y DANZAS", title: "Cultura y Cosmovisión", desc: "Conoce las tradiciones, danzas, festividades y cosmovisión andina." },
+    turismo: { tag: "🧭 MARAVILLAS DEL PERÚ", title: "Turismo y Destinos", desc: "Viaja por los destinos y maravillas turísticas más increíbles del país." }
+  };
+
+  if (materiasExtra[seccionKey]) {
+    targetView = document.getElementById("view-materia-extra");
+    var mInfo = materiasExtra[seccionKey];
+    var tagEl = document.getElementById("materiaExtraTag");
+    var titEl = document.getElementById("materiaExtraTitle");
+    var descEl = document.getElementById("materiaExtraDesc");
+    if (tagEl) tagEl.textContent = mInfo.tag;
+    if (titEl) titEl.textContent = mInfo.title;
+    if (descEl) descEl.textContent = mInfo.desc;
+  }
+
+  // Hidratar perfil si es 'perfil'
+  if (seccionKey === "perfil") {
+    var nombre = sessionStorage.getItem("kichay_user") || "Explorador";
+    var photo  = sessionStorage.getItem("kichay_photo") || "";
+    var email  = sessionStorage.getItem("kichay_email") || "explorador@kichay.pe";
+    var nomEl  = document.getElementById("perfilNombreView");
+    var emEl   = document.getElementById("perfilEmailView");
+    var avEl   = document.getElementById("perfilAvatarView");
+    if (nomEl) nomEl.textContent = nombre;
+    if (emEl) emEl.textContent = email;
+    if (avEl) {
+      if (photo) {
+        avEl.innerHTML = '<img src="' + photo + '" alt="' + nombre + '" referrerpolicy="no-referrer" />';
+      } else {
+        avEl.innerHTML = '<span>' + nombre.charAt(0).toUpperCase() + '</span>';
+      }
+    }
+  }
+
+  if (targetView) {
+    targetView.style.display = "flex";
+    targetView.scrollTop = 0;
+  }
+
+  if (window.KichaySound && typeof window.KichaySound.playSoftClick === "function") {
+    window.KichaySound.playSoftClick();
+  }
+
+  // Mostrar la ventana emergente informativa requerida
+  mostrarModalVisualizacion(titulo || seccionKey);
+};
+
+window.mostrarModalVisualizacion = function(nombreSeccion) {
+  var modal = document.getElementById("modalSoloVisualizacion");
+  var tagEl = document.getElementById("modalVisualTag");
+  var titEl = document.getElementById("modalVisualTitulo");
+  var msgEl = document.getElementById("modalVisualMensaje");
+
+  if (tagEl) tagEl.textContent = "✨ MODO VISTA PREVIA";
+  if (titEl) titEl.textContent = (nombreSeccion ? ("¡" + nombreSeccion + "! 🌟") : "¡Sección en Vista Previa! 🌟");
+  if (msgEl) msgEl.textContent = "por ahora solo visualizacion, futuras acciones en las proximas actualizaciones";
+
+  if (modal) modal.style.display = "flex";
+
+  if (window.KichaySound && typeof window.KichaySound.playChime === "function") {
+    window.KichaySound.playChime();
+  }
+};
+
+window.cerrarModalVisualizacion = function(e) {
+  if (e && e.target && e.target.id !== "modalSoloVisualizacion" && !e.target.classList.contains("modal-btn-confirm")) return;
+  var modal = document.getElementById("modalSoloVisualizacion");
+  if (modal) modal.style.display = "none";
 };
 
 // ══════════════════════════════════════════════════════════════

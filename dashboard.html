@@ -48,49 +48,49 @@
         <span class="nav-sprite"><img src="IMG/icon_historia.png" alt="Historia" /></span>
         Historia
       </a>
-      <a href="javascript:void(0)" class="nav-item" id="nav-fauna" onclick="abrirModalProximamente('Flora y Fauna', 'Descubre los ecosistemas más asombrosos del Perú: Costa, Andes y Amazonía.')">
+      <a href="javascript:void(0)" class="nav-item" id="nav-fauna" onclick="abrirSeccionVisual('fauna', 'Flora y Fauna')">
         <span class="nav-sprite"><img src="IMG/icon_fauna.png" alt="Flora y Fauna" /></span>
         Flora y Fauna
       </a>
-      <a href="javascript:void(0)" class="nav-item" id="nav-gastronomia" onclick="abrirModalProximamente('Gastronomía', 'Aprende los secretos y sabores de los platos bandera de cada región.')">
+      <a href="javascript:void(0)" class="nav-item" id="nav-gastronomia" onclick="abrirSeccionVisual('gastronomia', 'Gastronomía')">
         <span class="nav-sprite"><img src="IMG/icon_gastronomia.png" alt="Gastronomía" /></span>
         Gastronomía
       </a>
-      <a href="javascript:void(0)" class="nav-item" id="nav-cultura" onclick="abrirModalProximamente('Cultura', 'Conoce las tradiciones, danzas, festividades y cosmovisión andina.')">
+      <a href="javascript:void(0)" class="nav-item" id="nav-cultura" onclick="abrirSeccionVisual('cultura', 'Cultura')">
         <span class="nav-sprite"><img src="IMG/icon_cultura.png" alt="Cultura" /></span>
         Cultura
       </a>
-      <a href="javascript:void(0)" class="nav-item" id="nav-turismo" onclick="abrirModalProximamente('Turismo', 'Viaja por los destinos y maravillas turísticas más increíbles del país.')">
+      <a href="javascript:void(0)" class="nav-item" id="nav-turismo" onclick="abrirSeccionVisual('turismo', 'Turismo')">
         <span class="nav-sprite"><img src="IMG/icon_turismo.png" alt="Turismo" /></span>
         Turismo
       </a>
 
       <div class="nav-divider"></div>
 
-      <a href="javascript:void(0)" class="nav-item" id="nav-granja" onclick="abrirModalProximamente('Granja del Sol', '¡Construye y cuida tu propia granja andina con los Intis que ganes!')">
+      <a href="javascript:void(0)" class="nav-item" id="nav-granja" onclick="abrirSeccionVisual('granja', 'Granja del Sol')">
         <span class="nav-sprite"><img src="IMG/granja.png" alt="Granja del Sol" /></span>
         Granja del Sol
       </a>
-      <a href="javascript:void(0)" class="nav-item" id="nav-tienda" onclick="abrirModalProximamente('Tienda de Kusi', 'Podrás canjear atuendos típicos para Kusi y potenciadores para tus aventuras.')">
+      <a href="javascript:void(0)" class="nav-item" id="nav-tienda" onclick="abrirSeccionVisual('tienda', 'Tienda del Sol')">
         <span class="nav-sprite"><img src="IMG/tienda.png" alt="Tienda" /></span>
         Tienda
       </a>
-      <a href="javascript:void(0)" class="nav-item" id="nav-logros" onclick="abrirModalProximamente('Logros y Medallas', 'Colecciona medallas del Tahuantinsuyo y desbloquea trofeos exclusivos.')">
+      <a href="javascript:void(0)" class="nav-item" id="nav-logros" onclick="abrirSeccionVisual('logros', 'Logros y Medallas')">
         <span class="nav-sprite"><img src="IMG/ranking.png" alt="Logros" /></span>
         Logros
       </a>
-      <a href="javascript:void(0)" class="nav-item" id="nav-mascota" onclick="abrirModalProximamente('Tu Mascota Kusi', 'Personaliza a tu vizcacha guía Kusi y aprende nuevos trucos juntos.')">
+      <a href="javascript:void(0)" class="nav-item" id="nav-mascota" onclick="abrirSeccionVisual('mascota', 'Santuario de Kusi')">
         <span class="nav-sprite"><img src="IMG/mascota.png" alt="Mascota" /></span>
         Mascota
       </a>
 
       <div class="nav-divider"></div>
 
-      <a href="javascript:void(0)" class="nav-item" id="nav-perfil" onclick="abrirModalProximamente('Mi Perfil', 'Pronto podrás ver tus estadísticas detalladas, insignias y récord histórico.')">
+      <a href="javascript:void(0)" class="nav-item" id="nav-perfil" onclick="abrirSeccionVisual('perfil', 'Mi Perfil')">
         <span class="nav-sprite"><img src="IMG/perfil.png" alt="Perfil" /></span>
         Perfil
       </a>
-      <a href="javascript:void(0)" class="nav-item" id="nav-ajustes" onclick="abrirModalProximamente('Ajustes', 'Personaliza el sonido, volumen, idioma y preferencias de estudio.')">
+      <a href="javascript:void(0)" class="nav-item" id="nav-ajustes" onclick="abrirSeccionVisual('ajustes', 'Ajustes')">
         <span class="nav-sprite"><img src="IMG/ajustes.png" alt="Ajustes" /></span>
         Ajustes
       </a>
@@ -390,29 +390,406 @@
 
     </main>
 
-    <!-- ══════════ MODAL GLOBAL: VICTORIA DE NIVEL (MISIÓN CUMPLIDA) ══════════ -->
-    <div class="kichay-modal-overlay" id="quizVictoryModal" style="display:none;" onclick="event.stopPropagation()">
-      <div class="kichay-modal-card victory-card" onclick="event.stopPropagation()">
-        <div class="victory-mascot-wrap">
-          <img src="IMG/feliz.png" alt="¡Victoria!" class="victory-mascot-pic" />
+    <!-- ══════════ VISTA: GRANJA DEL SOL ══════════ -->
+    <main class="content content-subview" id="view-granja" style="display:none;">
+      <div class="subview-header">
+        <div class="subview-header-left">
+          <span class="subview-tag">🌾 TERRAZAS SAGRADAS</span>
+          <h2 class="subview-title">Granja del Sol</h2>
+          <p class="subview-desc">Cultiva los andenes del Tahuantinsuyo y produce cosechas de INTIS.</p>
         </div>
-        <h2 class="victory-title">¡Misión Cumplida! 🎉</h2>
-        <div class="victory-stars" id="victoryStars">⭐⭐⭐</div>
-        <p class="victory-subtitle" id="victorySubtitle">Has respondido las preguntas con éxito.</p>
-        
-        <div class="victory-rewards-grid">
-          <div class="victory-reward-box">
-            <span class="victory-reward-num" id="victoryIntisEarned">+50</span>
-            <span class="victory-reward-txt">INTIS GANADOS <img src="IMG/moneda_inti.png" alt="Intis" style="width: 18px; height: 18px; vertical-align: -3px; display: inline-block;" /></span>
-          </div>
-          <div class="victory-reward-box">
-            <span class="victory-reward-num" id="victoryExpEarned">+100</span>
-            <span class="victory-reward-txt">EXP DE KUSI ⚡</span>
+        <button class="subview-btn-back" onclick="abrirVistaInicio()">✕ Volver al Inicio</button>
+      </div>
+
+      <div class="subview-grid-3">
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#E8F5E9; color:#2E7D32;">🌽</div>
+          <h3 class="subview-card-title">Maíz Sagrado del Cusco</h3>
+          <p class="subview-card-desc">Crecimiento óptimo en terrazas de altura. Genera granos de oro y energía.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">+25 INTIS 🪙</span>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar</button>
           </div>
         </div>
 
-        <button class="modal-btn-confirm" onclick="finalizarQuizYVolver()">
-          ¡Continuar en el Mapa! 🗺️
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#FFF3E0; color:#E65100;">🥔</div>
+          <h3 class="subview-card-title">Papa Nativa Huayro</h3>
+          <p class="subview-card-desc">Variedad ancestral resistente a las heladas andinas. Rinde cosechas rápidas.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">+40 INTIS 🪙</span>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar</button>
+          </div>
+        </div>
+
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#EDE7F6; color:#5E2CA5;">🌾</div>
+          <h3 class="subview-card-title">Quinua Real Dorada</h3>
+          <p class="subview-card-desc">El grano de oro de los Incas. Aumenta la fertilidad de todas tus parcelas.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">+60 INTIS 🪙</span>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar</button>
+          </div>
+        </div>
+
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#FFEBEE; color:#C62828;">🌺</div>
+          <h3 class="subview-card-title">Flor Sagrada de la Cantuta</h3>
+          <p class="subview-card-desc">Flor nacional del Perú. Embellece el santuario y otorga bendiciones al sol.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">+80 INTIS 🪙</span>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar</button>
+          </div>
+        </div>
+
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#E1F5FE; color:#0277BD;">💧</div>
+          <h3 class="subview-card-title">Canal Hidráulico Inca</h3>
+          <p class="subview-card-desc">Sistema de regadío ancestral que mantiene la humedad de toda la granja.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">Nivel 1 / 5</span>
+            <button class="mock-btn btn-gold" onclick="mostrarModalVisualizacion('Granja del Sol')">⚡ Mejorar</button>
+          </div>
+        </div>
+
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#FFF8E1; color:#F57F17;">🏺</div>
+          <h3 class="subview-card-title">Colca de Almacén</h3>
+          <p class="subview-card-desc">Depósito tradicional para conservar granos y proteger tus intis cosechados.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">Capacidad: 500</span>
+            <button class="mock-btn btn-gold" onclick="mostrarModalVisualizacion('Granja del Sol')">⚡ Mejorar</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ══════════ VISTA: TIENDA DEL SOL ══════════ -->
+    <main class="content content-subview" id="view-tienda" style="display:none;">
+      <div class="subview-header">
+        <div class="subview-header-left">
+          <span class="subview-tag">🛒 MERCADO ANDINO</span>
+          <h2 class="subview-title">Tienda del Sol</h2>
+          <p class="subview-desc">Canjea atuendos para Kusi, amuletos de racha y potenciadores de EXP.</p>
+        </div>
+        <button class="subview-btn-back" onclick="abrirVistaInicio()">✕ Volver al Inicio</button>
+      </div>
+
+      <div class="subview-grid-3">
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#FFF3E0; color:#D35400;">🧶</div>
+          <h3 class="subview-card-title">Chullo Imperial de Paracas</h3>
+          <p class="subview-card-desc">Tejido con fina lana de vicuña y bordados ceremoniales andinos.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">150 INTIS 🪙</span>
+            <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button>
+          </div>
+        </div>
+
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#FFEBEE; color:#C62828;">👘</div>
+          <h3 class="subview-card-title">Poncho Ceremonial del Sol</h3>
+          <p class="subview-card-desc">Vestimenta reservada para los sabios amautas y exploradores nobles.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">300 INTIS 🪙</span>
+            <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button>
+          </div>
+        </div>
+
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#FFF8E1; color:#F57F17;">👑</div>
+          <h3 class="subview-card-title">Corona Mascapaicha</h3>
+          <p class="subview-card-desc">Emblema sagrado del Inca que otorga un aura dorada a tu avatar.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">500 INTIS 🪙</span>
+            <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button>
+          </div>
+        </div>
+
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#E8F5E9; color:#2E7D32;">🧪</div>
+          <h3 class="subview-card-title">Poción de Racha Protectora</h3>
+          <p class="subview-card-desc">Protege tus días de racha si un día no puedes conectarte a estudiar.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">80 INTIS 🪙</span>
+            <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button>
+          </div>
+        </div>
+
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#EDE7F6; color:#5E2CA5;">⚡</div>
+          <h3 class="subview-card-title">Amuleto del Amauta (Doble EXP)</h3>
+          <p class="subview-card-desc">Duplica la experiencia ganada en todos los cuestionarios durante 1 hora.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">120 INTIS 🪙</span>
+            <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button>
+          </div>
+        </div>
+
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#E0F7FA; color:#00838F;">🎁</div>
+          <h3 class="subview-card-title">Cofre del Tahuantinsuyo</h3>
+          <p class="subview-card-desc">Contiene recompensas misteriosas, gemas raras y fragmentos de historia.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">200 INTIS 🪙</span>
+            <button class="mock-btn" onclick="mostrarModalVisualizacion('Tienda')">🛒 Canjear</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ══════════ VISTA: LOGROS Y MEDALLAS ══════════ -->
+    <main class="content content-subview" id="view-logros" style="display:none;">
+      <div class="subview-header">
+        <div class="subview-header-left">
+          <span class="subview-tag">🏆 SALÓN DE LA GLORIA</span>
+          <h2 class="subview-title">Logros y Trofeos</h2>
+          <p class="subview-desc">Colecciona condecoraciones y medallas demostrando tu sabiduría.</p>
+        </div>
+        <button class="subview-btn-back" onclick="abrirVistaInicio()">✕ Volver al Inicio</button>
+      </div>
+
+      <div class="subview-grid-2">
+        <div class="subview-card" style="border-left: 5px solid #2E7D32;">
+          <div style="display:flex; align-items:center; gap:14px;">
+            <div class="card-icon-badge" style="background:#E8F5E9; color:#2E7D32;">🥇</div>
+            <div>
+              <h3 class="subview-card-title">Primeros Pasos Ancestrales</h3>
+              <p class="subview-card-desc">Completa con éxito tu primer nivel de cuestionario.</p>
+            </div>
+          </div>
+          <div class="card-meta-row">
+            <span style="font-family:'Nourd',sans-serif; font-size:12px; font-weight:800; color:#2E7D32;">✓ DESBLOQUEADO</span>
+            <span class="card-price-tag">+50 INTIS 🪙</span>
+          </div>
+        </div>
+
+        <div class="subview-card" style="border-left: 5px solid #F39C12;">
+          <div style="display:flex; align-items:center; gap:14px;">
+            <div class="card-icon-badge" style="background:#FFF8E1; color:#F57F17;">🌟</div>
+            <div>
+              <h3 class="subview-card-title">Sabio de las Civilizaciones</h3>
+              <p class="subview-card-desc">Obtén 3 estrellas en todos los niveles de Preinca.</p>
+            </div>
+          </div>
+          <div class="card-meta-row">
+            <span style="font-family:'Nourd',sans-serif; font-size:12px; font-weight:800; color:#E67E22;">⏳ EN PROGRESO</span>
+            <span class="card-price-tag">+100 INTIS 🪙</span>
+          </div>
+        </div>
+
+        <div class="subview-card" style="border-left: 5px solid #E67E22;">
+          <div style="display:flex; align-items:center; gap:14px;">
+            <div class="card-icon-badge" style="background:#FFF3E0; color:#D35400;">🔥</div>
+            <div>
+              <h3 class="subview-card-title">Fuego Eterno del Sol</h3>
+              <p class="subview-card-desc">Alcanza una racha continua de 7 días de estudio.</p>
+            </div>
+          </div>
+          <div class="card-meta-row">
+            <span style="font-family:'Nourd',sans-serif; font-size:12px; font-weight:800; color:#7A695C;">🔒 BLOQUEADO</span>
+            <span class="card-price-tag">+150 INTIS 🪙</span>
+          </div>
+        </div>
+
+        <div class="subview-card" style="border-left: 5px solid #5E2CA5;">
+          <div style="display:flex; align-items:center; gap:14px;">
+            <div class="card-icon-badge" style="background:#EDE7F6; color:#5E2CA5;">👑</div>
+            <div>
+              <h3 class="subview-card-title">Gran Maestro Amauta</h3>
+              <p class="subview-card-desc">Eleva a Kusi hasta el Nivel 5 de Sabiduría Andina.</p>
+            </div>
+          </div>
+          <div class="card-meta-row">
+            <span style="font-family:'Nourd',sans-serif; font-size:12px; font-weight:800; color:#7A695C;">🔒 BLOQUEADO</span>
+            <span class="card-price-tag">+250 INTIS 🪙</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ══════════ VISTA: MASCOTA KUSI ══════════ -->
+    <main class="content content-subview" id="view-mascota" style="display:none;">
+      <div class="subview-header">
+        <div class="subview-header-left">
+          <span class="subview-tag">🦔 COMPAÑERO DE VIAJE</span>
+          <h2 class="subview-title">Santuario de Kusi</h2>
+          <p class="subview-desc">Cuida a tu vizcacha guía, mantén su alegría y potencia su sabiduría.</p>
+        </div>
+        <button class="subview-btn-back" onclick="abrirVistaInicio()">✕ Volver al Inicio</button>
+      </div>
+
+      <div class="mascota-hero-card">
+        <div class="mascota-avatar-box">
+          <img src="IMG/feliz.png" alt="Kusi" />
+          <h3 style="font-family:'Nourd',sans-serif; font-size:18px; font-weight:900; color:#3E2723; margin:8px 0 2px;">Kusi</h3>
+          <span style="font-family:'Balsamiq Sans',sans-serif; font-size:12px; font-weight:700; color:#795548;">Vizcacha Exploradora</span>
+        </div>
+
+        <div class="mascota-stats-box">
+          <div class="stat-bar-group">
+            <div class="stat-label-row"><span>Felicidad</span><span style="color:#2E7D32;">98%</span></div>
+            <div class="stat-track"><div class="stat-fill" style="width:98%; background:#4CAF50;"></div></div>
+          </div>
+          <div class="stat-bar-group">
+            <div class="stat-label-row"><span>Energía</span><span style="color:#F57F17;">90%</span></div>
+            <div class="stat-track"><div class="stat-fill" style="width:90%; background:#FFB300;"></div></div>
+          </div>
+          <div class="stat-bar-group">
+            <div class="stat-label-row"><span>Sabiduría Andina</span><span style="color:#5E2CA5;">Nivel 1</span></div>
+            <div class="stat-track"><div class="stat-fill" style="width:25%; background:#7E57C2;"></div></div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:8px; flex-wrap:wrap;">
+            <button class="mock-btn btn-gold" onclick="mostrarModalVisualizacion('Mascota')">🌽 Alimentar</button>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Mascota')">✨ Acariciar</button>
+            <button class="mock-btn" onclick="mostrarModalVisualizacion('Mascota')">👘 Cambiar Traje</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ══════════ VISTA: MI PERFIL ══════════ -->
+    <main class="content content-subview" id="view-perfil" style="display:none;">
+      <div class="subview-header">
+        <div class="subview-header-left">
+          <span class="subview-tag">📜 CREDENCIAL DE EXPLORADOR</span>
+          <h2 class="subview-title">Mi Perfil</h2>
+          <p class="subview-desc">Tu historial de aventuras, logros conseguidos y rango en el Tahuantinsuyo.</p>
+        </div>
+        <button class="subview-btn-back" onclick="abrirVistaInicio()">✕ Volver al Inicio</button>
+      </div>
+
+      <div class="perfil-hero-box">
+        <div class="perfil-avatar-circle" id="perfilAvatarView">
+          <span id="perfilInitialView">U</span>
+        </div>
+        <div class="perfil-info-col">
+          <span class="subview-tag" style="background:#EDE7F6; color:#5E2CA5; border-color:#D1C4E9;">INICIADO DE LOS ANDES</span>
+          <h2 style="font-family:'Nourd',sans-serif; font-size:26px; font-weight:900; color:#2D241E; margin:0;" id="perfilNombreView">Explorador</h2>
+          <p style="font-family:'Balsamiq Sans',sans-serif; font-size:14px; font-weight:700; color:#7A695C; margin:0;" id="perfilEmailView">usuario@gmail.com</p>
+          
+          <div style="display:flex; gap:16px; margin-top:12px; flex-wrap:wrap;">
+            <div style="background:#FCF7EE; padding:10px 16px; border-radius:12px; border:1px solid #EDE4D8;">
+              <span style="font-family:'Nourd',sans-serif; font-size:11px; color:#8C6D53; display:block;">ESTADO</span>
+              <strong style="font-family:'Nourd',sans-serif; font-size:15px; color:#2E7D32;">Activo ⚡</strong>
+            </div>
+            <div style="background:#FCF7EE; padding:10px 16px; border-radius:12px; border:1px solid #EDE4D8;">
+              <span style="font-family:'Nourd',sans-serif; font-size:11px; color:#8C6D53; display:block;">PLATAFORMA</span>
+              <strong style="font-family:'Nourd',sans-serif; font-size:15px; color:#5E2CA5;">Kichay Web & Móvil</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ══════════ VISTA: AJUSTES ══════════ -->
+    <main class="content content-subview" id="view-ajustes" style="display:none;">
+      <div class="subview-header">
+        <div class="subview-header-left">
+          <span class="subview-tag">⚙️ CONFIGURACIÓN</span>
+          <h2 class="subview-title">Ajustes del Juego</h2>
+          <p class="subview-desc">Personaliza las opciones de audio, notificaciones y experiencia de estudio.</p>
+        </div>
+        <button class="subview-btn-back" onclick="abrirVistaInicio()">✕ Volver al Inicio</button>
+      </div>
+
+      <div class="subview-grid-2">
+        <div class="subview-card">
+          <h3 class="subview-card-title">🔊 Sonido y Efectos</h3>
+          <p class="subview-card-desc">Activa o silencia las respuestas correctas, monedas y campanadas.</p>
+          <div class="card-meta-row">
+            <span style="font-family:'Nourd',sans-serif; font-size:13px; font-weight:800; color:#2E7D32;">Activado</span>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Ajustes')">Cambiar</button>
+          </div>
+        </div>
+
+        <div class="subview-card">
+          <h3 class="subview-card-title">🎶 Música Ambiental Andina</h3>
+          <p class="subview-card-desc">Melodías tradicionales suaves con quena y zampoña durante tus retos.</p>
+          <div class="card-meta-row">
+            <span style="font-family:'Nourd',sans-serif; font-size:13px; font-weight:800; color:#2E7D32;">Activado</span>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Ajustes')">Cambiar</button>
+          </div>
+        </div>
+
+        <div class="subview-card">
+          <h3 class="subview-card-title">💡 Pistas y Consejos de Kusi</h3>
+          <p class="subview-card-desc">Recibe pistas y retroalimentación animada al resolver preguntas.</p>
+          <div class="card-meta-row">
+            <span style="font-family:'Nourd',sans-serif; font-size:13px; font-weight:800; color:#2E7D32;">Activado</span>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Ajustes')">Cambiar</button>
+          </div>
+        </div>
+
+        <div class="subview-card">
+          <h3 class="subview-card-title">🔔 Recordatorio de Racha</h3>
+          <p class="subview-card-desc">Avisos diarios para que no pierdas tu fuego sagrado de días seguidos.</p>
+          <div class="card-meta-row">
+            <span style="font-family:'Nourd',sans-serif; font-size:13px; font-weight:800; color:#2E7D32;">Activado</span>
+            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Ajustes')">Cambiar</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ══════════ VISTA: MATERIAS (FAUNA, GASTRONOMÍA, CULTURA, TURISMO) ══════════ -->
+    <main class="content content-subview" id="view-materia-extra" style="display:none;">
+      <div class="subview-header">
+        <div class="subview-header-left">
+          <span class="subview-tag" id="materiaExtraTag">🌿 APRENDIZAJE PERUANO</span>
+          <h2 class="subview-title" id="materiaExtraTitle">Materia</h2>
+          <p class="subview-desc" id="materiaExtraDesc">Explora los fascinantes capítulos y preguntas interactivas.</p>
+        </div>
+        <button class="subview-btn-back" onclick="abrirVistaInicio()">✕ Volver al Inicio</button>
+      </div>
+
+      <div class="subview-grid-3">
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#E8F5E9; color:#2E7D32;">🌊</div>
+          <h3 class="subview-card-title">Capítulo 1: Costa Peruana</h3>
+          <p class="subview-card-desc">Tradiciones, especies marinas, desiertos costeros y valles fértiles.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">5 Niveles</span>
+            <button class="mock-btn" onclick="mostrarModalVisualizacion('Materia')">🔍 Explorar</button>
+          </div>
+        </div>
+
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#FFF3E0; color:#E65100;">🏔️</div>
+          <h3 class="subview-card-title">Capítulo 2: Sierra y Andes</h3>
+          <p class="subview-card-desc">Cumbres nevadas, fauna de altura, camélidos y saberes ancestrales.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">5 Niveles</span>
+            <button class="mock-btn" onclick="mostrarModalVisualizacion('Materia')">🔍 Explorar</button>
+          </div>
+        </div>
+
+        <div class="subview-card">
+          <div class="card-icon-badge" style="background:#E0F2F1; color:#00695C;">🌴</div>
+          <h3 class="subview-card-title">Capítulo 3: Amazonía Sagrada</h3>
+          <p class="subview-card-desc">La selva más biodiversa del planeta, mitos, ríos majestuosos y árboles milenarios.</p>
+          <div class="card-meta-row">
+            <span class="card-price-tag">5 Niveles</span>
+            <button class="mock-btn" onclick="mostrarModalVisualizacion('Materia')">🔍 Explorar</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ══════════ MODAL: MODO SOLO VISUALIZACIÓN ══════════ -->
+    <div class="kichay-modal-overlay" id="modalSoloVisualizacion" style="display:none;" onclick="cerrarModalVisualizacion(event)">
+      <div class="kichay-modal-card" onclick="event.stopPropagation()">
+        <div class="modal-mascot-badge">
+          <img src="IMG/pregunta.png" alt="Kusi Informativo" class="modal-mascot-pic" />
+        </div>
+        <div class="modal-pill-tag" id="modalVisualTag" style="background:#FFF3E0; color:#E65100; border-color:#FFE0B2;">✨ MODO VISTA PREVIA</div>
+        <h3 class="modal-heading" id="modalVisualTitulo">¡Explora esta sección! 🌟</h3>
+        <p class="modal-body-text" id="modalVisualMensaje">
+          Por ahora solo visualización, futuras acciones en las próximas actualizaciones.
+        </p>
+        <button class="modal-btn-confirm" onclick="cerrarModalVisualizacion()">
+          ¡Entendido, a explorar! 🚀
         </button>
       </div>
     </div>
