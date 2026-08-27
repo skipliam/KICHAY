@@ -1253,6 +1253,409 @@ body.page-exit .content {
 }
 
 /* ══════════════════════════════════════════════
+   SECCIÓN GRANJA DEL SOL (ANDENES SAGRADOS)
+   Boceto de referencia: KICHAY_page-0034.jpg & IMG/granja_mapa.png
+══════════════════════════════════════════════ */
+.content-granja {
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  background: #191B0F;
+}
+
+.content-granja::before {
+  display: none !important;
+}
+
+/* Subheader verde andino de Granja */
+.granja-subbar {
+  background: #1B381E;
+  border-bottom: 2px solid #2E5C33;
+  color: #FFFFFF;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+}
+
+.granja-btn-back {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  font-family: 'Nourd', sans-serif;
+  font-size: clamp(11px, 2.8vw, 13px);
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.12s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex-shrink: 0;
+  min-height: 44px;
+  min-width: 44px;
+  white-space: nowrap;
+  touch-action: manipulation;
+}
+
+.granja-btn-back:hover,
+.granja-btn-back:active {
+  background: #2E7D32;
+  border-color: #4CAF50;
+}
+
+.granja-subbar-title {
+  font-family: 'Nourd', sans-serif;
+  font-size: clamp(0.95rem, 3.4vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: clamp(1.2px, 0.9vw, 3px);
+  text-align: center;
+  color: #FFFFFF;
+  margin: 0;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.granja-subbar-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.granja-badge-btn {
+  background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+  color: #FFFFFF;
+  font-family: 'Nourd', sans-serif;
+  font-size: clamp(10.5px, 2.6vw, 11.5px);
+  font-weight: 800;
+  padding: 6px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border: 1.5px solid #81C784;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 2px 8px rgba(46, 125, 50, 0.35);
+  flex-shrink: 0;
+  min-height: 44px;
+  white-space: nowrap;
+  touch-action: manipulation;
+}
+
+/* Contenedor del Mapa con Scroll Vertical Libre y Safe Areas */
+.granja-map-container {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  background: #14180E;
+  padding: 0 !important;
+  margin: 0 !important;
+  scroll-behavior: smooth;
+}
+
+.granja-map-viewport {
+  position: relative;
+  width: 100%;
+  min-height: 840px;
+  padding-bottom: calc(140px + env(safe-area-inset-bottom, 32px));
+  overflow: hidden;
+}
+
+.granja-bg-image {
+  width: 100%;
+  height: 100%;
+  min-height: 840px;
+  display: block;
+  object-fit: cover;
+  object-position: center bottom;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Botones flotantes laterales (Derecha) */
+.granja-side-actions {
+  position: absolute;
+  top: 14%;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 25;
+}
+
+.granja-side-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #EBE2D5;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.16s ease, background 0.16s ease;
+  touch-action: manipulation;
+  gap: 1px;
+}
+
+.granja-side-btn:active {
+  transform: scale(0.92);
+  background: #FFF3E0;
+}
+
+.side-btn-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.side-btn-label {
+  font-family: 'Nourd', sans-serif;
+  font-size: 8.5px;
+  font-weight: 900;
+  color: #4A3B32;
+  text-transform: uppercase;
+}
+
+/* Nodos de cultivo sobre los andenes */
+.crop-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  min-width: 54px;
+  min-height: 54px;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.crop-node:active {
+  transform: translate(-50%, -50%) scale(1.15);
+  z-index: 20;
+}
+
+.crop-disc {
+  width: 52px;
+  height: 52px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #FFF9C4, #FFF176);
+  border: 3px solid #FBC02D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  position: relative;
+}
+
+.crop-disc.ready {
+  background: linear-gradient(145deg, #E8F5E9, #C8E6C9);
+  border-color: #43A047;
+  animation: bounceCrop 2.4s infinite ease-in-out;
+}
+
+.crop-disc.mascot-disc {
+  background: linear-gradient(145deg, #EDE7F6, #D1C4E9);
+  border-color: #7E57C2;
+}
+
+@keyframes bounceCrop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.crop-pulse-ring {
+  position: absolute;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(67, 160, 71, 0.75);
+  animation: cropPulse 2s infinite ease-out;
+  pointer-events: none;
+}
+
+@keyframes cropPulse {
+  0% { transform: scale(0.85); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+.crop-emoji {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.crop-badge {
+  font-family: 'Nourd', sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  color: #FFFFFF;
+  background: rgba(27, 94, 32, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 2px 7px;
+  border-radius: 10px;
+  margin-top: 2px;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+/* Posiciones de los Cultivos en los Andenes (Calibradas con IMG/granja_mapa.png) */
+.crop-pos-1 { top: 80%; left: 24%; }
+.crop-pos-2 { top: 78%; left: 46%; }
+.crop-pos-3 { top: 76%; left: 68%; }
+
+.crop-pos-4 { top: 68%; left: 33%; }
+.crop-pos-5 { top: 66%; left: 52%; }
+.crop-pos-6 { top: 64%; left: 70%; }
+
+.crop-pos-7 { top: 55%; left: 40%; }
+.crop-pos-8 { top: 53%; left: 58%; }
+.crop-pos-9 { top: 51%; left: 74%; }
+
+.crop-pos-10 { top: 42%; left: 50%; }
+.crop-pos-12 { top: 28%; left: 74%; }
+
+/* Panel Flotante Inferior de Cosecha */
+.granja-bottom-panel {
+  position: absolute;
+  bottom: calc(14px + env(safe-area-inset-bottom, 12px));
+  left: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2px solid #EBE2D5;
+  border-radius: 20px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+  z-index: 35;
+}
+
+.harvest-info-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.harvest-info-tag {
+  font-family: 'Nourd', sans-serif;
+  font-size: 8.5px;
+  font-weight: 800;
+  color: #8D7B70;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.harvest-rewards-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.harvest-chip {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: #FFF8E1;
+  border: 1px solid #FFE082;
+  padding: 2px 6px;
+  border-radius: 8px;
+}
+
+.chip-val {
+  font-family: 'Nourd', sans-serif;
+  font-size: 10.5px;
+  font-weight: 900;
+  color: #D35400;
+  white-space: nowrap;
+}
+
+.btn-harvest-all {
+  background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-family: 'Nourd', sans-serif;
+  font-size: 12.5px;
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(46, 125, 50, 0.45);
+  transition: transform 0.15s ease;
+  white-space: nowrap;
+  touch-action: manipulation;
+  min-height: 44px;
+}
+
+.btn-harvest-all:active {
+  transform: scale(0.95);
+  background: #1B5E20;
+}
+
+.harvest-tools-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tool-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #F4EFE6;
+  border: 1.5px solid #E5D9C8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  touch-action: manipulation;
+}
+
+.tool-btn:active {
+  transform: scale(0.9);
+  background: #FFE082;
+}
+
+/* ══════════════════════════════════════════════
    MODALES (Próximamente & Detalle de Nivel)
 ══════════════════════════════════════════════ */
 .kichay-modal-overlay {

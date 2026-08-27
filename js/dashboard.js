@@ -1316,3 +1316,73 @@ window.reclamarCofre = function() {
   cerrarModalCofre();
   renderizarNodosHistoria();
 };
+
+// ══════════════════════════════════════════════════════════════
+// GRANJA DEL SOL (ANDENES SAGRADOS INTERACTIVOS)
+// ══════════════════════════════════════════════════════════════
+window.abrirModalCultivo = function(tipo, nombre, ganancia, descripcion) {
+  window.mostrarModalBloqueado(
+    "🌱 CULTIVO EN ANDENES",
+    "¡" + nombre + "! 🌾",
+    descripcion + "<br><br><strong>Recompensa de Cosecha:</strong> +" + ganancia + " INTIS 🪙<br><span style='font-size:12px; color:#2E7D32;'>¡Usa el botón \"Cosechar todo\" para recolectar tus cultivos!</span>"
+  );
+};
+
+window.cosecharTodoLaGranja = function() {
+  var gananciaTotal = 35; // Cosecha balanceada disponible
+  var hudIntis = document.getElementById("hud-intis");
+  var actual = parseInt(sessionStorage.getItem("kichay_intis") || "50", 10);
+  var nuevo  = actual + gananciaTotal;
+
+  if (hudIntis) hudIntis.textContent = nuevo;
+  sessionStorage.setItem("kichay_intis", nuevo);
+  localStorage.setItem("kichay_intis", String(nuevo));
+
+  var uid = sessionStorage.getItem("kichay_uid") || (window._firebaseAuth && window._firebaseAuth.currentUser && window._firebaseAuth.currentUser.uid);
+  if (window._firebaseMod && uid && window._firebaseMod.guardarProgresoUsuario) {
+    window._firebaseMod.guardarProgresoUsuario(uid, {
+      intis: nuevo
+    });
+  }
+
+  if (window.KichaySound && typeof window.KichaySound.playChime === "function") {
+    window.KichaySound.playChime();
+  }
+
+  var btn = document.getElementById("btnCosecharTodo");
+  if (btn) {
+    btn.innerHTML = '<span class="btn-harvest-text">¡Cosechado! ✓</span><span class="btn-harvest-icon">✨</span>';
+    btn.style.background = "linear-gradient(135deg, #F39C12 0%, #E67E22 100%)";
+    setTimeout(function() {
+      if (btn) {
+        btn.innerHTML = '<span class="btn-harvest-text">Cosechar todo</span><span class="btn-harvest-icon">🧺</span>';
+        btn.style.background = "";
+      }
+    }, 4000);
+  }
+
+  window.mostrarModalBloqueado(
+    "🌾 ¡COSECHA SAGRADA EXITOSA!",
+    "¡Cosechaste los Andenes del Sol! 🧺",
+    "Has recolectado tus cultivos ancestrales con éxito.<br><br><strong style='font-size:18px; color:#D9381E;'>+35 INTIS 🪙</strong> y <strong style='font-size:16px; color:#2E7D32;'>+3 GUANO 🌾</strong> añadidos a tu monedero."
+  );
+};
+
+window.abrirTiendaSemillasGranja = function() {
+  window.abrirSeccionVisual('tienda', 'Tienda del Sol');
+};
+
+window.abrirMejorasGranja = function() {
+  window.mostrarModalProximamente(
+    "Mejoras de Andenes y Riego",
+    "Pronto podrás ampliar tus andenes incas, construir canales de riego por acequias y colocar espantapájaros protectores."
+  );
+};
+
+window.abrirMisionesGranja = function() {
+  window.mostrarModalProximamente(
+    "Misiones Agrícolas",
+    "Pronto podrás completar encargos de los Sabios Amautas para cultivar variedades específicas de papas nativas y maíz sagrado."
+  );
+};
+

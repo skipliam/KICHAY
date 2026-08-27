@@ -9,8 +9,8 @@
   <title>KICHAY – Inicio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="css/fonts.css?v=3.3.0" />
-  <link rel="stylesheet" href="css/dashboard.css?v=3.3.0" />
+  <link rel="stylesheet" href="css/fonts.css?v=3.4.0" />
+  <link rel="stylesheet" href="css/dashboard.css?v=3.4.0" />
   <script>
     // Guard suave: si no hay uid en sessionStorage Y no hay sesión de Firebase,
     // el guard definitivo está en dashboard.js (onAuthStateChanged)
@@ -393,104 +393,173 @@
 
     </main>
 
-    <!-- ══════════ VISTA: GRANJA DEL SOL ══════════ -->
-    <main class="content content-subview" id="view-granja" style="display:none;">
-      <div class="subview-header">
-        <div class="subview-header-left">
-          <span class="subview-tag">🌾 ANDENES SAGRADOS</span>
-          <h2 class="subview-title">Granja del Sol</h2>
-          <p class="subview-desc">Siembra semillas andinas, espera su maduración y cosecha INTIS. ¡5 cosechas seguidas otorgan +10 bonus!</p>
+    <!-- ══════════ VISTA: GRANJA DEL SOL (ANDENES SAGRADOS) ══════════ -->
+    <main class="content content-granja" id="view-granja" style="display:none;">
+
+      <!-- Subheader de Granja del Sol -->
+      <div class="granja-subbar">
+        <button class="granja-btn-back" onclick="abrirVistaInicio()" title="Volver al inicio">
+          ← Inicio
+        </button>
+        <h2 class="granja-subbar-title">G R A N J A   D E L   S O L</h2>
+        
+        <div class="granja-subbar-right">
+          <button class="granja-badge-btn" onclick="abrirTiendaSemillasGranja()">
+            <span>🌾 ANDENES (NIVEL 1)</span>
+          </button>
         </div>
-        <button class="subview-btn-back" onclick="abrirVistaInicio()">✕ Volver al Inicio</button>
       </div>
 
-      <div class="subview-grid-3">
-        <!-- Papa -->
-        <div class="subview-card">
-          <div class="card-icon-badge" style="background:#FFF3E0; color:#E65100;">🥔</div>
-          <h3 class="subview-card-title">Papa Nativa</h3>
-          <p class="subview-card-desc">Compra: 5 INTIS · Cosecha: 10 INTIS. Cultivo ancestral de crecimiento rápido.</p>
-          <div class="card-meta-row">
-            <span class="card-price-tag">Cosecha: +10 🪙</span>
-            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar (5 🪙)</button>
-          </div>
-        </div>
+      <!-- Contenedor del Mapa con el lienzo de Andenes y Scroll Libre -->
+      <div class="granja-map-container">
+        <div class="granja-map-viewport" id="granjaMapViewport">
+          <img src="IMG/granja_mapa.png" alt="Granja del Sol - Andenes Incas" class="granja-bg-image" />
 
-        <!-- Maíz -->
-        <div class="subview-card">
-          <div class="card-icon-badge" style="background:#E8F5E9; color:#2E7D32;">🌽</div>
-          <h3 class="subview-card-title">Maíz Sagrado</h3>
-          <p class="subview-card-desc">Compra: 8 INTIS · Cosecha: 16 INTIS. Granos dorados de los valles del Cusco.</p>
-          <div class="card-meta-row">
-            <span class="card-price-tag">Cosecha: +16 🪙</span>
-            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar (8 🪙)</button>
+          <!-- Botones laterales flotantes estilo KICHAY_page-0034 -->
+          <div class="granja-side-actions">
+            <button class="granja-side-btn" onclick="abrirTiendaSemillasGranja()" title="Tienda de Semillas">
+              <div class="side-btn-icon">🛒</div>
+              <span class="side-btn-label">Tienda</span>
+            </button>
+            <button class="granja-side-btn" onclick="abrirMejorasGranja()" title="Mejoras de Andenes">
+              <div class="side-btn-icon">🏡</div>
+              <span class="side-btn-label">Mejoras</span>
+            </button>
+            <button class="granja-side-btn" onclick="abrirMisionesGranja()" title="Misiones de Cosecha">
+              <div class="side-btn-icon">📋</div>
+              <span class="side-btn-label">Misiones</span>
+            </button>
           </div>
-        </div>
 
-        <!-- Quinua -->
-        <div class="subview-card">
-          <div class="card-icon-badge" style="background:#EDE7F6; color:#5E2CA5;">🫘</div>
-          <h3 class="subview-card-title">Quinua Real</h3>
-          <p class="subview-card-desc">Compra: 10 INTIS · Cosecha: 20 INTIS. El superalimento de los Andes peruanos.</p>
-          <div class="card-meta-row">
-            <span class="card-price-tag">Cosecha: +20 🪙</span>
-            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar (10 🪙)</button>
-          </div>
-        </div>
+          <!-- Nodos interactivos de Cultivos ubicados sobre las terrazas -->
+          <div id="granjaCropsContainer">
+            <!-- Terraza 1 (Inferior) -->
+            <div class="crop-node crop-pos-1" onclick="abrirModalCultivo('papa', 'Papa Nativa', 10, '¡Cultivo ancestral listo para cosechar!')">
+              <div class="crop-disc ready">
+                <span class="crop-emoji">🥔</span>
+                <div class="crop-pulse-ring"></div>
+              </div>
+              <span class="crop-badge">+10 🪙</span>
+            </div>
 
-        <!-- Camote -->
-        <div class="subview-card">
-          <div class="card-icon-badge" style="background:#FBE9E7; color:#D84315;">🍠</div>
-          <h3 class="subview-card-title">Camote Dulce</h3>
-          <p class="subview-card-desc">Compra: 12 INTIS · Cosecha: 24 INTIS. Raíz nutritiva de la costa y valles.</p>
-          <div class="card-meta-row">
-            <span class="card-price-tag">Cosecha: +24 🪙</span>
-            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar (12 🪙)</button>
-          </div>
-        </div>
+            <div class="crop-node crop-pos-2" onclick="abrirModalCultivo('camote', 'Camote Dulce', 24, '¡Raíz dulce de los valles lista!')">
+              <div class="crop-disc ready">
+                <span class="crop-emoji">🍠</span>
+                <div class="crop-pulse-ring"></div>
+              </div>
+              <span class="crop-badge">+24 🪙</span>
+            </div>
 
-        <!-- Ají -->
-        <div class="subview-card">
-          <div class="card-icon-badge" style="background:#FFEBEE; color:#C62828;">🌶️</div>
-          <h3 class="subview-card-title">Ají Amarillo</h3>
-          <p class="subview-card-desc">Compra: 15 INTIS · Cosecha: 30 INTIS. El sabor y color de la gastronomía nacional.</p>
-          <div class="card-meta-row">
-            <span class="card-price-tag">Cosecha: +30 🪙</span>
-            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar (15 🪙)</button>
-          </div>
-        </div>
+            <div class="crop-node crop-pos-3" onclick="abrirModalCultivo('mani', 'Maní Andino', 36, '¡Cosecha abundante de maní!')">
+              <div class="crop-disc ready">
+                <span class="crop-emoji">🥜</span>
+                <div class="crop-pulse-ring"></div>
+              </div>
+              <span class="crop-badge">+36 🪙</span>
+            </div>
 
-        <!-- Maní -->
-        <div class="subview-card">
-          <div class="card-icon-badge" style="background:#EFEBE9; color:#4E342E;">🥜</div>
-          <h3 class="subview-card-title">Maní de la Selva</h3>
-          <p class="subview-card-desc">Compra: 18 INTIS · Cosecha: 36 INTIS. Semilla energética cultivada desde tiempos mochicas.</p>
-          <div class="card-meta-row">
-            <span class="card-price-tag">Cosecha: +36 🪙</span>
-            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar (18 🪙)</button>
-          </div>
-        </div>
+            <!-- Terraza 2 -->
+            <div class="crop-node crop-pos-4" onclick="abrirModalCultivo('maiz', 'Maíz Sagrado', 16, '¡Granos dorados listos para la ofrenda!')">
+              <div class="crop-disc ready">
+                <span class="crop-emoji">🌽</span>
+                <div class="crop-pulse-ring"></div>
+              </div>
+              <span class="crop-badge">+16 🪙</span>
+            </div>
 
-        <!-- Cacao -->
-        <div class="subview-card">
-          <div class="card-icon-badge" style="background:#EFEBE9; color:#3E2723;">🍫</div>
-          <h3 class="subview-card-title">Cacao Fino de Aroma</h3>
-          <p class="subview-card-desc">Compra: 25 INTIS · Cosecha: 50 INTIS. Fruto amazónico de exportación mundial.</p>
-          <div class="card-meta-row">
-            <span class="card-price-tag">Cosecha: +50 🪙</span>
-            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar (25 🪙)</button>
-          </div>
-        </div>
+            <div class="crop-node crop-pos-5" onclick="abrirModalCultivo('quinua', 'Quinua Real', 20, '¡El superalimento de los Andes!')">
+              <div class="crop-disc ready">
+                <span class="crop-emoji">🫘</span>
+                <div class="crop-pulse-ring"></div>
+              </div>
+              <span class="crop-badge">+20 🪙</span>
+            </div>
 
-        <!-- Café -->
-        <div class="subview-card">
-          <div class="card-icon-badge" style="background:#ECEFF1; color:#37474F;">☕</div>
-          <h3 class="subview-card-title">Café de Altura</h3>
-          <p class="subview-card-desc">Compra: 30 INTIS · Cosecha: 60 INTIS. Grano premium de Chanchamayo y Cusco.</p>
-          <div class="card-meta-row">
-            <span class="card-price-tag">Cosecha: +60 🪙</span>
-            <button class="mock-btn btn-green" onclick="mostrarModalVisualizacion('Granja del Sol')">🌱 Sembrar (30 🪙)</button>
+            <div class="crop-node crop-pos-6" onclick="abrirModalCultivo('maiz_morado', 'Maíz Morado', 16, '¡Mazorca sagrada para la chicha morada!')">
+              <div class="crop-disc ready">
+                <span class="crop-emoji">🌽</span>
+                <div class="crop-pulse-ring"></div>
+              </div>
+              <span class="crop-badge">+16 🪙</span>
+            </div>
+
+            <!-- Terraza 3 -->
+            <div class="crop-node crop-pos-7" onclick="abrirModalCultivo('aji', 'Ají Amarillo', 30, '¡El sabor emblemático de la cocina!')">
+              <div class="crop-disc ready">
+                <span class="crop-emoji">🌶️</span>
+                <div class="crop-pulse-ring"></div>
+              </div>
+              <span class="crop-badge">+30 🪙</span>
+            </div>
+
+            <div class="crop-node crop-pos-8" onclick="abrirModalCultivo('cacao', 'Cacao Fino', 50, '¡Fruto de aroma de exportación!')">
+              <div class="crop-disc ready">
+                <span class="crop-emoji">🍫</span>
+                <div class="crop-pulse-ring"></div>
+              </div>
+              <span class="crop-badge">+50 🪙</span>
+            </div>
+
+            <div class="crop-node crop-pos-9" onclick="abrirModalCultivo('rocoto', 'Rocoto Andino', 30, '¡Ají volcánico de las alturas!')">
+              <div class="crop-disc ready">
+                <span class="crop-emoji">🌶️</span>
+                <div class="crop-pulse-ring"></div>
+              </div>
+              <span class="crop-badge">+30 🪙</span>
+            </div>
+
+            <!-- Terraza 4 -->
+            <div class="crop-node crop-pos-10" onclick="abrirModalCultivo('cafe', 'Café de Altura', 60, '¡Grano premium de la selva alta!')">
+              <div class="crop-disc ready">
+                <span class="crop-emoji">☕</span>
+                <div class="crop-pulse-ring"></div>
+              </div>
+              <span class="crop-badge">+60 🪙</span>
+            </div>
+
+            <!-- Cúspide: Espantapájaros Sagrado -->
+            <div class="crop-node crop-pos-12" onclick="abrirMejorasGranja()">
+              <div class="crop-disc mascot-disc">
+                <span class="crop-emoji">🌾</span>
+              </div>
+              <span class="crop-badge" style="background:#5E2CA5;">Guardián</span>
+            </div>
           </div>
+
+          <!-- Barra flotante inferior de Cosecha estilo KICHAY_page-0034 -->
+          <div class="granja-bottom-panel">
+            <div class="harvest-info-card">
+              <span class="harvest-info-tag">Disponibles</span>
+              <div class="harvest-rewards-row">
+                <div class="harvest-chip">
+                  <span class="chip-icon">🪙</span>
+                  <span class="chip-val" id="granjaIntisListos">+35 INTIS</span>
+                </div>
+                <div class="harvest-chip">
+                  <span class="chip-icon">🌾</span>
+                  <span class="chip-val">3 GUANO</span>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn-harvest-all" id="btnCosecharTodo" onclick="cosecharTodoLaGranja()">
+              <span class="btn-harvest-text">Cosechar todo</span>
+              <span class="btn-harvest-icon">🧺</span>
+            </button>
+
+            <div class="harvest-tools-row">
+              <button class="tool-btn" onclick="mostrarModalVisualizacion('Guano de Islas')" title="Abono de Guano">
+                <span>🌾</span>
+              </button>
+              <button class="tool-btn" onclick="mostrarModalVisualizacion('Chaquitaclla')" title="Chaquitaclla">
+                <span>⛏️</span>
+              </button>
+              <button class="tool-btn" onclick="mostrarModalVisualizacion('Riego')" title="Agua de Andenes">
+                <span>🪣</span>
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
     </main>
@@ -1100,9 +1169,9 @@
     </div>
   </div>
 
-  <script src="js/sound.js?v=3.3.0"></script>
-  <script src="js/cuestionario.js?v=3.3.0"></script>
+  <script src="js/sound.js?v=3.4.0"></script>
+  <script src="js/cuestionario.js?v=3.4.0"></script>
   <!-- Dashboard con Firebase (import dinamico interno) -->
-  <script src="js/dashboard.js?v=3.3.0"></script>
+  <script src="js/dashboard.js?v=3.4.0"></script>
 </body>
 </html>
