@@ -224,7 +224,7 @@
 
       <!-- Banner misión dinámica -->
       <div class="mission-banner" id="dashboardMissionBanner">
-        <img src="IMG/PERSONAJE.png" alt="Kusi" class="mission-kusi" id="missionBannerKusiImg" />
+        <img src="IMG/pregunta.png" alt="Kusi Pregunta" class="mission-kusi" id="missionBannerKusiImg" />
         <div class="mission-text">
           <div class="mission-title-row">
             <span class="mission-tag" id="missionBannerTag">MISIÓN ACTIVA</span>
@@ -431,6 +431,23 @@
         </p>
         <button class="modal-btn-confirm" onclick="cerrarModalProximamente()">
           ¡Entendido, gracias! 👍
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════ MODAL GLOBAL: CAPÍTULO / NIVEL BLOQUEADO ══════════ -->
+    <div class="kichay-modal-overlay" id="modalBloqueado" style="display:none;" onclick="cerrarModalBloqueado(event)">
+      <div class="kichay-modal-card" onclick="event.stopPropagation()">
+        <div class="modal-mascot-badge">
+          <img src="IMG/sorprendido.png" alt="Kusi Bloqueado" class="modal-mascot-pic" />
+        </div>
+        <div class="modal-pill-tag" id="modalBloqueadoTag" style="background:#FFF3E0; color:#E65100; border-color:#FFE0B2;">🔒 CAPÍTULO BLOQUEADO</div>
+        <h3 class="modal-heading" id="modalBloqueadoTitulo">¡Época Bloqueada! 🏛️</h3>
+        <p class="modal-body-text" id="modalBloqueadoMensaje">
+          Para desbloquear este capítulo, primero debes completar los 5 niveles del cuestionario anterior.
+        </p>
+        <button class="modal-btn-confirm" onclick="cerrarModalBloqueado()">
+          ¡Entendido, a jugar! 🚀
         </button>
       </div>
     </div>

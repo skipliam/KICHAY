@@ -143,7 +143,7 @@ function actualizarBannerMisiones(datos) {
     subEl.textContent = misionEncontrada.desc + " · Recompensa: +" + misionEncontrada.recompensa + " INTIS 🪙";
     btnEl.className = "btn-comenzar";
     btnEl.innerHTML = "Comenzar ➔";
-    if (imgEl) imgEl.src = "IMG/PERSONAJE.png";
+    if (imgEl) imgEl.src = "IMG/pregunta.png";
   }
 }
 
@@ -201,10 +201,14 @@ window.ejecutarAccionMision = function() {
         misionesReclamadas: misionesReclamadas,
         intis: nuevosIntis
       });
-    }, 1200);
+    }, 1800);
 
   } else {
-    window._misionActual.accion();
+    if (window._misionActual.accion) {
+      window._misionActual.accion();
+    } else {
+      abrirVistaHistoria('preinca');
+    }
   }
 };
 
@@ -252,17 +256,15 @@ function poblarDashboard(datos, racha) {
   var kusiBar = document.querySelector(".kusi-bar-fill");
   if (kusiBar) kusiBar.style.width = infoNivel.pct + "%";
 
-  // Progreso materias
+  // Progreso materias: 25 niveles totales en Historia = 4% por nivel (100% al completar todas las épocas)
   var progMap = datos.progresoHistoria || datos.progreso || {};
-  
-  // Calcular porcentaje real de Historia (basado en niveles completados de la época activa o total)
-  var preincaDone = 0;
+  var totalNivelesCompletados = 0;
   for (var k in progMap) {
-    if (k.startsWith("preinca_") && !k.endsWith("_stars") && progMap[k] === true) {
-      preincaDone++;
+    if (!k.endsWith("_stars") && progMap[k] === true) {
+      totalNivelesCompletados++;
     }
   }
-  var pctHistoria = Math.min(100, preincaDone * 20);
+  var pctHistoria = Math.min(100, Math.round((totalNivelesCompletados / 25) * 100));
 
   var materias = [
     { key: "historia",    pct: pctHistoria },
@@ -294,11 +296,11 @@ function poblarDashboard(datos, racha) {
   var progMap= {};
   try { progMap = JSON.parse(progStr); } catch(e){}
 
-  var preDone = 0;
+  var totalDone = 0;
   for (var k in progMap) {
-    if (k.startsWith("preinca_") && !k.endsWith("_stars") && progMap[k] === true) preDone++;
+    if (!k.endsWith("_stars") && progMap[k] === true) totalDone++;
   }
-  var pctHist = Math.min(100, preDone * 20);
+  var pctHist = Math.min(100, Math.round((totalDone / 25) * 100));
   var histFill = document.querySelector("[data-materia='historia'] .card-progress-fill");
   var histPct  = document.querySelector("[data-materia='historia'] .card-pct");
   if (histFill) histFill.style.width = pctHist + "%";
@@ -616,11 +618,12 @@ window.seleccionarEpocaDropdown = function(epocaKey) {
       emancipacion: "Virreinato",
       republica: "Emancipación"
     };
-    alert("🔒 ¡Época Bloqueada! Para desbloquear este capítulo, primero debes completar los 5 niveles del cuestionario de " + (nombresPrevios[epocaKey] || "la época anterior") + ".");
     
-    if (window.KichaySound && typeof window.KichaySound.playSoftClick === "function") {
-      window.KichaySound.playSoftClick();
-    }
+    window.mostrarModalBloqueado(
+      "🔒 CAPÍTULO BLOQUEADO",
+      "¡Época Bloqueada! 🏛️",
+      "Para desbloquear este capítulo de Historia, primero debes completar los 5 niveles del cuestionario de " + (nombresPrevios[epocaKey] || "la época anterior") + "."
+    );
     cerrarDropdownEpocas();
     return;
   }
@@ -664,13 +667,7 @@ function renderizarNodosHistoria() {
   var progreso = {};
   try { progreso = JSON.parse(progresoStr); } catch (err) {}
 
-  var iconosEpoca = {
-    preinca: ["🏺", "🏛️", "👑", "🔒", "🔒"],
-    inca: ["☀️", "📜", "🌽", "🔒", "🔒"],
-    virreinato: ["⛵", "⚖️", "🪙", "🔒", "🔒"],
-    emancipacion: ["🗽", "🐎", "📜", "🔒", "🔒"],
-    republica: ["🇵🇪", "🎖️", "⚔️", "🔒", "🔒"]
-  };
+  var numerosRomanos = ["I", "II", "III", "IV", "V"];
 
   var posiciones = [
     "node-pos-1",
@@ -680,12 +677,11 @@ function renderizarNodosHistoria() {
     "node-pos-5"
   ];
 
-  var iconos = iconosEpoca[_epocaSeleccionada] || ["🏺", "🏛️", "👑", "🔒", "🔒"];
-
   // Determinar niveles desbloqueados secuencialmente
   niveles.forEach(function(item, idx) {
     var nodeDiv = document.createElement("div");
     var posClass = posiciones[idx] || ("node-pos-" + (idx + 1));
+    var romanChar = numerosRomanos[idx] || (idx + 1);
     
     // Nivel 1 siempre desbloqueado en la época actual; niveles posteriores requieren que el anterior esté completado
     var nivelAnteriorCompletado = (idx === 0) || !!progreso[_epocaSeleccionada + "_" + idx];
@@ -710,7 +706,7 @@ function renderizarNodosHistoria() {
       estrellasTexto = "Pendiente";
     }
 
-    var iconChar = desbloqueado ? (iconos[idx] || "⭐") : "🔒";
+    var iconChar = desbloqueado ? romanChar : "🔒";
 
     var htmlInner = '';
     if (activo) {
@@ -722,11 +718,19 @@ function renderizarNodosHistoria() {
     } else {
       htmlInner += '<div class="node-stars">' + (desbloqueado ? estrellasTexto : "☆☆☆") + '</div>';
     }
-    htmlInner += '<span class="node-label">Nivel ' + item.nivel + '</span>';
+    htmlInner += '<span class="node-label">Nivel ' + romanChar + '</span>';
 
     nodeDiv.innerHTML = htmlInner;
 
     nodeDiv.addEventListener("click", function() {
+      if (!desbloqueado) {
+        window.mostrarModalBloqueado(
+          "🔒 NIVEL BLOQUEADO",
+          "¡Nivel " + romanChar + " Bloqueado! 🛡️",
+          "Para jugar este nivel, primero debes completar con éxito el Nivel " + (numerosRomanos[idx - 1] || idx) + "."
+        );
+        return;
+      }
       abrirModalNivel(
         item.nivel,
         item.titulo,
@@ -741,6 +745,32 @@ function renderizarNodosHistoria() {
     container.appendChild(nodeDiv);
   });
 }
+
+// ══════════════════════════════════════════════════════════════
+// MODAL: NIVEL / ÉPOCA BLOQUEADA (POPUP CENTRAL)
+// ══════════════════════════════════════════════════════════════
+window.mostrarModalBloqueado = function(tag, titulo, mensaje) {
+  var modal = document.getElementById("modalBloqueado");
+  var tagEl = document.getElementById("modalBloqueadoTag");
+  var titEl = document.getElementById("modalBloqueadoTitulo");
+  var msgEl = document.getElementById("modalBloqueadoMensaje");
+
+  if (tagEl && tag)       tagEl.textContent = tag;
+  if (titEl && titulo)    titEl.textContent = titulo;
+  if (msgEl && mensaje)   msgEl.textContent = mensaje;
+
+  if (modal) modal.style.display = "flex";
+
+  if (window.KichaySound && typeof window.KichaySound.playSoftClick === "function") {
+    window.KichaySound.playSoftClick();
+  }
+};
+
+window.cerrarModalBloqueado = function(e) {
+  if (e && e.target && e.target.id !== "modalBloqueado" && !e.target.classList.contains("modal-btn-confirm")) return;
+  var modal = document.getElementById("modalBloqueado");
+  if (modal) modal.style.display = "none";
+};
 
 // ══════════════════════════════════════════════════════════════
 // MODAL: PRÓXIMAMENTE DISPONIBLE
@@ -860,17 +890,20 @@ window.cerrarModalCofre = function(e) {
 
 window.reclamarCofre = function() {
   var hudIntis = document.getElementById("hud-intis");
-  if (hudIntis) {
-    var actual = parseInt(hudIntis.textContent) || 0;
-    var nuevo  = actual + _cofreValor;
-    hudIntis.textContent = nuevo;
-    sessionStorage.setItem("kichay_intis", nuevo);
+  var actual = parseInt(sessionStorage.getItem("kichay_intis") || "0", 10);
+  var nuevo  = actual + _cofreValor;
+  if (hudIntis) hudIntis.textContent = nuevo;
+  sessionStorage.setItem("kichay_intis", nuevo);
+  localStorage.setItem("kichay_intis", String(nuevo));
+
+  var uid = sessionStorage.getItem("kichay_uid") || (window._firebaseAuth && window._firebaseAuth.currentUser && window._firebaseAuth.currentUser.uid);
+  if (window._firebaseMod && uid && window._firebaseMod.guardarProgresoUsuario) {
+    window._firebaseMod.guardarProgresoUsuario(uid, { intis: nuevo });
   }
 
   if (window.KichaySound && typeof window.KichaySound.playChime === "function") {
     window.KichaySound.playChime();
   }
 
-  alert("¡Felicidades! Ganaste +" + _cofreValor + " INTIS 🪙 por explorar el camino.");
   cerrarModalCofre();
 };
