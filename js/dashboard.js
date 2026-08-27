@@ -237,6 +237,23 @@ window.calcularNivelKusi = function(expTotal) {
   };
 };
 
+// ── Cálculo del porcentaje global de Historia (25 niveles = 100%) ─
+window.calcularProgresoHistoria = function(progMap) {
+  if (!progMap || typeof progMap !== "object") return 0;
+  var epocas = ["preinca", "inca", "virreinato", "emancipacion", "republica"];
+  var completados = 0;
+  epocas.forEach(function(ep) {
+    for (var n = 1; n <= 5; n++) {
+      if (progMap[ep + "_" + n] === true) {
+        completados++;
+      }
+    }
+  });
+  // 25 formularios/niveles en total (5 épocas × 5 niveles)
+  // Cada formulario completado suma exactamente 4% (25 × 4% = 100%)
+  return Math.min(100, completados * 4);
+};
+
 function poblarDashboard(datos, racha) {
   var nombre = datos.nombre || sessionStorage.getItem("kichay_user") || "Explorador";
   var photo  = datos.photoURL || datos.foto || sessionStorage.getItem("kichay_photo") || "";
@@ -258,13 +275,7 @@ function poblarDashboard(datos, racha) {
 
   // Progreso materias: 25 niveles totales en Historia = 4% por nivel (100% al completar todas las épocas)
   var progMap = datos.progresoHistoria || datos.progreso || {};
-  var totalNivelesCompletados = 0;
-  for (var k in progMap) {
-    if (!k.endsWith("_stars") && progMap[k] === true) {
-      totalNivelesCompletados++;
-    }
-  }
-  var pctHistoria = Math.min(100, Math.round((totalNivelesCompletados / 25) * 100));
+  var pctHistoria = window.calcularProgresoHistoria(progMap);
 
   var materias = [
     { key: "historia",    pct: pctHistoria },
@@ -296,11 +307,7 @@ function poblarDashboard(datos, racha) {
   var progMap= {};
   try { progMap = JSON.parse(progStr); } catch(e){}
 
-  var totalDone = 0;
-  for (var k in progMap) {
-    if (!k.endsWith("_stars") && progMap[k] === true) totalDone++;
-  }
-  var pctHist = Math.min(100, Math.round((totalDone / 25) * 100));
+  var pctHist = window.calcularProgresoHistoria(progMap);
   var histFill = document.querySelector("[data-materia='historia'] .card-progress-fill");
   var histPct  = document.querySelector("[data-materia='historia'] .card-pct");
   if (histFill) histFill.style.width = pctHist + "%";

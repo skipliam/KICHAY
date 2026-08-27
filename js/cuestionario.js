@@ -1324,7 +1324,9 @@ window.QuizEngine = {
     var histCardBar = document.querySelector('[data-materia="historia"] .card-progress-fill');
     var histCardPct = document.querySelector('[data-materia="historia"] .card-pct');
     if (histCardBar && histCardPct) {
-      var pctHist = Math.min(100, (nivelNum * 20));
+      var pctHist = (window.calcularProgresoHistoria && typeof window.calcularProgresoHistoria === "function")
+        ? window.calcularProgresoHistoria(progreso)
+        : Math.min(100, Object.keys(progreso).filter(function(k){ return !k.endsWith("_stars") && progreso[k] === true; }).length * 4);
       histCardBar.style.width = pctHist + "%";
       histCardPct.textContent = pctHist + "%";
     }
