@@ -1017,6 +1017,11 @@ window.cambiarEpocaHistoria = function(epocaKey) {
 function renderizarNodosHistoria() {
   var container = document.getElementById("historiaNodesContainer");
   if (!container) return;
+  
+  // Reiniciar animación fluida en cada cambio de época o nivel
+  container.classList.remove("animating-epoch");
+  void container.offsetWidth;
+  container.classList.add("animating-epoch");
   container.innerHTML = "";
 
   var db = window.KICHAY_DATABASE || {};
