@@ -1253,34 +1253,30 @@ window.QuizEngine = {
       estrellas = 1;
     }
 
-    // ── ECONOMÍA EQUILIBRADA DE KICHAY (5 Preguntas) ──
-    // 1. +5 INTIS por cada respuesta correcta (hasta 25 INTIS)
-    var intisRespuestas = aciertos * 5;
-    
-    // 2. +5 INTIS bonus por 3 respuestas seguidas correctas
-    var bonusRacha3 = (this.rachaAciertosMax >= 3) ? 5 : 0;
-    
-    // 3. +15 INTIS por completar la lección
-    var bonusCompletar = (aciertos > 0) ? 15 : 5;
-    
-    // 4. +15 INTIS extra por conseguir 3 estrellas (5/5 aciertos)
-    var bonus3Estrellas = (estrellas === 3) ? 15 : 0;
-
-    // 5. +10 INTIS extra la primera vez que completas un nivel
+    // ── ECONOMÍA EQUILIBRADA Y CONTROLADA DE KICHAY (10 INTIS TOTAL) ──
     var progresoStr = sessionStorage.getItem("kichay_progreso_historia") || "{}";
     var progresoPrev = {};
     try { progresoPrev = JSON.parse(progresoStr); } catch (e) {}
     var nivelKey = this.epocaActual + "_" + (this.nivelData ? this.nivelData.nivel : 1);
     var esPrimeraVez = !progresoPrev[nivelKey];
-    var bonusPrimeraVez = (esPrimeraVez && aciertos >= 3) ? 10 : 0;
 
-    // Total INTIS ganados (Máximo 60 INTIS por nivel normal, 70 primera vez)
-    var intisGanados = intisRespuestas + bonusRacha3 + bonusCompletar + bonus3Estrellas + bonusPrimeraVez;
-    if (aciertos === 0) intisGanados = 5; // Mínimo de participación
+    var intisGanados = 0;
+    var expGanada = 0;
 
-    // EXP de Kusi: 10 EXP por acierto (hasta 50 EXP) + 15 EXP bonus por 3 estrellas
-    var expGanada = (aciertos * 10) + (estrellas === 3 ? 15 : 0);
-    if (aciertos === 0) expGanada = 10;
+    if (esPrimeraVez) {
+      // 1. +1 INTIS por cada respuesta correcta (hasta 5 INTIS)
+      var intisRespuestas = aciertos * 1;
+      // 2. +5 INTIS por completar el nivel (3+ aciertos)
+      var bonusCompletar = (aciertos >= 3) ? 5 : (aciertos > 0 ? 2 : 0);
+      
+      intisGanados = intisRespuestas + bonusCompletar; // Máximo 10 INTIS
+      expGanada = (aciertos * 3); // 15 EXP
+      if (aciertos === 0) { intisGanados = 2; expGanada = 5; }
+    } else {
+      // Nivel ya completado previamente: 0 monedas (evita farmeo infinito)
+      intisGanados = 0;
+      expGanada = 0;
+    }
 
     var vicModal  = document.getElementById("quizVictoryModal");
     var starsEl   = document.getElementById("victoryStars");
@@ -1306,12 +1302,14 @@ window.QuizEngine = {
     }
     if (subEl) {
       var desgloseTxt = "Acertaste " + aciertos + " de " + totalQ + " preguntas (" + this.puntaje + " pts).";
-      if (bonus3Estrellas > 0) desgloseTxt += " ¡Incluye bonus de 3 ⭐!";
+      if (!esPrimeraVez) desgloseTxt += " (Nivel ya completado previamente)";
       subEl.textContent = desgloseTxt;
     }
     if (mistEl) {
-      if (aciertos === totalQ) {
-        mistEl.innerHTML = "🌟 <strong>¡Puntaje perfecto!</strong> +" + intisGanados + " INTIS (5 aciertos + lección + 3 ⭐" + (bonusPrimeraVez ? " + 1ª vez" : "") + ").";
+      if (!esPrimeraVez) {
+        mistEl.innerHTML = "🏆 <strong>Nivel ya completado.</strong> Recompensa ya acreditada anteriormente (+0 INTIS extra).";
+      } else if (aciertos === totalQ) {
+        mistEl.innerHTML = "🌟 <strong>¡Puntaje perfecto!</strong> +" + intisGanados + " INTIS (5 aciertos + lección completada).";
       } else if (errores === 1) {
         mistEl.innerHTML = "📝 Te equivocaste en <strong>1 pregunta</strong>. ¡Excelente esfuerzo! +" + intisGanados + " INTIS.";
       } else {

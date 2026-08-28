@@ -1092,6 +1092,14 @@ function renderizarNodosHistoria() {
     nodeDiv.innerHTML = htmlInner;
 
     nodeDiv.addEventListener("click", function() {
+      if (completado) {
+        window.mostrarModalBloqueado(
+          "✅ NIVEL YA COMPLETADO",
+          "¡Nivel " + romanChar + " Completado! 🏆",
+          "Ya completaste este cuestionario y reclamaste tu recompensa (+10 INTIS). ¡Continúa explorando los siguientes niveles para seguir avanzando!"
+        );
+        return;
+      }
       if (!desbloqueado) {
         window.mostrarModalBloqueado(
           "🔒 NIVEL BLOQUEADO",
@@ -1106,8 +1114,8 @@ function renderizarNodosHistoria() {
         "Dificultad: " + (item.dificultad || "Media") + ". ¡Responde las 5 preguntas del reto!",
         estrellasTexto,
         desbloqueado,
-        item.intis || 30,
-        item.exp || 50
+        10,
+        15
       );
     });
 
