@@ -9,8 +9,8 @@
   <title>KICHAY – Inicio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="css/fonts.css?v=3.5.0" />
-  <link rel="stylesheet" href="css/dashboard.css?v=3.5.0" />
+  <link rel="stylesheet" href="css/fonts.css?v=3.5.1" />
+  <link rel="stylesheet" href="css/dashboard.css?v=3.5.1" />
   <!-- Preload de fondos pesados para transición instantánea (0 ms) -->
   <link rel="preload" as="image" href="IMG/camino_virreyinato.png" />
   <link rel="preload" as="image" href="IMG/camino_historia.png" />
@@ -28,7 +28,7 @@
 <body>
 
   <!-- Backdrop para cerrar el menú lateral en celular -->
-  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleMobileSidebar(false)"></div>
 
   <!-- ══════════ SIDEBAR ══════════ -->
   <aside class="sidebar" id="mainSidebar">
@@ -38,7 +38,7 @@
         <a href="dashboard.html" class="sidebar-logo-link">
           <img src="IMG/logoprincipal.png" alt="KICHAY" class="sidebar-logo-img" decoding="async" loading="eager" />
         </a>
-        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Cerrar menú">✕</button>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" onclick="toggleMobileSidebar(false)" aria-label="Cerrar menú">✕</button>
       </div>
     </div>
 
@@ -114,7 +114,7 @@
 
     <!-- TOP BAR -->
     <header class="topbar">
-      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú">☰</button>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileSidebar(true)" aria-label="Abrir menú">☰</button>
       <div class="hud-left">
         <div class="hud-stat">
           <img src="IMG/racha.png" alt="Días de racha" class="hud-stat-img" decoding="async" loading="eager" />
@@ -1192,9 +1192,9 @@
     </div>
   </div>
 
-  <script src="js/sound.js?v=3.5.0"></script>
-  <script src="js/cuestionario.js?v=3.5.0"></script>
+  <script src="js/sound.js?v=3.5.1"></script>
+  <script src="js/cuestionario.js?v=3.5.1"></script>
   <!-- Dashboard con Firebase (import dinamico interno) -->
-  <script src="js/dashboard.js?v=3.5.0"></script>
+  <script src="js/dashboard.js?v=3.5.1"></script>
 </body>
 </html>
