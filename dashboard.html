@@ -9,8 +9,8 @@
   <title>KICHAY – Inicio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="css/fonts.css?v=3.4.7" />
-  <link rel="stylesheet" href="css/dashboard.css?v=3.4.7" />
+  <link rel="stylesheet" href="css/fonts.css?v=3.5.0" />
+  <link rel="stylesheet" href="css/dashboard.css?v=3.5.0" />
   <!-- Preload de fondos pesados para transición instantánea (0 ms) -->
   <link rel="preload" as="image" href="IMG/camino_virreyinato.png" />
   <link rel="preload" as="image" href="IMG/camino_historia.png" />
@@ -36,7 +36,7 @@
     <div class="sidebar-logo">
       <div class="sidebar-header-row">
         <a href="dashboard.html" class="sidebar-logo-link">
-          <img src="IMG/logoprincipal.png" alt="KICHAY" class="sidebar-logo-img" />
+          <img src="IMG/logoprincipal.png" alt="KICHAY" class="sidebar-logo-img" decoding="async" loading="eager" />
         </a>
         <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Cerrar menú">✕</button>
       </div>
@@ -52,57 +52,57 @@
       </a>
 
       <a href="javascript:void(0)" class="nav-item" id="nav-historia" onclick="abrirVistaHistoria()">
-        <span class="nav-sprite"><img src="IMG/icon_historia.png" alt="Historia" /></span>
+        <span class="nav-sprite"><img src="IMG/icon_historia.png" alt="Historia" decoding="async" loading="lazy" /></span>
         Historia
       </a>
       <a href="javascript:void(0)" class="nav-item" id="nav-fauna" onclick="abrirSeccionVisual('fauna', 'Flora y Fauna')">
-        <span class="nav-sprite"><img src="IMG/icon_fauna.png" alt="Flora y Fauna" /></span>
+        <span class="nav-sprite"><img src="IMG/icon_fauna.png" alt="Flora y Fauna" decoding="async" loading="lazy" /></span>
         Flora y Fauna
       </a>
       <a href="javascript:void(0)" class="nav-item" id="nav-gastronomia" onclick="abrirSeccionVisual('gastronomia', 'Gastronomía')">
-        <span class="nav-sprite"><img src="IMG/icon_gastronomia.png" alt="Gastronomía" /></span>
+        <span class="nav-sprite"><img src="IMG/icon_gastronomia.png" alt="Gastronomía" decoding="async" loading="lazy" /></span>
         Gastronomía
       </a>
       <a href="javascript:void(0)" class="nav-item" id="nav-cultura" onclick="abrirSeccionVisual('cultura', 'Cultura')">
-        <span class="nav-sprite"><img src="IMG/icon_cultura.png" alt="Cultura" /></span>
+        <span class="nav-sprite"><img src="IMG/icon_cultura.png" alt="Cultura" decoding="async" loading="lazy" /></span>
         Cultura
       </a>
       <a href="javascript:void(0)" class="nav-item" id="nav-turismo" onclick="abrirSeccionVisual('turismo', 'Turismo')">
-        <span class="nav-sprite"><img src="IMG/icon_turismo.png" alt="Turismo" /></span>
+        <span class="nav-sprite"><img src="IMG/icon_turismo.png" alt="Turismo" decoding="async" loading="lazy" /></span>
         Turismo
       </a>
 
       <div class="nav-divider"></div>
 
       <a href="javascript:void(0)" class="nav-item" id="nav-granja" onclick="abrirSeccionVisual('granja', 'Granja del Sol')">
-        <span class="nav-sprite"><img src="IMG/granja.png" alt="Granja del Sol" /></span>
+        <span class="nav-sprite"><img src="IMG/granja.png" alt="Granja del Sol" decoding="async" loading="lazy" /></span>
         Granja del Sol
       </a>
       <a href="javascript:void(0)" class="nav-item" id="nav-tienda" onclick="abrirSeccionVisual('tienda', 'Tienda del Sol')">
-        <span class="nav-sprite"><img src="IMG/tienda.png" alt="Tienda" /></span>
+        <span class="nav-sprite"><img src="IMG/tienda.png" alt="Tienda" decoding="async" loading="lazy" /></span>
         Tienda
       </a>
       <a href="javascript:void(0)" class="nav-item" id="nav-ranking" onclick="abrirSeccionVisual('ranking', 'Ranking de Exploradores')">
-        <span class="nav-sprite"><img src="IMG/ranking.png" alt="Ranking" /></span>
+        <span class="nav-sprite"><img src="IMG/ranking.png" alt="Ranking" decoding="async" loading="lazy" /></span>
         Ranking
       </a>
       <a href="javascript:void(0)" class="nav-item" id="nav-mascota" onclick="abrirSeccionVisual('mascota', 'Santuario de Kusi')">
-        <span class="nav-sprite"><img src="IMG/mascota.png" alt="Mascota" /></span>
+        <span class="nav-sprite"><img src="IMG/mascota.png" alt="Mascota" decoding="async" loading="lazy" /></span>
         Mascota
       </a>
 
       <div class="nav-divider"></div>
 
       <a href="javascript:void(0)" class="nav-item" id="nav-perfil" onclick="abrirSeccionVisual('perfil', 'Mi Perfil')">
-        <span class="nav-sprite"><img src="IMG/perfil.png" alt="Perfil" /></span>
+        <span class="nav-sprite"><img src="IMG/perfil.png" alt="Perfil" decoding="async" loading="lazy" /></span>
         Perfil
       </a>
       <a href="javascript:void(0)" class="nav-item" id="nav-ajustes" onclick="abrirSeccionVisual('ajustes', 'Ajustes')">
-        <span class="nav-sprite"><img src="IMG/ajustes.png" alt="Ajustes" /></span>
+        <span class="nav-sprite"><img src="IMG/ajustes.png" alt="Ajustes" decoding="async" loading="lazy" /></span>
         Ajustes
       </a>
       <a href="index.html" class="nav-item nav-logout" id="logoutBtn">
-        <span class="nav-sprite"><img src="IMG/cerrasesion.png" alt="Cerrar sesión" /></span>
+        <span class="nav-sprite"><img src="IMG/cerrasesion.png" alt="Cerrar sesión" decoding="async" loading="lazy" /></span>
         Cerrar sesión
       </a>
 
@@ -117,14 +117,14 @@
       <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú">☰</button>
       <div class="hud-left">
         <div class="hud-stat">
-          <img src="IMG/racha.png" alt="Días de racha" class="hud-stat-img" />
+          <img src="IMG/racha.png" alt="Días de racha" class="hud-stat-img" decoding="async" loading="eager" />
           <div>
             <span class="hud-value" id="hud-racha">0</span>
             <span class="hud-label">DÍAS DE RACHA</span>
           </div>
         </div>
         <div class="hud-stat">
-          <img src="IMG/inti.png" alt="Intis" class="hud-stat-img" />
+          <img src="IMG/inti.png" alt="Intis" class="hud-stat-img" decoding="async" loading="eager" />
           <div>
             <span class="hud-value" id="hud-intis">0</span>
             <span class="hud-label">INTIS</span>
@@ -164,7 +164,7 @@
 
         <div class="subject-card" style="--card-color:#5E2CA5;" data-materia="historia" onclick="abrirVistaHistoria()">
           <div class="card-icon">
-            <img src="IMG/icon_historia.png" alt="Historia" />
+            <img src="IMG/icon_historia.png" alt="Historia" decoding="async" loading="eager" />
           </div>
           <span class="card-label">HISTORIA</span>
           <div class="card-progress-wrap">
@@ -177,7 +177,7 @@
 
         <div class="subject-card" style="--card-color:#1E7E34;" data-materia="fauna" onclick="abrirModalProximamente('Flora y Fauna', 'Descubre los ecosistemas más asombrosos del Perú: Costa, Andes y Amazonía.')">
           <div class="card-icon">
-            <img src="IMG/icon_fauna.png" alt="Fauna y Flora" />
+            <img src="IMG/icon_fauna.png" alt="Fauna y Flora" decoding="async" loading="lazy" />
           </div>
           <span class="card-label">FAUNA Y FLORA</span>
           <div class="card-progress-wrap">
@@ -190,7 +190,7 @@
 
         <div class="subject-card" style="--card-color:#E67E22;" data-materia="gastronomia" onclick="abrirModalProximamente('Gastronomía', 'Aprende los secretos y sabores de los platos bandera de cada región.')">
           <div class="card-icon">
-            <img src="IMG/icon_gastronomia.png" alt="Gastronomía" />
+            <img src="IMG/icon_gastronomia.png" alt="Gastronomía" decoding="async" loading="lazy" />
           </div>
           <span class="card-label">GASTRONOMÍA</span>
           <div class="card-progress-wrap">
@@ -203,7 +203,7 @@
 
         <div class="subject-card" style="--card-color:#D9381E;" data-materia="cultura" onclick="abrirModalProximamente('Cultura', 'Conoce las tradiciones, danzas, festividades y cosmovisión andina.')">
           <div class="card-icon">
-            <img src="IMG/icon_cultura.png" alt="Cultura" />
+            <img src="IMG/icon_cultura.png" alt="Cultura" decoding="async" loading="lazy" />
           </div>
           <span class="card-label">CULTURA</span>
           <div class="card-progress-wrap">
@@ -216,7 +216,7 @@
 
         <div class="subject-card" style="--card-color:#0088CC;" data-materia="turismo" onclick="abrirModalProximamente('Turismo', 'Viaja por los destinos y maravillas turísticas más increíbles del país.')">
           <div class="card-icon">
-            <img src="IMG/icon_turismo.png" alt="Turismo" />
+            <img src="IMG/icon_turismo.png" alt="Turismo" decoding="async" loading="lazy" />
           </div>
           <span class="card-label">TURISMO</span>
           <div class="card-progress-wrap">
@@ -231,7 +231,7 @@
 
       <!-- Banner misión dinámica -->
       <div class="mission-banner" id="dashboardMissionBanner">
-        <img src="IMG/pregunta.png" alt="Kusi Pregunta" class="mission-kusi" id="missionBannerKusiImg" />
+        <img src="IMG/pregunta.png" alt="Kusi Pregunta" class="mission-kusi" id="missionBannerKusiImg" decoding="async" loading="lazy" />
         <div class="mission-text">
           <div class="mission-title-row">
             <span class="mission-tag" id="missionBannerTag">MISIÓN ACTIVA</span>
@@ -315,8 +315,8 @@
       <div class="historia-map-container">
         <div class="historia-map-viewport" id="historiaMapViewport">
           <!-- Fondos montados en el DOM para cambio instantáneo (0 ms) -->
-          <img src="IMG/camino_historia.png" alt="Camino de la Historia" class="historia-bg-image historia-bg-default" id="historiaBgDefault" />
-          <img src="IMG/camino_virreyinato.png" alt="Camino del Virreinato" class="historia-bg-image historia-bg-virreinato" id="historiaBgVirreinato" />
+          <img src="IMG/camino_historia.png" alt="Camino de la Historia" class="historia-bg-image historia-bg-default" id="historiaBgDefault" decoding="async" loading="eager" />
+          <img src="IMG/camino_virreyinato.png" alt="Camino del Virreinato" class="historia-bg-image historia-bg-virreinato" id="historiaBgVirreinato" decoding="async" loading="eager" />
 
           <!-- Nodos de niveles interactivos ubicados dinámicamente -->
           <div id="historiaNodesContainer">
@@ -378,7 +378,7 @@
           <!-- Pie del cuestionario con Kusi y acciones -->
           <div class="quiz-footer-row">
             <div class="quiz-kusi-helper">
-              <img src="IMG/sorprendido.png" alt="Kusi" class="quiz-kusi-avatar" id="quizKusiAvatar" />
+              <img src="IMG/sorprendido.png" alt="Kusi" class="quiz-kusi-avatar" id="quizKusiAvatar" decoding="async" loading="lazy" />
               <div class="quiz-kusi-bubble" id="quizKusiBubble" style="display:none;">
                 <p id="quizKusiMessage">¡Analiza con calma cada alternativa!</p>
               </div>
@@ -419,7 +419,7 @@
       <!-- Contenedor del Mapa con el lienzo de Andenes y Scroll Libre -->
       <div class="granja-map-container">
         <div class="granja-map-viewport" id="granjaMapViewport">
-          <img src="IMG/granja_mapa.png" alt="Granja del Sol - Andenes Incas" class="granja-bg-image" />
+          <img src="IMG/granja_mapa.png" alt="Granja del Sol - Andenes Incas" class="granja-bg-image" decoding="async" loading="eager" />
 
           <!-- Botones laterales flotantes estilo KICHAY_page-0034 -->
           <div class="granja-side-actions">
@@ -915,7 +915,7 @@
 
       <div class="mascota-hero-card">
         <div class="mascota-avatar-box">
-          <img src="IMG/feliz.png" alt="Kusi" />
+          <img src="IMG/feliz.png" alt="Kusi" decoding="async" loading="lazy" />
           <h3 style="font-family:'Nourd',sans-serif; font-size:18px; font-weight:900; color:#3E2723; margin:8px 0 2px;">Kusi</h3>
           <span style="font-family:'Balsamiq Sans',sans-serif; font-size:12px; font-weight:700; color:#795548;">Vizcacha Exploradora</span>
         </div>
@@ -1075,7 +1075,7 @@
     <div class="kichay-modal-overlay" id="modalSoloVisualizacion" style="display:none;" onclick="cerrarModalVisualizacion(event)">
       <div class="kichay-modal-card" onclick="event.stopPropagation()">
         <div class="modal-mascot-badge">
-          <img src="IMG/pregunta.png" alt="Kusi Informativo" class="modal-mascot-pic" />
+          <img src="IMG/pregunta.png" alt="Kusi Informativo" class="modal-mascot-pic" decoding="async" loading="lazy" />
         </div>
         <div class="modal-pill-tag" id="modalVisualTag" style="background:#FFF3E0; color:#E65100; border-color:#FFE0B2;">✨ MODO VISTA PREVIA</div>
         <h3 class="modal-heading" id="modalVisualTitulo">¡Explora esta sección! 🌟</h3>
@@ -1092,7 +1092,7 @@
     <div class="kichay-modal-overlay" id="quizVictoryModal" style="display:none;" onclick="event.stopPropagation()">
       <div class="kichay-modal-card victory-card" onclick="event.stopPropagation()">
         <div class="victory-mascot-wrap">
-          <img src="IMG/feliz.png" alt="¡Completado!" class="victory-mascot-pic" id="victoryMascotPic" />
+          <img src="IMG/feliz.png" alt="¡Completado!" class="victory-mascot-pic" id="victoryMascotPic" decoding="async" loading="lazy" />
         </div>
         <div class="modal-pill-tag" id="victoryEraTag" style="background:#FFF3E0; color:#D35400; border-color:#FFE0B2; margin-bottom:6px;">HISTORIA · PREINCA</div>
         <h2 class="victory-title" id="victoryTitleText">¡Cuestionario Completado! 🎉</h2>
@@ -1107,7 +1107,7 @@
         <div class="victory-rewards-grid">
           <div class="victory-reward-box">
             <span class="victory-reward-num" id="victoryIntisEarned">+30</span>
-            <span class="victory-reward-txt">INTIS GANADOS <img src="IMG/moneda_inti.png" alt="Intis" style="width: 18px; height: 18px; vertical-align: -3px; display: inline-block;" /></span>
+            <span class="victory-reward-txt">INTIS GANADOS <img src="IMG/moneda_inti.png" alt="Intis" decoding="async" loading="lazy" style="width: 18px; height: 18px; vertical-align: -3px; display: inline-block;" /></span>
           </div>
           <div class="victory-reward-box">
             <span class="victory-reward-num" id="victoryExpEarned">+50</span>
@@ -1125,7 +1125,7 @@
     <div class="kichay-modal-overlay" id="modalProximamente" style="display:none;" onclick="cerrarModalProximamente(event)">
       <div class="kichay-modal-card" onclick="event.stopPropagation()">
         <div class="modal-mascot-badge">
-          <img src="IMG/sorprendido.png" alt="Kusi" class="modal-mascot-pic" />
+          <img src="IMG/sorprendido.png" alt="Kusi" class="modal-mascot-pic" decoding="async" loading="lazy" />
         </div>
         <div class="modal-pill-tag" id="modalSeccionNombre">Flora y Fauna</div>
         <h3 class="modal-heading">¡Próximamente disponible! ✨</h3>
@@ -1192,9 +1192,9 @@
     </div>
   </div>
 
-  <script src="js/sound.js?v=3.4.7"></script>
-  <script src="js/cuestionario.js?v=3.4.7"></script>
+  <script src="js/sound.js?v=3.5.0"></script>
+  <script src="js/cuestionario.js?v=3.5.0"></script>
   <!-- Dashboard con Firebase (import dinamico interno) -->
-  <script src="js/dashboard.js?v=3.4.7"></script>
+  <script src="js/dashboard.js?v=3.5.0"></script>
 </body>
 </html>
